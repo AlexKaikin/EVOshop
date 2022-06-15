@@ -1,0 +1,13 @@
+*,
+.rounded-3 {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+.border{
+    border: none;
+}
+.paddingTopBottom {
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
