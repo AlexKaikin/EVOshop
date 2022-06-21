@@ -1,13 +1,208 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css");
+
+@media (min-width: 1000px) {
+    .container {
+        max-width: 1000px;
+    }
+}
+
+a.active.focus,
+a.active:focus,
+a.focus,
+a:active.focus,
+a:active:focus,
+a:focus,
+button.active.focus,
+button.active:focus,
+button.focus,
+button:active.focus,
+button:active:focus,
+button:focus,
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus,
+input, textarea, input:active, textarea:active {
+    outline: 0 !important;
+    outline-color: transparent !important;
+    outline-style: none !important;
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0) !important;
+}
+
+.form-control:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(255 255 255 / 25%) !important;
+}
+
+input[type=text]::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+input[type=text]::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    display: none;
+}
+
+:focus {
+    outline-style: none;
+    outline-width: 0 !important;
+}
+
 *,
 .rounded-3 {
     -webkit-border-radius: 0 !important;
     -moz-border-radius: 0 !important;
     border-radius: 0 !important;
 }
-.border{
-    border: none;
-}
+
 .paddingTopBottom {
     padding-top: 5%;
     padding-bottom: 5%;
+}
+
+#row1 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#row1 .navbar-brand {
+    letter-spacing: 5px;
+}
+
+#row2 {
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+#row2 form {
+    margin-bottom: 30px;
+}
+
+#row2 .nav a {
+    color: white;
+}
+
+#row2 .nav a span {
+    opacity: 0.8;
+}
+
+#row2 .btn {
+    color: white;
+    --bs-btn-padding-x: 0.5rem;
+}
+
+#row2 .btn .row2-text {
+    opacity: 0.8;
+    font-size: 14px;
+}
+
+.text-bg-white {
+    color: #ffffff !important;
+    background-color: #00d673;
+}
+
+#row2 .nav i {
+    margin-left: 5px;
+    font-size: 22px;
+}
+
+#row2 .form-control {
+    border: 1px solid white;
+    background-color: #198754;
+}
+
+#row2 .btnS {
+    border: 1px solid white;
+    background-color: white;
+    color: #198754;
+}
+
+#row2 input {
+    color: white;
+}
+
+#row2 input::-webkit-input-placeholder { /* Chrome */
+    color: white;
+}
+
+#row2 input:-ms-input-placeholder { /* IE 10+ */
+    color: white;
+}
+
+#row2 input::-moz-placeholder { /* Firefox 19+ */
+    color: white;
+    opacity: 1;
+}
+
+#row2 input:-moz-placeholder { /* Firefox 4 - 18 */
+    color: white;
+    opacity: 1;
+}
+
+#row2 .top-0 {
+    top: 7px !important;
+}
+
+.card .card-img-top {
+    padding: 10px;
+}
+
+#prod .card-body .btn-group {
+    margin-top: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#prod .card-body a {
+    text-decoration: none;
+}
+
+#prod .nav-tabs {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+#prod .price span {
+    font-size: 30px;
+}
+
+#prod .btn-group {
+    margin-bottom: 20px;
+}
+
+.star {
+    padding: 5px 15px;
+    color: #198754;
+}
+
+.col-md, col {
+    margin-bottom: 10px;
+}
+
+#prod .volSum i, #prod .volSum span {
+    font-size: 20px;
+}
+
+#prod .volume {
+    display: inline-block;
+}
+
+#prod .fotorama {
+    margin-bottom: 20px;
+}
+
+#prod .nav-link {
+    color: #198754;
 }

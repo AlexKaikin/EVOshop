@@ -1,3 +1,56 @@
 {% extends 'base.html' %}
 {% block title %}EVO shop / Каталог{% endblock %}
-{% block content %}{% endblock %}
+{% block content %}
+    <section id="prod" class="paddingTopBottom">
+        <div class="container">
+            <!--div class="row">
+                <div class="col-md-4">
+                    <div class="sort"><span>Сортировать по</span>
+                        <select class="form-select form-select-sm" aria-label="Сортировать">
+                            <option selected>дате добавления</option>
+                            <option value="1">цене: по возрастанию</option>
+                            <option value="2">цене: по убыванию</option>
+                        </select>
+                    </div>
+                </div>
+            </div-->
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% if prods %}
+                    {% for prod in prods %}
+                        <div class="col">
+                            <div class="card h-100">
+                                {% if prod.image %}
+                                    <div class="fotorama" data-width="100%">
+                                        <img src="/{{ prod.image }}" alt="">
+                                    </div>
+                                {% else %}
+                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="300"
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         aria-label="Placeholder: Изображение" preserveAspectRatio="xMidYMid slice"
+                                         role="img"
+                                         focusable="false"><title>Placeholder</title>
+                                        <rect width="100%" height="100%" fill="#f8f9fa"></rect>
+                                    </svg>
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="{% url 'product' prod.id %}"
+                                                              class="link-dark">{{ prod.name }}</a></h5>
+                                    <div class="volume"><span class="">Вес {{ prod.volume }} грамм</span></div>
+                                    <div class="float-end price"><span>{{ prod.price }}</span> руб.</div>
+                                    <div class="btn-group" role="group">
+                                        <a type="button" class="btn btn-success" href="{% url 'product' prod.id %}">Подробнее</a>
+                                        <a type="button" class="btn btn-outline-success"><i class="bi bi-bookmarks"></i></a>
+                                        <a type="button" class="btn btn-outline-success"><i class="bi bi-heart"></i></a>
+                                        <a type="button" class="btn btn-outline-success"><i class="bi bi-cart3"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Пусто</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

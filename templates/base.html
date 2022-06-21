@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,58 +7,115 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
-    {% load static %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-            crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-<section>
-    <header class="p-3 bg-dark text-white">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="{% url 'main' %}" class="nav-link px-2 text-white">Главная</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle px-2 text-white" href="" id="navbarDropdownMenuLink1"
-                           role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Каталог
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="{% url 'tea' %}">Чай</a></li>
-                            <li><a class="dropdown-item" href="{% url 'coffee' %}">Кофе</a></li>
-                            <li><a class="dropdown-item" href="{% url 'spices' %}">Специи</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="{% url 'about' %}" class="nav-link px-2 text-white">О нас</a></li>
-                    <li><a href="{% url 'contacts' %}" class="nav-link px-2 text-white">Контакты</a></li>
-                </ul>
-
-                <div class="text-end">
-                    <button type="button" class="btn btn-outline-light me-2">Авторизация</button>
-                    <button type="button" class="btn btn-success">Регистрация</button>
+<section id="row1" class="bg-dark">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'main' %}">EVO</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Переключатель навигации">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'main' %}">Главная</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink1"
+                               role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Каталог
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'tea' %}">Чай</a></li>
+                                <li><a class="dropdown-item" href="{% url 'coffee' %}">Кофе</a></li>
+                                <li><a class="dropdown-item" href="{% url 'spices' %}">Специи</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'about' %}" class="nav-link">О нас</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'contacts' %}" class="nav-link">Контакты</a>
+                        </li>
+                        <!--li class="nav-item dropdown float-end">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink1"
+                               role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Личный кабинет
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="">Авторизация</a></li>
+                                <li><a class="dropdown-item" href="">Регистрация</a></li>
+                            </ul>
+                        </li-->
+                    </ul>
                 </div>
             </div>
-        </div>
-    </header>
+        </nav>
+    </div>
 </section>
-<section class="navClass bg-light" style="padding-bottom: 30px; padding-top: 30px;">
-    <div class="container d-flex flex-wrap justify-content-center">
-        <a href="/main/static" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
-            <span class="fs-4"><strong>EVO shop</strong></span>
-        </a>
-        <form class="col-12 col-lg-auto mb-6 mb-lg-0">
-            <input type="search" class="form-control" placeholder="Поиск..." aria-label="Search">
-        </form>
-        <ul class="nav">
-            <li class="nav-item"><a href="" class="nav-link px-2 text-muted">Сравнить</a></li>
-            <li class="nav-item"><a href="" class="nav-link px-2 text-muted">Избранное</a></li>
-            <li class="nav-item"><a href="" class="nav-link px-2 text-muted">Корзина</a></li>
-        </ul>
+<section id="row2" class="navClass text-bg-success text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md">
+                <!--form class="col-12 col-lg-auto mb-6 mb-lg-0 align-self-center">
+                    <input type="search" class="form-control" placeholder="Поиск..." aria-label="Search">
+                </form-->
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Поиск..."
+                           aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary btnS" type="button" id="button-addon2">Найти</button>
+                </div>
+            </div>
+            <div class="col-md">
+                <ul class="nav align-self-center">
+                    <!--li class="nav-item"><a href="" class="nav-link px-2"><i class="bi bi-bookmarks"></i>
+                        <span>Сравнить</span></a>
+                    </li>
+                    <li class="nav-item"><a href="" class="nav-link px-2"><i class="bi bi-heart"></i>
+                        <span>Избранное</span></a></li>
+                    <li class="nav-item"><a href="" class="nav-link px-2"><i class="bi bi-cart3"></i>
+                        <span>Корзина</span></a></li-->
+                    <li class="nav-item">
+                        <button type="button" class="btn position-relative">
+                            <i class="bi bi-bookmarks"></i>
+                            <span class="position-absolute top-0 start-1 translate-middle badge rounded-pill text-bg-white">
+                                1
+                                <span class="visually-hidden">закладки</span>
+                            </span>
+                            <span class="row2-text">Сравнить</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn position-relative">
+                            <i class="bi bi-heart"></i>
+                            <span class="position-absolute top-0 start-1 translate-middle badge rounded-pill text-bg-white">
+                                4
+                                <span class="visually-hidden">избраннеы</span>
+                            </span>
+                            <span class="row2-text">Избранное</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn position-relative">
+                            <i class="bi bi-cart3"></i>
+                            <span class="position-absolute top-0 start-1 translate-middle badge rounded-pill text-bg-white">
+                                9
+                                <span class="visually-hidden">товаров</span>
+                            </span>
+                            <span class="row2-text">Корзина</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </section>
 {% block content %}{% endblock %}
@@ -78,13 +136,28 @@
             </li>
             <li class="nav-item"><a href="{% url 'about' %}" class="nav-link px-2 text-muted">О нас</a></li>
             <li class="nav-item"><a href="{% url 'contacts' %}" class="nav-link px-2 text-muted">Контакты</a></li>
+            <!--li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle px-2 text-muted" href="" id="navbarDropdownMenuLink1"
+                   role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">Личный кабинет</a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="">Авторизация</a></li>
+                    <li><a class="dropdown-item" href="">Регистрация</a></li>
+                </ul>
+            </li-->
         </ul>
-        <p class="text-center text-muted">© 2022 EVO shop</p>
+        <p class="text-center text-muted">© 2022 EVO</p>
     </footer>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
 <script
         src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
 </body>
 </html>

@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}EVO shop / {{ prod.name }}{% endblock %}
+{% block content %}
+    <section id="prod" class="paddingTopBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="fotorama" data-width="100%" data-nav="thumbs" data-allowfullscreen="true">
+                        {% if prod.image %}
+                            <img src="/{{ prod.image }}" alt="">
+                        {% else %}
+                            <img src="/static/img/noimg.jpg" alt="No image">
+                        {% endif %}
+                        {% if prod_photos %}
+                            {% for prod_photo in prod_photos %}
+                                <img src="/{{ prod_photo.image }}" alt="">
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-5 offset-md-1">
+                    <div class="btn-group" role="group">
+                        <a type="button" class="btn btn-outline-success"><i class="bi bi-bookmarks"></i></a>
+                        <a type="button" class="btn btn-outline-success"><i class="bi bi-heart"></i></a>
+                        <div class="star">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                    </div>
+
+                    <h3>{{ prod.name }}</h3>
+                    <p>Вес <span>{{ prod.volume }}</span> грамм</p>
+                    <p class="volSum">Количество <i class="bi bi-dash-circle"></i> <span>1</span> <i
+                            class="bi bi-plus-circle"></i></p>
+                    <p class="price"><span>{{ prod.price }}</span> рублей</p>
+                    <p><a type="button" class="btn btn-success" href="">Добавить в корзину</a></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                    data-bs-target="#home-tab-pane" type="button" role="tab"
+                                    aria-controls="home-tab-pane" aria-selected="true">Описание
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link link-success" id="profile-tab" data-bs-toggle="tab"
+                                    data-bs-target="#profile-tab-pane" type="button" role="tab"
+                                    aria-controls="profile-tab-pane" aria-selected="false">Характеристики
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link link-success" id="contact-tab" data-bs-toggle="tab"
+                                    data-bs-target="#contact-tab-pane" type="button" role="tab"
+                                    aria-controls="contact-tab-pane" aria-selected="false">Отзывы (0)
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel"
+                             aria-labelledby="home-tab" tabindex="0">{{ prod.desc }}
+                        </div>
+                        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
+                             tabindex="0">
+                            <div class="col-md-6">
+                                <table class="table table-striped">
+                                    <tbody>
+                                    {% if prod.volume %}
+                                        <tr>
+                                            <td>Вес</td>
+                                            <td>{{ prod.volume }} грамм</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if prod.country %}
+                                        <tr>
+                                            <td>Страна</td>
+                                            <td>{{ prod.country }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if prod.town %}
+                                        <tr>
+                                            <td>Город</td>
+                                            <td>{{ prod.town }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if prod.year %}
+                                        <tr>
+                                            <td>Год</td>
+                                            <td>{{ prod.year }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if prod.tag %}
+                                        <tr>
+                                            <td>Метки</td>
+                                            <td>{{ prod.tag }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
+                             tabindex="0">Пусто
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
