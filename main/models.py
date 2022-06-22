@@ -12,6 +12,7 @@ class Category(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
     image = models.ImageField(upload_to='category/', verbose_name='Изображение категории')
+    url = models.CharField(max_length=30, blank=True, null=True, default=None, verbose_name='Ссылка на Категорию')
 
     def __str__(self):
         return self.name
