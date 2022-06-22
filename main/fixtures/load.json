@@ -1,7 +1,7 @@
 [
   {
     "model": "main.Product",
-    "pk": "1",
+    "pk": "10000",
     "fields": {
       "category": "1",
       "name": "Шу Пуэр Оолонг",
@@ -14,7 +14,7 @@
       "tag": "",
       "talk_forum": "",
       "is_active": "",
-      "image": "static/media/product/2.jpg"
+      "image": "static/img/demo/2.jpg"
     }
   }
 ]

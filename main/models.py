@@ -37,7 +37,7 @@ class Product(models.Model):
     tag = models.CharField(max_length=100, blank=True, null=True, default=None, verbose_name='Метки')
     talk_forum = models.URLField(blank=True, null=True, default=None, verbose_name='Ссылка на форум')
     is_active = models.BooleanField(default=True, verbose_name="Активация товара")
-    image = models.ImageField(upload_to='static/media/product/', verbose_name='Изображение обложки')
+    image = models.ImageField(upload_to='product/', verbose_name='Изображение обложки')
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
     # category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -53,7 +53,7 @@ class ProductImage(models.Model):
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True, default=None,
                                 verbose_name='Товар')
-    image = models.ImageField(upload_to='static/media/product/', verbose_name='Фотографии')
+    image = models.ImageField(upload_to='product/', verbose_name='Фотографии')
     is_active = models.BooleanField(default=True, verbose_name="Активация изображения")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
