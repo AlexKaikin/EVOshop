@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from main.models import Product
+from main.models import Product, Category
 
 
 def index(request):
-    return render(request, 'index.html')
+    category_all = {'categories': Category.objects.all()}
+    return render(request, 'index.html', category_all)
 
 
 def tea(request):

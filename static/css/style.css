@@ -206,3 +206,15 @@ input[type="search"]::-webkit-search-results-decoration {
 #prod .nav-link {
     color: #198754;
 }
+
+#prod .card-body2 {
+    display: inline-table;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 32%;
+    z-index: 9999;
+    background-color: #fff;
+    padding: 30px 50px;
+}

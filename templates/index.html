@@ -2,39 +2,21 @@
 {% load static %}
 {% block title %}EVO shop / Главная{% endblock %}
 {% block content %}
-    <section id = "prod" class="paddingTopBottom">
+    <section id="prod" class="paddingTopBottom">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col">
-                    <div class="card h-100">
-                        <img src="/static/img/noimg.jpg" alt="No image">
-                        <div class="card-body">
-                            <h5 class="card-title"><a href="{% url 'tea' %}" class="text-dark">Чай</a></h5>
-                            <!--p class="card-text">Каталог чая</p-->
-                            <!--a href="{% url 'tea' %}" class="btn btn-success">Перейти</a-->
+                {% if categories %}
+                    {% for category in categories %}
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="{{ category.image.url }}" alt="image">
+                                <div class="card-body2">
+                                    <h5 class="card-title"><a href="{% url 'tea' %}" class="text-dark">{{ category.name }}</a></h5>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100">
-                        <img src="/static/img/noimg.jpg" alt="No image">
-                        <div class="card-body">
-                            <h5 class="card-title"><a href="{% url 'coffee' %}" class="text-dark">Кофе</a></h5>
-                            <!--p class="card-text">Каталог кофе</p-->
-                            <!--a href="{% url 'coffee' %}" class="btn btn-success">Перейти</a-->
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100">
-                        <img src="/static/img/noimg.jpg" alt="No image">
-                        <div class="card-body">
-                            <h5 class="card-title"><a href="{% url 'spices' %}" class="text-dark">Специи</a></h5>
-                            <!--p class="card-text">Каталог специй</p-->
-                            <!--a href="{% url 'spices' %}" class="btn btn-success">Перейти</a-->
-                        </div>
-                    </div>
-                </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </section>

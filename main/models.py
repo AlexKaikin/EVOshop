@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -6,10 +7,11 @@ class Category(models.Model):
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
-    name = models.CharField(max_length=50, verbose_name='Название')
+    name = models.CharField(max_length=20, verbose_name='Категория')
     is_active = models.BooleanField(default=True, verbose_name="Активация категории")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
+    image = models.ImageField(upload_to='category/', verbose_name='Изображение категории')
 
     def __str__(self):
         return self.name
@@ -20,13 +22,14 @@ class Product(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
-    TYPES = (
-        ('1', 'Чай'),
-        ('2', 'Кофе'),
-        ('3', 'Специи')
-    )
+    # TYPES = (
+    #     ('1', 'Чай'),
+    #     ('2', 'Кофе'),
+    #     ('3', 'Специи')
+    # )
 
-    category = models.CharField(max_length=20, verbose_name='Категория', choices=TYPES, default='1')
+    # category = models.CharField(max_length=20, verbose_name='Категория', choices=TYPES, default='1')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
     name = models.CharField(max_length=50, verbose_name='Название')
     desc = models.TextField(verbose_name='Описание')
     country = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Страна')
@@ -40,7 +43,6 @@ class Product(models.Model):
     image = models.ImageField(upload_to='product/', verbose_name='Изображение обложки')
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
-    # category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -94,3 +96,16 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+class Profile(models.Model):  # расширяет модель User, таблица для связи 1 с 1
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Имя')
+    is_logged = models.BooleanField(default=True, verbose_name='Авторизован')
+
+    def __str__(self):
+        return self.user.username
