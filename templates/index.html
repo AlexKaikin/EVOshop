@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}EVO shop / Главная{% endblock %}
+{% block title %}EVO магазин / Главная{% endblock %}
 {% block content %}
     <section id="prod" class="paddingTopBottom">
         <div class="container">
@@ -10,8 +10,10 @@
                         <div class="col">
                             <div class="card h-100">
                                 <img src="{{ category.image.url }}" alt="image">
-                                <div class="card-body2">
-                                    <h5 class="card-title"><a href="{{ category.url }}" class="text-dark">{{ category.name }}</a></h5>
+                                <div class="card-body-cat">
+                                    <h5 class="card-title">
+                                        <a href="{{ category.url }}" class="text-dark">{{ category.name }}</a>
+                                    </h5>
                                 </div>
                             </div>
                         </div>
@@ -20,29 +22,32 @@
             </div>
         </div>
     </section>
-    <section class="paddingTopBottom">
+    <section class="paddingBottom">
         <div class="container">
-            <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="p-5 mb-4 bg-light rounded-3 pos-rel">
                 <div class="container-fluid py-5">
                     <h2 class="display-5 fw-bold">Гарантия качества</h2>
                     <p class="col-md-8 fs-4">В интернет-магазине EVO реализуется продукция от поставщиков с
                         сертификатами качества</p>
                     <!--button-- class="btn btn-primary btn-lg" type="button">Наши партнёры</button-->
+                    <i class="bi bi-award"></i>
                 </div>
             </div>
             <div class="row align-items-md-stretch">
                 <div class="col-md-6">
-                    <div class="h-100 p-5 rounded-3 text-bg-success">
+                    <div class="h-100 p-5 rounded-3 text-bg-success pos-rel">
                         <h2>Программа лояльности</h2>
                         <p>Начисление кешбека на личный внутренний счёт за покупку, отзыв, рейтинг</p>
                         <button class="btn btn-outline-light" type="button">Подробнее</button>
+                        <i class="bi bi-percent"></i>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="h-100 p-5 text-bg-light rounded-3">
+                    <div class="h-100 p-5 text-bg-light rounded-3 pos-rel">
                         <h2>Настоящие отзывы</h2>
                         <p>Отзывы могут писать только клиенты, купившие продукцию </p>
                         <!--button-- class="btn btn-outline-secondary" type="button">Подробнее</button-->
+                        <i class="bi bi-chat-text"></i>
                     </div>
                 </div>
             </div>

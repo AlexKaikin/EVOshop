@@ -23,13 +23,6 @@ class Product(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
-    # TYPES = (
-    #     ('1', 'Чай'),
-    #     ('2', 'Кофе'),
-    #     ('3', 'Специи')
-    # )
-
-    # category = models.CharField(max_length=20, verbose_name='Категория', choices=TYPES, default='1')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
     name = models.CharField(max_length=50, verbose_name='Название')
     desc = models.TextField(verbose_name='Описание')
