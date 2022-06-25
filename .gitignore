@@ -6,6 +6,7 @@ EVOshop/local_settings.py
 root/
 files/
 media/
+demo/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
