@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -47,7 +48,8 @@ class ProductImage(models.Model):
         verbose_name = 'Фотография'
         verbose_name_plural = 'Фотографии'
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True, default=None,
+    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE, blank=True, null=True,
+                                default=None,
                                 verbose_name='Товар')
     image = models.ImageField(upload_to='product/', verbose_name='Фотографии')
     is_active = models.BooleanField(default=True, verbose_name="Активация изображения")
@@ -56,6 +58,22 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return str(self.product)
+
+
+class Review(models.Model):
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+    description = models.TextField(null=True, blank=True, verbose_name='Текст')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.description
+
+    def get_absolute_url(self):
+        return reverse('main')
 
 
 class StatusOrder(models.Model):

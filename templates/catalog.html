@@ -33,7 +33,7 @@
                                     <div class="volume"><span class="">Вес {{ prod.volume }} грамм</span></div>
                                     <div class="float-end price"><span>{{ prod.price }}</span> руб.</div>
                                     <div class="btn-group" role="group">
-                                        <a type="button" class="btn btn-success" href="{% url 'product' prod.id %}">Подробнее</a>
+                                        <a type="button" class="btn btn-success" href="{% url 'product' prod.pk %}">Подробнее</a>
                                         <a type="button" class="btn btn-outline-success"><i class="bi bi-bookmarks"></i></a>
                                         <a type="button" class="btn btn-outline-success"><i class="bi bi-heart"></i></a>
                                         <a type="button" class="btn btn-outline-success"><i class="bi bi-cart3"></i></a>

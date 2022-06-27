@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}EVO магазин / Вход в личный кабинет{% endblock %}
+{% block content %}
+    <section class="paddingTopBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Вход</h1>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <br>
+                        <button class="btn btn-success">Отправить</button>
+                    </form>
+                    <br>
+                    <p>У вас нет аккаунта? <a href="{% url 'register' %}">Зарегистрировать</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, ProductImage, StatusOrder, Order, Profile, Category
+from .models import Product, ProductImage, StatusOrder, Order, Profile, Category, Review
 
 
 class ProductImageInline(admin.TabularInline):
@@ -26,6 +26,11 @@ class ProductImageAdmin(admin.ModelAdmin):
 
     def has_module_permission(self, request):  # скрыть модель из админки
         return False
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['description']
 
 
 @admin.register(StatusOrder)
