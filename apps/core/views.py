@@ -4,6 +4,7 @@ from django.views import View
 
 from .models import Product, Category, Review
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic.edit import FormMixin
 from .forms import ProductForm, ReviewForm, UserRegisterForm, UserLoginForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -34,7 +35,7 @@ class RegisterForm(CreateView):
 
 class LoginForm(SuccessMessageMixin, LoginView):
     template_name = 'accounts/login.html'
-    form_class= UserLoginForm
+    form_class = UserLoginForm
     success_msg = 'вы вошли'
     success_url = reverse_lazy('main')
 
@@ -74,9 +75,28 @@ def contacts(request):
     return render(request, 'core/contacts.html')
 
 
-class ProductView(DetailView):
+class ProductView(SuccessMessageMixin, FormMixin, DetailView):
     model = Product
     template_name = 'core/product.html'
+    form_class = ReviewForm
+    success_msg = 'Отзыв добавлен и ожидает модерации'
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('product', kwargs={'pk': self.get_object().id})
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.product = self.get_object()
+        self.object.author = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
 
 # def product(request, pk):
@@ -123,7 +143,6 @@ def delete_product(request, pk):
     prod = Product.objects.get(id=pk)
     prod.delete()
     return redirect(reverse('main'))
-
 
 # class AddReviewView(CreateView):
 #     model = Review

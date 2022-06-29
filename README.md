@@ -21,14 +21,7 @@
     <li>БД Sqlite3</li>
 </ul>
 
-<h3>Фронтенд:</h3>
-<ul>
-    <li>React</li>
-    <li>TypeScript</li>
-</ul>
-
 <h3>DEMO</h3>
-<a href="" target="_blank">Ссылка на демо-сайт</a>
 <div style="float:left; width: 300px;">
 <p>Главная страница [<a href="https://github.com/AlexKaikin/EVOshop/raw/working/media/demo/index.png" target="_blanck">увеличить</a>]</p>
 <img src="https://github.com/AlexKaikin/EVOshop/raw/working/media/demo/index.png" width="300">

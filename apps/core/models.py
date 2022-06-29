@@ -65,16 +65,17 @@ class Review(models.Model):
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
 
-    description = models.TextField(null=True, blank=True, verbose_name='Текст')
-    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
-    product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE, verbose_name='Продукт')
+    description = models.TextField(verbose_name='Текст')
+    created = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews', blank=True, null=True, verbose_name='Продукт')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Автор')
+    status = models.BooleanField(default=False, verbose_name='Видимость отзыва')
 
-
-    def __str__(self):
-        return self.description
-
-    def get_absolute_url(self):
-        return reverse('main')
+    # def __str__(self):
+    #     return self.description
+    #
+    # def get_absolute_url(self):
+    #     return reverse('main')
 
 
 class StatusOrder(models.Model):

@@ -14,6 +14,11 @@
                     </div>
                 </div>
             {% endif %}
+            {% if messages %}
+                {% for m in messages %}
+                    <div class="alert alert-success" role="alert">{{ m }}</div>
+                {% endfor %}
+            {% endif %}
             <div class="row">
                 <div class="col-md-6">
                     <div class="fotorama" data-width="100%" data-nav="thumbs" data-allowfullscreen="true">
@@ -73,7 +78,7 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link link-success" id="contact-tab" data-bs-toggle="tab"
                                     data-bs-target="#contact-tab-pane" type="button" role="tab"
-                                    aria-controls="contact-tab-pane" aria-selected="false">Отзывы (0)
+                                    aria-controls="contact-tab-pane" aria-selected="false">Отзывы ({{ product.reviews.all.count }})
                             </button>
                         </li>
                     </ul>
@@ -124,11 +129,11 @@
                              tabindex="0">
                             <div>
                                 {% if user.is_authenticated %}
-                                <!-- Кнопка-триггер модального окна добавления отзыва -->
-                                <button type="button" class="btn btn-success btnS" data-bs-toggle="modal"
-                                        data-bs-target="#addView">
-                                    Написать отзыв
-                                </button>
+                                    <!-- Кнопка-триггер модального окна добавления отзыва -->
+                                    <button type="button" class="btn btn-success btnS" data-bs-toggle="modal"
+                                            data-bs-target="#addView">
+                                        Написать отзыв
+                                    </button>
                                 {% else %}
                                     Оставить отзыв может только зарегистрированный пользователь
                                 {% endif %}
@@ -148,8 +153,9 @@
                                                 </button> /
                                             </span>
                                             {% endif %}
-                                            <span><i class="bi bi-person-circle"></i> (ник) /</span>
-                                            <span><i class="bi bi-clock"></i> {{ review.created|date:'H:i d.m.Y' }}</span>
+                                            <span><i class="bi bi-person-circle"></i> {{ review.author }} /</span>
+                                            <span><i
+                                                    class="bi bi-clock"></i> {{ review.created|date:'H:i d.m.Y' }}</span>
                                         </p>
                                     </div>
                                     <br>
@@ -177,6 +183,7 @@
                     <form action="" method="POST">
                         {% csrf_token %}
                         {{ form.as_p }}
+                        <br>
                         <button type="submit" class="btn btn-success btnS">Сохранить</button>
                     </form>
                 </div>

@@ -6,7 +6,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 
 
-class ProductForm(ModelForm):
+class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
@@ -15,10 +15,10 @@ class ProductForm(ModelForm):
         }
 
 
-class ReviewForm(ModelForm):
+class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = '__all__'  # ['description']
+        fields = ['description']
         widgets = {
             'description': forms.Textarea(attrs={'class': 'form-control'}),
         }
