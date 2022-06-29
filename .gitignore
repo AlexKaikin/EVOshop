@@ -3,8 +3,9 @@
 .DS_Store/
 config/local_settings.py
 root/
+!media/
+media/*
 !media/demo/
-media/
 
 
 # Created by https://www.gitignore.io/api/django
