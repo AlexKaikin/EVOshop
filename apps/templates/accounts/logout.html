@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'layouts/base.html' %}
 {% block title %}EVO магазин / Выход из личного кабинета{% endblock %}
 {% block content %}
     <section class="paddingTopBottom">
         <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col-md-6">
                     <h1>Вы вышли</h1>
                     <p>Желаете войти? <a href="{% url 'login' %}">Войти</a></p>
                 </div>

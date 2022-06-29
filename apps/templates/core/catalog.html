@@ -1,19 +1,23 @@
-{% extends 'base.html' %}
+{% extends 'layouts/base.html' %}
+{% load static %}
 {% block title %}EVO магазин / Каталог{% endblock %}
 {% block content %}
     <section id="prod" class="paddingTopBottom">
         <div class="container">
-            <!--div class="row">
+            <div class="row">
                 <div class="col-md-4">
-                    <div class="sort"><span>Сортировать по</span>
+                    <!--div class="sort"><span>Сортировать по</span>
                         <select class="form-select form-select-sm" aria-label="Сортировать">
                             <option selected>дате добавления</option>
                             <option value="1">цене: по возрастанию</option>
                             <option value="2">цене: по убыванию</option>
                         </select>
-                    </div>
+                    </div-->
+                    {% if user.is_authenticated %}
+                        <p><a href="{% url 'add_product' %}">Добавить товар</a></p>
+                    {% endif %}
                 </div>
-            </div-->
+            </div>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 {% if prods %}
                     {% for prod in prods %}
@@ -24,14 +28,14 @@
                                         <img src="{{ prod.image.url }}" alt="">
                                     </div>
                                 {% else %}
-                                    <img src="/static/img/noimg.jpg" alt="No image">
+                                    <img src="{% static 'img/noimg.jpg' %}" alt="No image">
 
                                 {% endif %}
                                 <div class="card-body">
                                     <h5 class="card-title"><a href="{% url 'product' prod.id %}"
                                                               class="link-dark">{{ prod.name }}</a></h5>
                                     <div class="volume"><span class="">Вес {{ prod.volume }} грамм</span></div>
-                                    <div class="float-end price"><span>{{ prod.price }}</span> руб.</div>
+                                    <div class="price float-end">{{ prod.price }} <span>руб.</span></div>
                                     <div class="btn-group" role="group">
                                         <a type="button" class="btn btn-success" href="{% url 'product' prod.pk %}">Подробнее</a>
                                         <a type="button" class="btn btn-outline-success"><i class="bi bi-bookmarks"></i></a>
@@ -43,7 +47,7 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    <p>Пусто</p>
+                    <p>Товаров нет</p>
                 {% endif %}
             </div>
         </div>

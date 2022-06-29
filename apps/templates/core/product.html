@@ -1,15 +1,26 @@
-{% extends 'base.html' %}
+{% extends 'layouts/base.html' %}
+{% load  static %}
 {% block title %}EVO магазин / {{ product.name }}{% endblock %}
 {% block content %}
     <section id="prod" class="paddingTopBottom">
         <div class="container">
+            {% if user.is_authenticated %}
+                <div class="row">
+                    <div class="col">
+                        <p>
+                            <a href="{% url 'edit_product' product.pk %}">Редактирова</a> /
+                            <a href="{% url 'delete_product' product.pk %}">Удалить</a>
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
             <div class="row">
                 <div class="col-md-6">
                     <div class="fotorama" data-width="100%" data-nav="thumbs" data-allowfullscreen="true">
                         {% if product.image %}
                             <img src="{{ product.image.url }}" alt="">
                         {% else %}
-                            <img src="/static/img/noimg.jpg" alt="No image">
+                            <img src="{% static 'img/noimg.jpg' %}" alt="No image">
                         {% endif %}
                         {% if product.images.all %}
                             {% for photo in product.images.all %}
@@ -33,10 +44,14 @@
 
                     <h3>{{ product.name }}</h3>
                     <p>Вес <span>{{ product.volume }}</span> грамм</p>
-                    <p class="volSum">Количество <i class="bi bi-dash-circle"></i> <span>1</span> <i
-                            class="bi bi-plus-circle"></i></p>
-                    <p class="price"><span>{{ product.price }}</span> рублей</p>
-                    <p><a type="button" class="btn btn-success" href="">Добавить в корзину</a></p>
+                    <p class="volSum">
+                        Количество
+                        <button class="btn btn-outline-success"><i class="bi bi-dash-circle"></i></button>
+                        <span>1</span>
+                        <button class="btn btn-outline-success"><i class="bi bi-plus-circle"></i></button>
+                    </p>
+                    <p class="price">{{ product.price }} <span>рублей</span></p>
+                    <p><a type="button" class="btn btn-success btnS" href="">Добавить в корзину</a></p>
                 </div>
             </div>
             <div class="row">
@@ -107,26 +122,41 @@
                         </div>
                         <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
                              tabindex="0">
-                            <div class="p-3">
-                                <h5>Добавить отзыв</h5>
-                                <form action="" method="POST">
-                                    {% csrf_token %}
-                                    {{ form.as_p }}
-                                    <button class="btn btn-success">Сохранить</button>
-                                </form>
+                            <div>
+                                {% if user.is_authenticated %}
+                                <!-- Кнопка-триггер модального окна добавления отзыва -->
+                                <button type="button" class="btn btn-success btnS" data-bs-toggle="modal"
+                                        data-bs-target="#addView">
+                                    Написать отзыв
+                                </button>
+                                {% else %}
+                                    Оставить отзыв может только зарегистрированный пользователь
+                                {% endif %}
                             </div>
-                            <hr>
+                            <br>
                             {% if product.reviews.all %}
                                 {% for review in product.reviews.all %}
                                     <div class="p-3 bg-light">
                                         <p>{{ review.description }}</p>
-                                        <p class="text-end"><i class="bi bi-clock"></i> {{ review.created }}</p>
+                                        <p class="text-end">
+                                            {% if user.is_authenticated %}
+                                                <span>
+                                                <!-- Кнопка-триггер модального окна редактирования отзыва -->
+                                                <button type="button" class="btn btn-link" data-bs-toggle="modal"
+                                                        data-bs-target="#updateView">
+                                                Редактировать
+                                                </button> /
+                                            </span>
+                                            {% endif %}
+                                            <span><i class="bi bi-person-circle"></i> (ник) /</span>
+                                            <span><i class="bi bi-clock"></i> {{ review.created|date:'H:i d.m.Y' }}</span>
+                                        </p>
                                     </div>
                                     <br>
                                 {% endfor %}
                             {% else %}
-                                <div class="p-3">
-                                    <p>Пусто</p>
+                                <div class="p-3 bg-light">
+                                    Отзывов нет
                                 </div>
                             {% endif %}
                         </div>
@@ -135,4 +165,40 @@
             </div>
         </div>
     </section>
+    <!-- Модальное окно добавить отзыв -->
+    <div class="modal fade" id="addView" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Добавить отзыв</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success btnS">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Модальное редактировать отзыв -->
+    <div class="modal fade" id="updateView" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Редактировать отзыв</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ form2.as_p }}
+                        <button type="submit" class="btn btn-success btnS">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

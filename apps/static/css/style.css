@@ -31,6 +31,11 @@ input, textarea, input:active, textarea:active {
     box-shadow: 0 0 0 0 rgba(0, 123, 255, 0) !important;
 }
 
+a,
+.btn-link{
+    color: #198754;
+}
+
 :active, :hover, :focus {
     outline: 0;
     outline-offset: 0;
@@ -76,38 +81,38 @@ input[type="search"]::-webkit-search-results-decoration {
     padding-bottom: 5%;
 }
 
-#row1 {
+#navbar {
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
-#row1 .navbar-brand {
+#navbar .navbar-brand {
     letter-spacing: 5px;
 }
 
-#row2 {
+#search {
     padding-top: 30px;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
 }
 
-#row2 form {
+#search form {
     margin-bottom: 30px;
 }
 
-#row2 .nav a {
+#search .nav a {
     color: white;
 }
 
-#row2 .nav a span {
+#search .nav a span {
     opacity: 0.8;
 }
 
-#row2 .btn {
+#search .btn {
     color: white;
     --bs-btn-padding-x: 0.5rem;
 }
 
-#row2 .btn .row2-text {
+#search .btn .search-text {
     opacity: 0.8;
     font-size: 14px;
 }
@@ -117,53 +122,79 @@ input[type="search"]::-webkit-search-results-decoration {
     background-color: #212529;
 }
 
-#row2 .nav i {
+#search .nav i {
     margin-left: 5px;
     font-size: 22px;
 }
 
-#row2 .form-control {
+#search .form-control {
     border: 1px solid white;
     background-color: #198754;
 }
 
-#row2 .btnS {
+#search .searchF {
+    padding: 10px 20px;
+}
+
+#search .searchFB {
     border: 1px solid white;
     background-color: white;
     color: #198754;
+    padding: 10px 20px;
 }
 
-#row2 input[type="search"]::placeholder {
+@media (max-width: 992px) {
+    #search .prodM{
+        margin-top: 20px;
+    }
+}
+
+#search .prodM button {
+    padding: 0px;
+    margin-right: 10px;
+    padding-top: 10px;
+}
+
+#search .prodM button:hover {
+    border: 1px solid transparent;
+    border-bottom: 1px solid #fff;
+}
+
+#search input[type="search"]::placeholder {
     color: white !important;
     opacity: 1;
 }
 
-#row2 input[type="search"]::-webkit-input-placeholder {
-    color: white !important;
-    opacity:0.8;
-}
-
-#row2 input[type="search"]:-ms-input-placeholder {
+#search input[type="search"]::-webkit-input-placeholder {
     color: white !important;
     opacity: 0.8;
 }
 
-#row2 input[type="search"]::-moz-placeholder {
+#search input[type="search"]:-ms-input-placeholder {
     color: white !important;
     opacity: 0.8;
 }
 
-#row2 input[type="search"]:-moz-placeholder {
+#search input[type="search"]::-moz-placeholder {
     color: white !important;
     opacity: 0.8;
 }
 
-#row2 .form-control {
+#search input[type="search"]:-moz-placeholder {
+    color: white !important;
+    opacity: 0.8;
+}
+
+#search .form-control {
     color: white !important;
 }
 
-#row2 .top-0 {
+#search .top-0 {
     top: 7px !important;
+}
+
+#search .text-opacity{
+    opacity: 0.7;
 }
 
 .card .card-img-top {
@@ -176,6 +207,10 @@ input[type="search"]::-webkit-search-results-decoration {
     margin-bottom: 20px;
 }
 
+#prod .btn-group a {
+    margin-right: 5px;
+}
+
 #prod .card-body a {
     text-decoration: none;
 }
@@ -185,8 +220,15 @@ input[type="search"]::-webkit-search-results-decoration {
     margin-top: 30px;
 }
 
-#prod .price span {
+#prod .price {
     font-size: 30px;
+    color: black;
+    opacity: 1;
+}
+
+#prod .price span{
+    opacity: 0.7;
+    font-size: initial;
 }
 
 #prod .btn-group {
@@ -206,8 +248,15 @@ input[type="search"]::-webkit-search-results-decoration {
     font-size: 20px;
 }
 
+#prod .volSum button{
+    border: 0;
+    padding: 0;
+    margin: 5px;
+}
+
 #prod .volume {
     display: inline-block;
+    opacity: 0.7;
 }
 
 #prod .fotorama {
@@ -232,10 +281,14 @@ input[type="search"]::-webkit-search-results-decoration {
     text-decoration: none;
 }
 
-#prod .card-body-cat a:hover{
+#prod .card-body-cat a:hover {
     background-color: #198754;
     color: white !important;
     transition: all ease .3s;
+}
+
+.btnS {
+    padding: 20px 30px;
 }
 
 .pos-rel {
@@ -248,4 +301,8 @@ input[type="search"]::-webkit-search-results-decoration {
     position: absolute;
     top: 0;
     right: 0;
+}
+
+.modal-content{
+    padding: 20px;
 }

@@ -1,9 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'layouts/base.html' %}
 {% load static %}
 {% block title %}EVO магазин / Главная{% endblock %}
 {% block content %}
     <section id="prod" class="paddingTopBottom">
         <div class="container">
+            {% if messages %}
+                {% for m in messages %}
+                    <div class="row">
+                        <did class="col">
+                            <div class="alert alert-success" role="alert">{{ user.username }}, {{ m }}</div>
+                        </did>
+                    </div>
+                {% endfor %}
+            {% endif %}
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 {% if categories %}
                     {% for category in categories %}

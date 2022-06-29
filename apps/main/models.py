@@ -67,7 +67,8 @@ class Review(models.Model):
 
     description = models.TextField(null=True, blank=True, verbose_name='Текст')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
-    product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE, verbose_name='Продукт')
+
 
     def __str__(self):
         return self.description

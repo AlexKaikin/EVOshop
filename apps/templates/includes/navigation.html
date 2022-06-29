@@ -1,0 +1,61 @@
+<nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'main' %}">EVO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Переключатель навигации">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main' %}">Главная</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink1"
+                       role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Магазин
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="{% url 'tea' %}">Чай</a></li>
+                        <li><a class="dropdown-item" href="{% url 'coffee' %}">Кофе</a></li>
+                        <li><a class="dropdown-item" href="{% url 'spices' %}">Специи</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'about' %}" class="nav-link">О нас</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'contacts' %}" class="nav-link">Контакты</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Блог</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Форум</a>
+                </li>
+            </ul>
+            <div class="navbar-nav text-lg-end">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="" id="navbarDropdownMenuLink2"
+                       role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if user.is_authenticated %}
+                            <i class="bi bi-person-circle"></i> {{ user.username }}
+                        {% else %}
+                            <i class="bi bi-person-circle"></i> Личный кабинет
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                        {% if user.is_authenticated %}
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Выход</a></li>
+                        {% else %}
+                            <li><a class="dropdown-item" href="{% url 'login' %}">Вход</a></li>
+                            <li><a class="dropdown-item" href="{% url 'register' %}">Регистрация</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+</nav>
