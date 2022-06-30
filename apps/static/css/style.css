@@ -1,5 +1,8 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css");
 
+body{
+
+}
 @media (min-width: 1000px) {
     .container {
         max-width: 1000px;
@@ -34,6 +37,9 @@ input, textarea, input:active, textarea:active {
 a,
 .btn-link{
     color: #198754;
+}
+.border-top-grey{
+    border-top: 1px solid rgb(255 255 255 / 5%);
 }
 
 :active, :hover, :focus {
@@ -244,15 +250,23 @@ input[type="search"]::-webkit-search-results-decoration {
     margin-bottom: 10px;
 }
 
+#prod .volSum{
+    display: inline-block;
+}
+
 #prod .volSum i, #prod .volSum span {
     font-size: 20px;
 }
-
-#prod .volSum button{
-    border: 0;
-    padding: 0;
-    margin: 5px;
+#prod .volSum span {
+    padding-left: 5px;
+    padding-right: 5px;
 }
+
+/*#prod .volSum button{*/
+/*    border: 0;*/
+/*    padding: 0;*/
+/*    margin: 5px;*/
+/*}*/
 
 #prod .volume {
     display: inline-block;

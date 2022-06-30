@@ -1,8 +1,9 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
 
-from .models import Product, Category, Review
+from .models import Product, Category, Review, Profile
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.edit import FormMixin
 from .forms import ProductForm, ReviewForm, UserRegisterForm, UserLoginForm
@@ -15,6 +16,11 @@ from django.contrib import messages
 def index(request):
     context = {'categories': Category.objects.all()}
     return render(request, 'core/index.html', context)
+
+
+class ProfileView(DetailView):
+    model = Profile
+    template_name = 'accounts/profile.html'
 
 
 class SuccessMessageMixin:
@@ -99,20 +105,6 @@ class ProductView(SuccessMessageMixin, FormMixin, DetailView):
         return super().form_valid(form)
 
 
-# def product(request, pk):
-#     prod = Product.objects.get(id=pk)
-#     if request.method == 'POST':
-#         form = ReviewForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#
-#     context = {
-#         'product': prod,
-#         'form': ReviewForm()
-#     }
-#     return render(request, 'core/product.html', context)
-
-
 class EditProductView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Product
     template_name = 'core/edit_product.html'
@@ -143,12 +135,3 @@ def delete_product(request, pk):
     prod = Product.objects.get(id=pk)
     prod.delete()
     return redirect(reverse('main'))
-
-# class AddReviewView(CreateView):
-#     model = Review
-#     template_name = 'core/product.html'
-#     form_class = ReviewForm
-#
-#     def form_valid(self, form):
-#         form.instance.product_id = self.kwargs['pk']
-#         return super().form_valid(form)

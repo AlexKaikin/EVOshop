@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.urls import reverse
 
 
 class Category(models.Model):
@@ -67,9 +66,11 @@ class Review(models.Model):
 
     description = models.TextField(verbose_name='Текст')
     created = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews', blank=True, null=True, verbose_name='Продукт')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews', blank=True, null=True,
+                                verbose_name='Продукт')
     author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Автор')
     status = models.BooleanField(default=False, verbose_name='Видимость отзыва')
+
 
     # def __str__(self):
     #     return self.description
@@ -123,3 +124,9 @@ class Profile(models.Model):  # расширяет модель User, табли
 
     def __str__(self):
         return self.user.username
+
+
+class Cart(models.Model):
+    class Meta:
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзины'

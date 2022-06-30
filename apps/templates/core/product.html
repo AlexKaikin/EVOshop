@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html' %}
 {% load  static %}
 {% block title %}EVO магазин / {{ product.name }}{% endblock %}
+{% block description %}{{ product.desc|truncatechars:'90' }}{% endblock %}
 {% block content %}
     <section id="prod" class="paddingTopBottom">
         <div class="container">
@@ -51,9 +52,9 @@
                     <p>Вес <span>{{ product.volume }}</span> грамм</p>
                     <p class="volSum">
                         Количество
-                        <button class="btn btn-outline-success"><i class="bi bi-dash-circle"></i></button>
-                        <span>1</span>
-                        <button class="btn btn-outline-success"><i class="bi bi-plus-circle"></i></button>
+                        <button class="btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
+                        <span> 1 </span>
+                        <button class="btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
                     </p>
                     <p class="price">{{ product.price }} <span>рублей</span></p>
                     <p><a type="button" class="btn btn-success btnS" href="">Добавить в корзину</a></p>
@@ -78,7 +79,8 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link link-success" id="contact-tab" data-bs-toggle="tab"
                                     data-bs-target="#contact-tab-pane" type="button" role="tab"
-                                    aria-controls="contact-tab-pane" aria-selected="false">Отзывы ({{ product.reviews.all.count }})
+                                    aria-controls="contact-tab-pane" aria-selected="false">Отзывы
+                                ({{ product.reviews.all.count }})
                             </button>
                         </li>
                     </ul>
@@ -146,12 +148,10 @@
                                         <p class="text-end">
                                             {% if user.is_authenticated %}
                                                 <span>
-                                                <!-- Кнопка-триггер модального окна редактирования отзыва -->
-                                                <button type="button" class="btn btn-link" data-bs-toggle="modal"
-                                                        data-bs-target="#updateView">
-                                                Редактировать
-                                                </button> /
-                                            </span>
+                                                    <a href="#">Одобрить</a> |
+                                                    <a href="#">Удалить</a> /</span>
+                                                <span><i
+                                                        class="bi bi-exclamation-diamond"></i> {{ review.status }} /</span>
                                             {% endif %}
                                             <span><i class="bi bi-person-circle"></i> {{ review.author }} /</span>
                                             <span><i
@@ -186,24 +186,8 @@
                         <br>
                         <button type="submit" class="btn btn-success btnS">Сохранить</button>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Модальное редактировать отзыв -->
-    <div class="modal fade" id="updateView" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Редактировать отзыв</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        {{ form2.as_p }}
-                        <button type="submit" class="btn btn-success btnS">Сохранить</button>
-                    </form>
+                    <br>
+                    <p><a href="#">Правила написания отзыва</a></p>
                 </div>
             </div>
         </div>

@@ -84,7 +84,7 @@
       "updated": "2022-06-29"
     }
   },
-    {
+  {
     "model": "core.Product",
     "pk": 2,
     "fields": {
@@ -103,7 +103,7 @@
       "updated": "2022-06-29"
     }
   },
-      {
+  {
     "model": "core.Product",
     "pk": 3,
     "fields": {
@@ -122,7 +122,7 @@
       "updated": "2022-06-29"
     }
   },
-        {
+  {
     "model": "core.Product",
     "pk": 4,
     "fields": {
@@ -141,7 +141,7 @@
       "updated": "2022-06-29"
     }
   },
-          {
+  {
     "model": "core.Product",
     "pk": 5,
     "fields": {
@@ -160,7 +160,7 @@
       "updated": "2022-06-29"
     }
   },
-          {
+  {
     "model": "core.Product",
     "pk": 6,
     "fields": {
@@ -175,6 +175,36 @@
       "tag": "бодрость, энергия",
       "talk_forum": "",
       "image": "demo/product/4.jpg",
+      "created": "2022-06-29",
+      "updated": "2022-06-29"
+    }
+  },
+  {
+    "model": "core.ProductImage",
+    "pk": 1,
+    "fields": {
+      "product": 1,
+      "image": "demo/product/1.jpg",
+      "created": "2022-06-29",
+      "updated": "2022-06-29"
+    }
+  },
+    {
+    "model": "core.ProductImage",
+    "pk": 2,
+    "fields": {
+      "product": 1,
+      "image": "demo/product/1.jpg",
+      "created": "2022-06-29",
+      "updated": "2022-06-29"
+    }
+  },
+    {
+    "model": "core.ProductImage",
+    "pk": 3,
+    "fields": {
+      "product": 1,
+      "image": "demo/product/1.jpg",
       "created": "2022-06-29",
       "updated": "2022-06-29"
     }

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, ProductImage, StatusOrder, Order, Profile, Category, Review
+from .models import Product, ProductImage, StatusOrder, Order, Profile, Category, Review, Cart
 
 
 class ProductImageInline(admin.TabularInline):
@@ -52,3 +52,8 @@ class OrderAdmin(admin.ModelAdmin):
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'is_logged']
+
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ['id']

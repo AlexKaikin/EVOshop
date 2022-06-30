@@ -49,3 +49,4 @@ class UserLoginForm(AuthenticationForm, forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
         self.fields['username'].widget = forms.TextInput(attrs={'class': 'form-control'})
+

@@ -1,26 +1,53 @@
-<footer class="py-3 my-4">
+<footer class="bg-dark mt-5">
     <div class="container">
-        <div class="col">
-            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                <li class="nav-item"><a href="{% url 'main' %}" class="nav-link px-2 text-muted">Главная</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle px-2 text-muted" href="" id="navbarDropdownMenuLink2"
-                       role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Магазин
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="{% url 'tea' %}">Чай</a></li>
-                        <li><a class="dropdown-item" href="{% url 'coffee' %}">Кофе</a></li>
-                        <li><a class="dropdown-item" href="{% url 'spices' %}">Специи</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a href="{% url 'about' %}" class="nav-link px-2 text-muted">О нас</a></li>
-                <li class="nav-item"><a href="{% url 'contacts' %}" class="nav-link px-2 text-muted">Контакты</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Форум</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Блог</a></li>
-            </ul>
-            <p class="text-center text-muted">© 2022 EVO</p>
+        <div class="row">
+            <div class="col-md-2 mt-5">
+                <h5 class="text-bg-white">EVO</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="{% url 'main' %}" class="nav-link p-0 link-secondary">Главная</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="{% url 'about' %}" class="nav-link p-0 link-secondary">О нас</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="{% url 'contacts' %}"
+                                                 class="nav-link p-0 link-secondary">Контакты</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 link-secondary">Блог</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 mt-5">
+                <h5 class="text-bg-white">Магазин</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="{% url 'tea' %}" class="nav-link p-0 link-secondary">Чай</a></li>
+                    <li class="nav-item mb-2"><a href="{% url 'coffee' %}" class="nav-link p-0 link-secondary">Кофе</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="{% url 'spices' %}"
+                                                 class="nav-link p-0 link-secondary">Специи</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 link-secondary">Орехи</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 link-secondary">Крупы</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 link-secondary">Семена</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 mt-5">
+                <h5 class="text-bg-white">Сервис</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 link-secondary">Форум</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 link-secondary">Объявления</a></li>
+                </ul>
+            </div>
+            <div class="col-md-5 offset-md-1 mt-5">
+                <form>
+                    <h5 class="text-bg-white">Подписаться на новостную рассылку</h5>
+                    <p class="link-secondary">Ежемесячный дайджест всего нового и интересного на EVO</p>
+                    <div class="d-flex w-100 gap-2">
+                        <label for="newsletter1" class="visually-hidden">Email address</label>
+                        <input id="newsletter1" type="text" class="form-control" placeholder="Email адрес">
+                        <button class="btn btn-success btnS" type="button">Подписаться</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mt-5 py-4 border-top-grey">
+            <p class="link-secondary">© 2022 EVO</p>
         </div>
     </div>
 </footer>
