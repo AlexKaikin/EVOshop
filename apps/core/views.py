@@ -1,23 +1,12 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
-
-from .models import Product, Category, Profile
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.edit import FormMixin
-from .forms import ProductForm, ReviewForm, UserRegisterForm, UserLoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib import messages
-
-
-class SuccessMessageMixin:
-    @property
-    def success_msg(self):
-        return False
-
-    def form_valid(self, form):
-        messages.success(self.request, self.success_msg)
-        return super().form_valid(form)
+from django.contrib.messages.views import SuccessMessageMixin
+from .models import Product, Category, Profile
+from .forms import ProductForm, ReviewForm, UserRegisterForm, UserLoginForm
 
 
 class CategoryView(ListView):
@@ -59,7 +48,7 @@ class ProductView(SuccessMessageMixin, FormMixin, DetailView):
     model = Product
     template_name = 'core/product.html'
     form_class = ReviewForm
-    success_msg = 'Отзыв добавлен и ожидает модерации'
+    success_message = 'Отзыв добавлен и ожидает модерации'
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('product', kwargs={'pk': self.get_object().id})
@@ -84,7 +73,7 @@ class EditProductView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     template_name = 'core/edit_product.html'
     form_class = ProductForm
     success_url = reverse_lazy('edit_product')
-    success_msg = 'Товар обновлён'
+    success_message = 'Товар обновлён'
 
     def get_success_url(self):
         pk = self.kwargs['pk']
@@ -96,7 +85,7 @@ class AddProductView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     template_name = 'core/add_product.html'
     form_class = ProductForm
     success_url = reverse_lazy('add_product')
-    success_msg = 'Товар добавлен'
+    success_message = 'Товар добавлен'
 
 
 # class DeleteProductView(LoginRequiredMixin, DeleteView):
@@ -111,16 +100,17 @@ def delete_product(request, pk):
     return redirect(reverse('main'))
 
 
-class RegisterForm(CreateView):
+class RegisterForm(SuccessMessageMixin, CreateView):
     form_class = UserRegisterForm
     template_name = 'accounts/register.html'
     success_url = reverse_lazy('login')
+    success_message = 'Регистрация прошла успешно, можете войти'
 
 
 class LoginForm(SuccessMessageMixin, LoginView):
     template_name = 'accounts/login.html'
     form_class = UserLoginForm
-    success_msg = 'вы вошли'
+    success_message = '%(username)s, добро пожаловать!'
     success_url = reverse_lazy('main')
 
 

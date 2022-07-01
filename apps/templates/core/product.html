@@ -6,7 +6,7 @@
 {% block content %}
     <section id="prod" class="paddingTopBottom">
         <div class="container">
-            {% if user.is_authenticated %}
+            {% if user.is_superuser or user.is_staff %}
                 <div class="row">
                     <div class="col">
                         <p>
@@ -17,8 +17,8 @@
                 </div>
             {% endif %}
             {% if messages %}
-                {% for m in messages %}
-                    <div class="alert alert-success" role="alert">{{ m }}</div>
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
                 {% endfor %}
             {% endif %}
             <div class="row">
@@ -50,13 +50,15 @@
                     </div>
 
                     <h3>{{ product.name }}</h3>
-                    <p>Вес <span>{{ product.volume }}</span> грамм</p>
-                    <p class="volSum">
-                        Количество
-                        <button class="btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
-                        <span> 1 </span>
-                        <button class="btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
-                    </p>
+                    <p class="text">Вес <span>{{ product.volume }}</span> грамм</p>
+                    <div class="volSum">
+                        <p>
+                            Количество
+                            <button class="btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
+                            <span> 1 </span>
+                            <button class="btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
+                        </p>
+                    </div>
                     <p class="price">{{ product.price }} <span>рублей</span></p>
                     <p><a type="button" class="btn btn-success btnS" href="">Добавить в корзину</a></p>
                 </div>
@@ -86,7 +88,7 @@
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel"
+                        <div class="tab-pane fade show active " id="home-tab-pane" role="tabpanel"
                              aria-labelledby="home-tab" tabindex="0">{{ product.desc }}
                         </div>
                         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
@@ -145,9 +147,9 @@
                             {% if product.reviews.all %}
                                 {% for review in product.reviews.all %}
                                     <div class="p-3 bg-light">
-                                        <p>{{ review.description }}</p>
-                                        <p class="text-end">
-                                            {% if user.is_authenticated %}
+                                        <p class="text">{{ review.description }}</p>
+                                        <p class="text-end text">
+                                            {% if user.is_superuser or user.is_staff %}
                                                 <span>
                                                     <a href="#">Одобрить</a> |
                                                     <a href="#">Удалить</a> /</span>
