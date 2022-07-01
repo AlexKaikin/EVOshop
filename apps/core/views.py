@@ -9,39 +9,20 @@ from .models import Product, Category, Profile
 from .forms import ProductForm, ReviewForm, UserRegisterForm, UserLoginForm
 
 
-class CategoryView(ListView):
+class IndexView(ListView):
     model = Category
     template_name = 'core/index.html'
 
 
-# def catalog(request, pk):
-#     prod_cat = Category.objects.get(id=pk)
-#     prod_all = Product.objects.filter(category=1)
-#     context = {'prod_cat': prod_cat, 'prods': prod_all}
-#     return render(request, 'core/catalog.html', context)
+class CatalogView(ListView):
+    model = Product
+    template_name = 'core/catalog.html'
 
-
-def tea(request):
-    context = {'prods': Product.objects.filter(category=1)}
-    return render(request, 'core/catalog.html', context)
-
-
-def coffee(request):
-    context = {'prods': Product.objects.filter(category=2)}
-    return render(request, 'core/catalog.html', context)
-
-
-def spices(request):
-    context = {'prods': Product.objects.filter(category=3)}
-    return render(request, 'core/catalog.html', context)
-
-
-def about(request):
-    return render(request, 'core/about.html')
-
-
-def contacts(request):
-    return render(request, 'core/contacts.html')
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        object_list = Category.objects.get(pk=pk)
+        object_list = object_list.product_set.all()
+        return object_list
 
 
 class ProductView(SuccessMessageMixin, FormMixin, DetailView):
@@ -122,3 +103,11 @@ class LogOutForm(LogoutView):
 class ProfileView(DetailView):
     model = Profile
     template_name = 'accounts/profile.html'
+
+
+def about(request):
+    return render(request, 'core/about.html')
+
+
+def contacts(request):
+    return render(request, 'core/contacts.html')

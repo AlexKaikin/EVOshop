@@ -44,7 +44,6 @@ class UserLoginForm(AuthenticationForm, forms.ModelForm):
         model = User
         fields = ['username', 'password']
 
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
