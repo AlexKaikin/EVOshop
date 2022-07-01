@@ -71,7 +71,6 @@ class Review(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Автор')
     status = models.BooleanField(default=False, verbose_name='Видимость отзыва')
 
-
     # def __str__(self):
     #     return self.description
     #

@@ -24,15 +24,15 @@
 <h3>DEMO</h3>
 <div style="float:left; width: 300px;">
 <p>Главная страница [<a href="https://github.com/AlexKaikin/EVOshop/raw/working/media/demo/index.png" target="_blanck">увеличить</a>]</p>
-<img src="https://github.com/AlexKaikin/EVOshop/raw/working/media/demo/index.png" width="300">
+<img src="https://github.com/AlexKaikin/EVOshop/raw/working/media/demo/index.png" width="300" alt="Главная страница">
 </div>
 <div style="float:left; width: 300px;">
 <p>Страница категории [<a href="https://github.com/AlexKaikin/EVOshop/raw/working/media/demo/category.png" target="_blanck">увеличить</a>]</p>
-<img src="https://github.com/AlexKaikin/EVOshop/raw/working/media/demo/category.png" width="300">
+<img src="https://github.com/AlexKaikin/EVOshop/raw/working/media/demo/category.png" width="300" alt="Страница категории">
 </div>
 <div style="float:left; width: 300px;">
 <p>Страница товара [<a href="https://github.com/AlexKaikin/EVOshop/raw/working/media/demo/product.png" target="_blanck">увеличить</a>]</p>
-<img src="https://github.com/AlexKaikin/EVOshop/raw/working/media/demo/product.png" width="300">
+<img src="https://github.com/AlexKaikin/EVOshop/raw/working/media/demo/product.png" width="300" alt="Страница товара">
 </div>
 
 

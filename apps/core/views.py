@@ -1,26 +1,13 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
-from django.views import View
 
-from .models import Product, Category, Review, Profile
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+from .models import Product, Category, Profile
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.edit import FormMixin
 from .forms import ProductForm, ReviewForm, UserRegisterForm, UserLoginForm
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
-
-
-def index(request):
-    context = {'categories': Category.objects.all()}
-    return render(request, 'core/index.html', context)
-
-
-class ProfileView(DetailView):
-    model = Profile
-    template_name = 'accounts/profile.html'
 
 
 class SuccessMessageMixin:
@@ -33,22 +20,9 @@ class SuccessMessageMixin:
         return super().form_valid(form)
 
 
-class RegisterForm(CreateView):
-    form_class = UserRegisterForm
-    template_name = 'accounts/register.html'
-    success_url = reverse_lazy('login')
-
-
-class LoginForm(SuccessMessageMixin, LoginView):
-    template_name = 'accounts/login.html'
-    form_class = UserLoginForm
-    success_msg = 'вы вошли'
-    success_url = reverse_lazy('main')
-
-
-class LogOutForm(LogoutView):
-    template_name = 'accounts/logout.html'
-    success_url = reverse_lazy('logout')
+class CategoryView(ListView):
+    model = Category
+    template_name = 'core/index.html'
 
 
 # def catalog(request, pk):
@@ -135,3 +109,26 @@ def delete_product(request, pk):
     prod = Product.objects.get(id=pk)
     prod.delete()
     return redirect(reverse('main'))
+
+
+class RegisterForm(CreateView):
+    form_class = UserRegisterForm
+    template_name = 'accounts/register.html'
+    success_url = reverse_lazy('login')
+
+
+class LoginForm(SuccessMessageMixin, LoginView):
+    template_name = 'accounts/login.html'
+    form_class = UserLoginForm
+    success_msg = 'вы вошли'
+    success_url = reverse_lazy('main')
+
+
+class LogOutForm(LogoutView):
+    template_name = 'accounts/logout.html'
+    success_url = reverse_lazy('logout')
+
+
+class ProfileView(DetailView):
+    model = Profile
+    template_name = 'accounts/profile.html'

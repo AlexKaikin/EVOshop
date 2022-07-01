@@ -1,13 +1,14 @@
 from django.urls import path
 from apps.core import views
-from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    # accounts
     path('register/', views.RegisterForm.as_view(), name='register'),
     path('login/', views.LoginForm.as_view(), name='login'),
     path('logout/', views.LogOutForm.as_view(), name='logout'),
     path('profile/<int:pk>', views.ProfileView.as_view(), name='profile'),
-    path('', views.index, name='main'),
+    # apps core
+    path('', views.CategoryView.as_view(), name='main'),
     path('about/', views.about, name='about'),
     path('contacts/', views.contacts, name='contacts'),
     # path('catalog/<int:pk>', views.catalog, name='catalog'),

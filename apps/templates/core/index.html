@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 {% block title %}EVO магазин / Главная{% endblock %}
+{% block description %}{{ product.desc|truncatechars:'90' }}{% endblock %}
 {% block content %}
     <section id="prod" class="paddingTopBottom">
         <div class="container">
@@ -14,8 +15,8 @@
                 {% endfor %}
             {% endif %}
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                {% if categories %}
-                    {% for category in categories %}
+                {% if object_list %}
+                    {% for category in object_list %}
                         <div class="col">
                             <div class="card h-100">
                                 <img src="{{ category.image.url }}" alt="image">
