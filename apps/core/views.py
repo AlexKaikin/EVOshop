@@ -5,7 +5,7 @@ from django.views.generic.edit import FormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
-from .models import Product, Category, Profile
+from .models import Category, Product, Profile
 from .forms import ProductForm, ReviewForm, UserRegisterForm, UserLoginForm
 
 
@@ -13,15 +13,19 @@ class IndexView(ListView):
     model = Category
     template_name = 'core/index.html'
 
+    def get_queryset(self):
+        object_list = Category.objects.filter(is_active=True)
+        return object_list
+
 
 class CatalogView(ListView):
     model = Product
     template_name = 'core/catalog.html'
 
     def get_queryset(self):
-        pk = self.kwargs['pk']
-        object_list = Category.objects.get(pk=pk)
-        object_list = object_list.product_set.all()
+        slug = self.kwargs['slug']
+        object_list = Category.objects.get(slug=slug)
+        object_list = object_list.products.filter(is_active=True)
         return object_list
 
 
@@ -32,7 +36,7 @@ class ProductView(SuccessMessageMixin, FormMixin, DetailView):
     success_message = 'Отзыв добавлен и ожидает модерации'
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('product', kwargs={'pk': self.get_object().id})
+        return reverse_lazy('product', kwargs={'slug': self.get_object().slug})
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -57,8 +61,8 @@ class EditProductView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     success_message = 'Товар обновлён'
 
     def get_success_url(self):
-        pk = self.kwargs['pk']
-        return reverse("edit_product", kwargs={'pk': pk})
+        slug = self.kwargs['slug']
+        return reverse("edit_product", kwargs={'slug': slug})
 
 
 class AddProductView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -75,9 +79,9 @@ class AddProductView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
 #     success_url = reverse_lazy('main')
 
 
-def delete_product(request, pk):
-    prod = Product.objects.get(id=pk)
-    prod.delete()
+def delete_product(request, slug):
+    product = Product.objects.get(slug=slug)
+    product.delete()
     return redirect(reverse('main'))
 
 

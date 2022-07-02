@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, ProductImage, StatusOrder, Order, Profile, Category, Review, Cart
+from .models import Product, ProductImage, StatusOrder, Order, Profile, Category, Review
 
 
 class ProductImageInline(admin.TabularInline):
@@ -10,12 +10,15 @@ class ProductImageInline(admin.TabularInline):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'is_active']
+    list_editable = ['is_active']
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'category', 'price']
+    list_display = ['name', 'category', 'price', 'stock', 'is_active']
+    list_editable = ['price', 'stock', 'is_active']
+    list_filter = ['category']
     inlines = [ProductImageInline]
     search_fields = ['name']
 
@@ -30,7 +33,8 @@ class ProductImageAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ['description']
+    list_display = ['description', 'author', 'status']
+    list_editable = ['status']
 
 
 @admin.register(StatusOrder)
@@ -53,7 +57,3 @@ class OrderAdmin(admin.ModelAdmin):
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'is_logged']
 
-
-@admin.register(Cart)
-class CartAdmin(admin.ModelAdmin):
-    list_display = ['id']

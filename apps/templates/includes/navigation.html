@@ -17,9 +17,12 @@
                         Магазин
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="{% url 'catalog' 1 %}">Чай</a></li>
-                        <li><a class="dropdown-item" href="{% url 'catalog' 2 %}">Кофе</a></li>
-                        <li><a class="dropdown-item" href="{% url 'catalog' 3 %}">Специи</a></li>
+                        <li><a class="dropdown-item" href="{% url 'catalog' 'tea' %}">Чай</a></li>
+                        <li><a class="dropdown-item" href="{% url 'catalog' 'coffee' %}">Кофе</a></li>
+                        <li><a class="dropdown-item" href="{% url 'catalog' 'spices' %}">Специи</a></li>
+                        <li><a class="dropdown-item" href="{% url 'catalog' 'nuts' %}">Орехи</a></li>
+                        <li><a class="dropdown-item" href="{% url 'catalog' 'grits' %}">Крупы</a></li>
+                        <li><a class="dropdown-item" href="{% url 'catalog' 'grain' %}">Семена</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

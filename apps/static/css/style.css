@@ -332,3 +332,17 @@ input[type="search"]::-webkit-search-results-decoration {
 .modal-content {
     padding: 20px;
 }
+
+#prod .sort {
+    margin-bottom: 20px;
+}
+
+#prod .sort span{
+    float: left;
+    margin: 3px 10px 0 0;
+}
+
+#prod .sort select {
+    display: inline-block;
+    width: auto;
+}

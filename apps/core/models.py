@@ -7,7 +7,8 @@ class Category(models.Model):
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
-    name = models.CharField(max_length=20, verbose_name='Категория')
+    name = models.CharField(max_length=20, db_index=True, verbose_name='Категория')
+    slug = models.SlugField(max_length=200, db_index=True, unique=True, verbose_name="URL")
     is_active = models.BooleanField(default=True, verbose_name="Активация категории")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
@@ -22,21 +23,24 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
+        index_together = (('id', 'slug'),)
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
-    name = models.CharField(max_length=50, verbose_name='Название')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='Категория')
+    name = models.CharField(max_length=50, db_index=True, verbose_name='Название')
+    slug = models.SlugField(max_length=200, db_index=True, verbose_name="URL")
     desc = models.TextField(verbose_name='Описание')
     country = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Страна')
     town = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Город')
     year = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Год')
     volume = models.IntegerField(verbose_name='Вес, грамм')
     price = models.IntegerField(verbose_name='Цена, руб')
+    stock = models.PositiveIntegerField(verbose_name='Остаток на складе, штук')
     tag = models.CharField(max_length=100, blank=True, null=True, default=None, verbose_name='Метки')
     talk_forum = models.URLField(blank=True, null=True, default=None, verbose_name='Ссылка на форум')
     is_active = models.BooleanField(default=True, verbose_name="Активация товара")
     image = models.ImageField(upload_to='product/', verbose_name='Изображение обложки')
-    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
     def __str__(self):
         return self.name
@@ -123,9 +127,3 @@ class Profile(models.Model):  # расширяет модель User, табли
 
     def __str__(self):
         return self.user.username
-
-
-class Cart(models.Model):
-    class Meta:
-        verbose_name = 'Корзина'
-        verbose_name_plural = 'Корзины'

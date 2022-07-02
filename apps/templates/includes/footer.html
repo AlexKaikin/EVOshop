@@ -1,7 +1,7 @@
 <footer class="bg-dark mt-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-2 mt-5">
+            <div class="col-md-2 col-sm-6 col-6 mt-5">
                 <h5 class="text-bg-white">EVO</h5>
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2"><a href="{% url 'main' %}" class="nav-link p-0 link-secondary">Главная</a>
@@ -16,17 +16,17 @@
                     <li class="nav-item mb-2"><a href="#" class="nav-link p-0 link-secondary">Блог</a></li>
                 </ul>
             </div>
-            <div class="col-md-2 mt-5">
+            <div class="col-md-2 col-sm-6 col-6 mt-5">
                 <h5 class="text-bg-white">Магазин</h5>
                 <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="{% url 'catalog' 1 %}" class="nav-link p-0 link-secondary">Чай</a></li>
-                    <li class="nav-item mb-2"><a href="{% url 'catalog' 2 %}" class="nav-link p-0 link-secondary">Кофе</a>
+                    <li class="nav-item mb-2"><a href="{% url 'catalog' 'tea' %}" class="nav-link p-0 link-secondary">Чай</a></li>
+                    <li class="nav-item mb-2"><a href="{% url 'catalog' 'coffee' %}" class="nav-link p-0 link-secondary">Кофе</a>
                     </li>
-                    <li class="nav-item mb-2"><a href="{% url 'catalog' 3 %}"
+                    <li class="nav-item mb-2"><a href="{% url 'catalog' 'spices' %}"
                                                  class="nav-link p-0 link-secondary">Специи</a></li>
-                    <li class="nav-item mb-2"><a href="{% url 'catalog' 4 %}" class="nav-link p-0 link-secondary">Орехи</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 link-secondary">Крупы</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 link-secondary">Семена</a></li>
+                    <li class="nav-item mb-2"><a href="{% url 'catalog' 'nuts' %}" class="nav-link p-0 link-secondary">Орехи</a></li>
+                    <li class="nav-item mb-2"><a href="{% url 'catalog' 'grits' %}" class="nav-link p-0 link-secondary">Крупы</a></li>
+                    <li class="nav-item mb-2"><a href="{% url 'catalog' 'grain' %}" class="nav-link p-0 link-secondary">Семена</a></li>
                 </ul>
             </div>
             <div class="col-md-2 mt-5">

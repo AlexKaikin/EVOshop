@@ -10,8 +10,8 @@
                 <div class="row">
                     <div class="col">
                         <p>
-                            <a href="{% url 'edit_product' product.pk %}">Редактирова</a> /
-                            <a href="{% url 'delete_product' product.pk %}">Удалить</a>
+                            <a href="{% url 'edit_product' product.slug %}">Редактирова</a> /
+                            <a href="{% url 'delete_product' product.slug %}">Удалить</a>
                         </p>
                     </div>
                 </div>
@@ -69,29 +69,30 @@
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-                                    data-bs-target="#home-tab-pane" type="button" role="tab"
-                                    aria-controls="home-tab-pane" aria-selected="true">Описание
+                                    data-bs-target="#description-tab-pane" type="button" role="tab"
+                                    aria-controls="description-tab-pane" aria-selected="true">Описание
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link link-success" id="profile-tab" data-bs-toggle="tab"
-                                    data-bs-target="#profile-tab-pane" type="button" role="tab"
-                                    aria-controls="profile-tab-pane" aria-selected="false">Характеристики
+                                    data-bs-target="#property-tab-pane" type="button" role="tab"
+                                    aria-controls="property-tab-pane" aria-selected="false">Характеристики
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link link-success" id="contact-tab" data-bs-toggle="tab"
-                                    data-bs-target="#contact-tab-pane" type="button" role="tab"
-                                    aria-controls="contact-tab-pane" aria-selected="false">Отзывы
+                                    data-bs-target="#review-tab-pane" type="button" role="tab"
+                                    aria-controls="review-tab-pane" aria-selected="false">Отзывы
                                 ({{ product.reviews.all.count }})
                             </button>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active " id="home-tab-pane" role="tabpanel"
-                             aria-labelledby="home-tab" tabindex="0">{{ product.desc }}
+                        <div class="tab-pane fade show active " id="description-tab-pane" role="tabpanel"
+                             aria-labelledby="description-tab" tabindex="0">
+                            <div class="p-3 text">{{ product.desc }}</div>
                         </div>
-                        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
+                        <div class="tab-pane fade" id="property-tab-pane" role="tabpanel" aria-labelledby="property-tab"
                              tabindex="0">
                             <div class="col-md-6">
                                 <table class="table table-striped">
@@ -130,7 +131,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
+                        <div class="tab-pane fade" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab"
                              tabindex="0">
                             <div>
                                 {% if user.is_authenticated %}
@@ -140,7 +141,7 @@
                                         Написать отзыв
                                     </button>
                                 {% else %}
-                                    Оставить отзыв может только зарегистрированный пользователь
+                                    <div class="p-3">Написать отзыв может только зарегистрированный пользователь</div>
                                 {% endif %}
                             </div>
                             <br>
@@ -175,11 +176,11 @@
         </div>
     </section>
     <!-- Модальное окно добавить отзыв -->
-    <div class="modal fade" id="addView" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addView" tabindex="-1" aria-labelledby="ModalReview" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Добавить отзыв</h5>
+                    <h5 class="modal-title" id="ModalReview">Добавить отзыв</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">

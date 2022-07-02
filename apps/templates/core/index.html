@@ -22,7 +22,7 @@
                                 <img src="{{ category.image.url }}" alt="image">
                                 <div class="card-body-cat">
                                     <h5 class="card-title">
-                                        <a href="{% url 'catalog' category.pk %}" class="text-dark">{{ category.name }}</a>
+                                        <a href="{% url 'catalog' category.slug %}" class="text-dark">{{ category.name }}</a>
                                     </h5>
                                 </div>
                             </div>

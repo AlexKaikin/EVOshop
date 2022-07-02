@@ -15,7 +15,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <p><a href="{% url 'product' product.pk %}">Вернуться назад</a></p>
+                    <p><a href="{% url 'product' product.slug %}">Вернуться назад</a></p>
                     <h1>Редактировать товар</h1>
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
