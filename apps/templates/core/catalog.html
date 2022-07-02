@@ -37,8 +37,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title"><a href="{% url 'product' product.slug %}"
                                                               class="link-dark">{{ product.name }}</a></h5>
-                                    <div class="volume"><span class="">Вес {{ product.volume }} грамм</span></div>
-                                    <div class="price float-end">{{ product.price }} <span>руб.</span></div>
+                                    <div class="volume"><span class="text">Вес {{ product.volume }} грамм</span></div>
+                                    <div class="price float-end">{{ product.price }} <span class="text">руб.</span></div>
                                     <div class="btn-group" role="group">
                                         <a type="button" class="btn btn-success" href="{% url 'product' product.slug %}">Подробнее</a>
                                         <a type="button" class="btn btn-outline-success"><i class="bi bi-bookmarks"></i></a>

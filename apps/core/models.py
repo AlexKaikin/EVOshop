@@ -33,7 +33,7 @@ class Product(models.Model):
     town = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Город')
     year = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Год')
     volume = models.IntegerField(verbose_name='Вес, грамм')
-    price = models.IntegerField(verbose_name='Цена, руб')
+    price = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Цена, руб')
     stock = models.PositiveIntegerField(verbose_name='Остаток на складе, штук')
     tag = models.CharField(max_length=100, blank=True, null=True, default=None, verbose_name='Метки')
     talk_forum = models.URLField(blank=True, null=True, default=None, verbose_name='Ссылка на форум')

@@ -51,13 +51,17 @@
                             <span class="text-opacity">Избранное</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="btn position-relative" href="#">
+                    <li class="nav-item cart">
+                        <a class="btn position-relative" href="{% url 'cart_detail' %}">
                             <i class="bi bi-cart3"></i>
-                            <span class="position-absolute top-0 start-1 translate-middle badge rounded-pill text-bg-white">
-                                9
-                                <span class="visually-hidden">товаров</span>
-                            </span>
+                            {% with total_items=cart|length %}
+                                {% if cart|length > 0 %}
+                                    <span class="position-absolute top-0 start-1 translate-middle badge rounded-pill text-bg-white">
+                                            {{ total_items }}
+                                        <span class="visually-hidden">товаров</span>
+                                    </span>
+                                {% endif %}
+                            {% endwith %}
                             <span class="text-opacity">Корзина</span>
                         </a>
                     </li>

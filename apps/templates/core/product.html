@@ -59,8 +59,14 @@
                             <button class="btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
                         </p>
                     </div>
-                    <p class="price">{{ product.price }} <span>рублей</span></p>
-                    <p><a type="button" class="btn btn-success btnS" href="">Добавить в корзину</a></p>
+                    <p class="price">{{ product.price }} <span class="text">рублей</span></p>
+                    <p>
+                    <form action="{% url 'cart_add' product.id %}" method="POST">
+                        {% csrf_token %}
+                        {{ cart_product_form.as_p }}
+                        <input type="submit" class="btn btn-success btnS" value="Добавить в корзину">
+                    </form>
+                    </p>
                 </div>
             </div>
             <div class="row">

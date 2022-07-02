@@ -9,7 +9,8 @@ urlpatterns = [
     # apps core
     path('', views.IndexView.as_view(), name='main'),
     path('catalog/<slug:slug>/', views.CatalogView.as_view(), name='catalog'),
-    path('catalog/product/<slug:slug>/', views.ProductView.as_view(), name='product'),
+    path('catalog/product/<slug:slug>/', views.product_detail, name='product'),
+    # path('catalog/product/<slug:slug>/', views.ProductView.as_view(), name='product'),
     path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'),
     # edit
     path('add_product/', views.AddProductView.as_view(), name='add_product'),
