@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block title %}EVO магазин / Корзина{% endblock %}
+{% block description %}Товары в корзине{% endblock %}
+{% block content %}
+    <section class="paddingTopBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Корзина</h1>
+                    {% with total_items=cart|length %}
+                        {% if cart|length > 0 %}
+                            <div class="table-responsive">
+                                <table class="table table-hover cart">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Фото</th>
+                                        <th scope="col" style="min-width: 150px;">Товар</th>
+                                        <th scope="col">Кол-во</th>
+                                        <th scope="col" style="min-width: 100px;">Цена за единицу</th>
+                                        <th scope="col" style="min-width: 100px;">Цена общая</th>
+                                        <th scope="col">Удалить</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in cart %}
+                                        {% with product=item.product %}
+                                            <tr>
+                                                <td>
+                                                    <a href="{{ product.get_absolute_url }}">
+                                                        <img src="
+                                {% if product.image %}
+                                    {{ product.image.url }}
+                                {% else %}
+                                    {% static 'img/noimg.jpg' %}
+                                {% endif %}" width="50">
+                                                    </a>
+                                                </td>
+                                                <td>{{ product.name }}</td>
+                                                <td>{{ item.quantity }}</td>
+                                                <td class="num">{{ item.price }} руб.</td>
+                                                <td class="num">{{ item.total_price }} руб.</td>
+                                                <td><a href="{% url "cart_remove" product.id %}"><i
+                                                        class="bi bi-x-circle-fill"></i></a></td>
+                                            </tr>
+                                        {% endwith %}
+                                    {% endfor %}
+                                    <tr class="total">
+                                        <td>Стоимость</td>
+                                        <td colspan="3"></td>
+                                        <td class="num">{{ cart.get_total_price }} руб.</td>
+                                        <td colspan="1"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="text-end">
+                                <a href="{% url "main" %}" class="button btn btn-secondary btnS">Продолжить подбор товаров</a>
+                                <a href="{% url "order_create" %}" class="button btn btn-success btnS">
+                                    Оформить заказ
+                                </a>
+                            </p>
+                        {% else %}
+                            Ваша корзина пуста
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

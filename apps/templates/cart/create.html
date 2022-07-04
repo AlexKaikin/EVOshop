@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+{% block title %}EVO магазин / Оформить заказ{% endblock %}
+{% block description %}Оформление заказа{% endblock %}
+{% block content %}
+    <section class="paddingTopBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Оформить заказ</h1>
+                    <div class="order-info">
+                        <h3>Ваши товары</h3>
+                        <ul>
+                            {% for item in cart %}
+                                <li>
+                                    {{ item.product.name }} {{ item.quantity }} шт.
+                                    <span>{{ item.total_price }} рублей</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <p>Стоимость заказа: {{ cart.get_total_price }} рублей</p>
+                    </div>
+                    <form action="." method="post" class="order-form">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <p><input type="submit" class="btn btn-success btnS" value="Оформить заказ"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

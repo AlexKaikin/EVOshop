@@ -5,9 +5,10 @@ from django.views.generic.edit import FormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
-from .models import Category, Product, Profile
-from .forms import ProductForm, ReviewForm, UserRegisterForm, UserLoginForm
+from .models import Category, Product, Profile, OrderItem
+from .forms import ProductForm, ReviewForm, UserRegisterForm, UserLoginForm, OrderCreateForm
 from apps.cart.forms import CartAddProductForm
+from apps.cart.cart import Cart
 
 
 class IndexView(ListView):
@@ -40,6 +41,7 @@ def product_detail(request, slug):
 #     model = Product
 #     template_name = 'core/product.html'
 #     form_class = ReviewForm
+#     form_class = CartAddProductForm # нужно добавить
 #     success_message = 'Отзыв добавлен и ожидает модерации'
 #
 #     def get_success_url(self, **kwargs):
@@ -58,6 +60,27 @@ def product_detail(request, slug):
 #         self.object.author = self.request.user
 #         self.object.save()
 #         return super().form_valid(form)
+
+
+def order_create(request):
+    cart = Cart(request)
+    if request.method == 'POST':
+        form = OrderCreateForm(request.POST)
+        if form.is_valid():
+            order = form.save()
+            for item in cart:
+                OrderItem.objects.create(order=order,
+                                         product=item['product'],
+                                         price=item['price'],
+                                         quantity=item['quantity'])
+            # очистка корзины
+            cart.clear()
+            return render(request, 'cart/created.html',
+                          {'order': order})
+    else:
+        form = OrderCreateForm
+    return render(request, 'cart/create.html',
+                  {'cart': cart, 'form': form})
 
 
 class EditProductView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
@@ -122,6 +145,3 @@ def about(request):
 
 def contacts(request):
     return render(request, 'core/contacts.html')
-
-
-

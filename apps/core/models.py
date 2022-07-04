@@ -24,6 +24,7 @@ class Product(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
         index_together = (('id', 'slug'),)
+        ordering = ('-created',)
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='Категория')
     name = models.CharField(max_length=50, db_index=True, verbose_name='Название')
@@ -67,6 +68,7 @@ class Review(models.Model):
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
+        ordering = ('-created',)
 
     description = models.TextField(verbose_name='Текст')
     created = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
@@ -82,24 +84,22 @@ class Review(models.Model):
     #     return reverse('main')
 
 
-class StatusOrder(models.Model):
-    class Meta:
-        verbose_name = 'Статус'
-        verbose_name_plural = 'Статусы'
-
-    name = models.CharField(max_length=50, verbose_name='Название')
-    is_active = models.BooleanField(default=True, verbose_name="Активация товара")
-    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
-
-    def __str__(self):
-        return self.name
-
-
 class Order(models.Model):
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
+        ordering = ('-created',)
+
+    STATUS = (
+        ('1', 'Не обработан'),
+        ('2', 'Отправлен доставкой'),
+        ('3', 'Получен клиентом')
+    )
+
+    PAID = (
+        ('no', 'Нет'),
+        ('yes', 'Да')
+    )
 
     name = models.CharField(max_length=50, verbose_name='Имя')
     surname = models.CharField(max_length=50, verbose_name='Фамилия')
@@ -107,13 +107,35 @@ class Order(models.Model):
     email = models.EmailField(blank=True, null=True, default=None, verbose_name='Email')
     phone = models.CharField(max_length=50, verbose_name='Телефон')
     address = models.CharField(max_length=50, verbose_name='Адрес')
+    postal_code = models.CharField(max_length=20, verbose_name='Почтовый код')
     comment = models.TextField(blank=True, null=True, default=None, verbose_name='Комментарий')
-    status = models.ForeignKey(StatusOrder, on_delete=models.SET_NULL, null=True, verbose_name='Статус')
-    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
+    status = models.CharField(choices=STATUS, default='1', max_length=1, verbose_name='Статус заказа')
+    paid = models.CharField(choices=PAID, default='no', max_length=3, verbose_name='Оплачен')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
     def __str__(self):
-        return str(self.id)
+        return 'Order {}'.format(self.id)
+
+    def get_total_cost(self):
+        return sum(item.get_cost() for item in self.items.all())
+
+
+class OrderItem(models.Model):
+    class Meta:
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
+
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items', verbose_name='Заказ')
+    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='order_items', verbose_name='Товар')
+    price = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Стоимость')
+    quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
+
+    def __str__(self):
+        return '{}'.format(self.id)
+
+    def get_cost(self):
+        return self.price * self.quantity
 
 
 class Profile(models.Model):  # расширяет модель User, таблица для связи 1 с 1

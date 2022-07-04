@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+{% block title %}EVO магазин / Заказ оформлен{% endblock %}
+{% block description %}Ваш заказ №{{ order.id }} был успешно оформлен и передан на обработку, ожидайте звонок
+    оператора.{% endblock %}
+{% block content %}
+    <section class="paddingTopBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Заказ оформлен</h1>
+                    <p>Ваш заказ №{{ order.id }} был успешно оформлен и передан на обработку, ожидайте звонок
+                        оператора.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

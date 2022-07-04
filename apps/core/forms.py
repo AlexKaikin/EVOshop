@@ -1,4 +1,4 @@
-from .models import Product, Review
+from .models import Product, Review, Order
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
@@ -21,6 +21,12 @@ class ReviewForm(forms.ModelForm):
         widgets = {
             'description': forms.Textarea(attrs={'class': 'form-control'}),
         }
+
+
+class OrderCreateForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['surname', 'name', 'patronymic', 'address', 'postal_code', 'phone', 'email', 'comment']
 
 
 class UserRegisterForm(UserCreationForm, forms.ModelForm):

@@ -51,22 +51,18 @@
 
                     <h3>{{ product.name }}</h3>
                     <p class="text">Вес <span>{{ product.volume }}</span> грамм</p>
-                    <div class="volSum">
-                        <p>
-                            Количество
-                            <button class="btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
-                            <span> 1 </span>
-                            <button class="btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
-                        </p>
-                    </div>
-                    <p class="price">{{ product.price }} <span class="text">рублей</span></p>
                     <p>
-                    <form action="{% url 'cart_add' product.id %}" method="POST">
+                    <form id="order" action="{% url 'cart_add' product.id %}" method="POST">
                         {% csrf_token %}
-                        {{ cart_product_form.as_p }}
-                        <input type="submit" class="btn btn-success btnS" value="Добавить в корзину">
+                        <div class="number">Количество
+                            <button class="minus btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
+                            {{ cart_product_form }}
+                            <button class="plus btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
+                        </div>
                     </form>
                     </p>
+                    <p class="price">{{ product.price }} <span class="text">рублей</span></p>
+                    <p><input type="submit" form="order" class="btn btn-success btnS" value="Добавить в корзину"></p>
                 </div>
             </div>
             <div class="row">

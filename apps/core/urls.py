@@ -12,6 +12,7 @@ urlpatterns = [
     path('catalog/product/<slug:slug>/', views.product_detail, name='product'),
     # path('catalog/product/<slug:slug>/', views.ProductView.as_view(), name='product'),
     path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'),
+    path('create/', views.order_create, name='order_create'),
     # edit
     path('add_product/', views.AddProductView.as_view(), name='add_product'),
     path('catalog/product/<slug:slug>/edit_product/', views.EditProductView.as_view(), name='edit_product'),

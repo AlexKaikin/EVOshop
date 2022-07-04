@@ -39,9 +39,9 @@ input, textarea, input:active, textarea:active {
     box-shadow: 0 0 0 0 rgba(0, 123, 255, 0) !important;
 }
 
-form .btn {
-    padding: 20px 30px;
-}
+/*form .btn {*/
+/*    padding: 20px 30px;*/
+/*}*/
 
 .text,
 #home-tab-pane {
@@ -317,6 +317,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .btnS {
     padding: 20px 30px;
+    margin-bottom: 5px;
 }
 
 .pos-rel {
@@ -352,4 +353,10 @@ input[type="search"]::-webkit-search-results-decoration {
 .bi-x-circle-fill{
     color: #dc3545;
     font-size: 1.5em;
+}
+
+.number input{
+    width: 30px;
+    text-align: center;
+    border: 0;
 }

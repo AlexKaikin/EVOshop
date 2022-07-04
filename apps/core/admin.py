@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, ProductImage, StatusOrder, Order, Profile, Category, Review
+from .models import Product, ProductImage, Order, Profile, Category, Review, OrderItem
 
 
 class ProductImageInline(admin.TabularInline):
@@ -37,20 +37,17 @@ class ReviewAdmin(admin.ModelAdmin):
     list_editable = ['status']
 
 
-@admin.register(StatusOrder)
-class StatusOrderAdmin(admin.ModelAdmin):
-    list_display = ['name']
-
-    class Meta:
-        model = StatusOrder
-
-    def has_module_permission(self, request):  # скрыть модель из админки
-        return False
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    raw_id_fields = ['product']
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['surname', 'name', 'status', 'created', 'updated']
+    list_display = ['surname', 'name', 'status', 'paid', 'created', 'updated']
+    list_editable = ['status', 'paid']
+    list_filter = ['status', 'paid']
+    inlines = [OrderItemInline]
 
 
 @admin.register(Profile)
