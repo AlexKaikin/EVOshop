@@ -1,8 +1,5 @@
 from .models import Product, Review, Order
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
 
 
 class ProductForm(forms.ModelForm):
@@ -27,30 +24,3 @@ class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['surname', 'name', 'patronymic', 'address', 'postal_code', 'phone', 'email', 'comment']
-
-
-class UserRegisterForm(UserCreationForm, forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
-        widgets = {
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.TextInput(attrs={'class': 'form-control'}),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['password1'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
-        self.fields['password2'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
-
-
-class UserLoginForm(AuthenticationForm, forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'password']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
-        self.fields['username'].widget = forms.TextInput(attrs={'class': 'form-control'})

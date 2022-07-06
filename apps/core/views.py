@@ -1,12 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import Category, Product, Profile, OrderItem
-from .forms import ProductForm, ReviewForm, UserRegisterForm, UserLoginForm, OrderCreateForm
+from .forms import ProductForm, ReviewForm, OrderCreateForm
 from apps.cart.forms import CartAddProductForm
 from apps.cart.cart import Cart
 
@@ -31,35 +30,39 @@ class CatalogView(ListView):
         return object_list
 
 
-def product_detail(request, slug):
-    product = get_object_or_404(Product, slug=slug, is_active=True)
-    cart_product_form = CartAddProductForm()
-    return render(request, 'core/product.html', {'product': product, 'cart_product_form': cart_product_form})
+class ProductView(SuccessMessageMixin, FormMixin, DetailView):
+    model = Product
+    template_name = 'core/product.html'
+    form_class = ReviewForm
+    success_message = 'Отзыв добавлен и ожидает модерации'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cart_product_form'] = CartAddProductForm()
+        return context
 
-# class ProductView(SuccessMessageMixin, FormMixin, DetailView):
-#     model = Product
-#     template_name = 'core/product.html'
-#     form_class = ReviewForm
-#     form_class = CartAddProductForm # нужно добавить
-#     success_message = 'Отзыв добавлен и ожидает модерации'
-#
-#     def get_success_url(self, **kwargs):
-#         return reverse_lazy('product', kwargs={'slug': self.get_object().slug})
-#
-#     def post(self, request, *args, **kwargs):
-#         form = self.get_form()
-#         if form.is_valid():
-#             return self.form_valid(form)
-#         else:
-#             return self.form_invalid(form)
-#
-#     def form_valid(self, form):
-#         self.object = form.save(commit=False)
-#         self.object.product = self.get_object()
-#         self.object.author = self.request.user
-#         self.object.save()
-#         return super().form_valid(form)
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('product', kwargs={'slug': self.get_object().slug})
+
+    # def get_initial(self):
+    #     return {
+    #         'author': self.request.user,
+    #         'product': self.get_object()
+    #     }
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.product = self.get_object()
+        self.object.author = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
 
 def order_create(request):
@@ -115,25 +118,6 @@ def delete_product(request, slug):
     return redirect(reverse('main'))
 
 
-class RegisterForm(SuccessMessageMixin, CreateView):
-    form_class = UserRegisterForm
-    template_name = 'accounts/register.html'
-    success_url = reverse_lazy('login')
-    success_message = 'Регистрация прошла успешно, можете войти'
-
-
-class LoginForm(SuccessMessageMixin, LoginView):
-    template_name = 'accounts/login.html'
-    form_class = UserLoginForm
-    success_message = '%(username)s, добро пожаловать!'
-    success_url = reverse_lazy('main')
-
-
-class LogOutForm(LogoutView):
-    template_name = 'accounts/logout.html'
-    success_url = reverse_lazy('logout')
-
-
 class ProfileView(DetailView):
     model = Profile
     template_name = 'accounts/profile.html'
@@ -145,3 +129,7 @@ def about(request):
 
 def contacts(request):
     return render(request, 'core/contacts.html')
+
+
+def no_page(request):
+    return render(request, 'core/404-page.html')
