@@ -274,6 +274,12 @@ input[type="search"]::-webkit-search-results-decoration {
 
 #prod .card-body h5 a {
     border-radius: 0;
+    border-bottom: 1px solid transparent;
+}
+
+#prod .card-body h5 a:hover {
+    border-radius: 0;
+    border-bottom: 1px solid black;
 }
 
 #prod .nav-tabs {
@@ -348,12 +354,14 @@ input[type="search"]::-webkit-search-results-decoration {
     padding: 20px 40px;
     text-decoration: none;
     border-radius: 5px;
+    border: 0;
 }
 
 #prod .card-body-cat a:hover {
     background-color: var(--color-accent);
     color: white !important;
     transition: all ease .3s;
+    border: 0;
 }
 
 footer input {

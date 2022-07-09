@@ -1,11 +1,10 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import Category, Product, Profile, OrderItem
-from .forms import ProductForm, ReviewForm, OrderCreateForm
+from .forms import ReviewForm, OrderCreateForm
 from apps.cart.forms import CartAddProductForm
 from apps.cart.cart import Cart
 
@@ -84,38 +83,6 @@ def order_create(request):
         form = OrderCreateForm
     return render(request, 'cart/create.html',
                   {'cart': cart, 'form': form})
-
-
-class EditProductView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
-    model = Product
-    template_name = 'core/edit_product.html'
-    form_class = ProductForm
-    success_url = reverse_lazy('edit_product')
-    success_message = 'Товар обновлён'
-
-    def get_success_url(self):
-        slug = self.kwargs['slug']
-        return reverse("edit_product", kwargs={'slug': slug})
-
-
-class AddProductView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
-    model = Product
-    template_name = 'core/add_product.html'
-    form_class = ProductForm
-    success_url = reverse_lazy('add_product')
-    success_message = 'Товар добавлен'
-
-
-# class DeleteProductView(LoginRequiredMixin, DeleteView):
-#     model = Product
-#     template_name = 'delete_product'
-#     success_url = reverse_lazy('main')
-
-
-def delete_product(request, slug):
-    product = Product.objects.get(slug=slug)
-    product.delete()
-    return redirect(reverse('main'))
 
 
 class ProfileView(DetailView):
