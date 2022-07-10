@@ -136,3 +136,51 @@ LOGIN_REDIRECT_URL = 'main'
 LOGIN_URL = 'login'
 
 CART_SESSION_ID = 'cart'
+
+# журналирование
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '[%(asctime)s] %(levelname)s %(message)s',
+            'datefmt': '%Y.%m.%d %H:%M:%S',
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        },
+    },
+    'handlers': {
+        'console_prod': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+            'filters': ['require_debug_false'],
+            'level': 'ERROR',
+        },
+        'console_debug': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+            'filters': ['require_debug_true'],
+            'level': 'DEBUG',
+        },
+        'file': {
+            'class': 'logging.handlers.TimedRotatingFileHandler',  # 'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'logs/apps.log',
+            'when': 'D',  # this specifies the interval
+            'interval': 1,  # defaults to 1, only necessary for other values
+            'backupCount': 10,  # how many backup file to keep, 10 days
+            'level': 'INFO',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console_debug', 'file'],
+        },
+    },
+}

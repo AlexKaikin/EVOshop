@@ -6,6 +6,8 @@ root/
 !media/
 media/*
 !media/demo/
+!logs/
+logs/*
 
 
 # Created by https://www.gitignore.io/api/django
