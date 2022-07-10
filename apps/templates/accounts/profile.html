@@ -1,16 +1,58 @@
 {% extends 'layouts/base.html' %}
 {% block title %}EVO магазин / Профиль{% endblock %}
 {% block content %}
-    <section class="paddingTopBottom">
+    <section id="profile" class="paddingTopBottom">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h1>Профиль</h1>
-                    <p>
-                        Ник: {{ profile.user }}
-                    </p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="profile-tab" data-bs-toggle="tab"
+                                    data-bs-target="#profile-tab-pane" type="button" role="tab"
+                                    aria-controls="profile-tab-pane" aria-selected="false">Профиль
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="cashback-tab" data-bs-toggle="tab"
+                                    data-bs-target="#cashback-tab-pane" type="button" role="tab"
+                                    aria-controls="cashback-tab-pane" aria-selected="false">Кешбек
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="partner-tab" data-bs-toggle="tab"
+                                    data-bs-target="#partner-tab-pane" type="button" role="tab"
+                                    aria-controls="partner-tab-pane" aria-selected="false">Партнёрская программа
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="profile-tab-pane" role="tabpanel"
+                             aria-labelledby="profile-tab"
+                             tabindex="0">
+                            <div class="p-3 text">
+                                Ник: {{ profile.user }}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="cashback-tab-pane" role="tabpanel" aria-labelledby="cashback-tab"
+                             tabindex="0">
+                            <div class="p-3 text">
+                                Кешбек
+                                Активность:
+                                Покупки
+                                Отзывы
+                                Рейтинги
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="partner-tab-pane" role="tabpanel" aria-labelledby="partner-tab"
+                             tabindex="0">
+                            <div class="p-3 text">
+                                Статистика
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 {% endblock %}

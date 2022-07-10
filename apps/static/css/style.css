@@ -45,9 +45,17 @@ input, textarea, input:active, textarea:active {
     /*box-shadow: 0 0 0 0 rgba(0, 123, 255, 0) !important;*/
 }
 
+select option:hover {
+    background-color: var(--color-accent);
+}
+
 /*form .btn {*/
 /*    padding: 20px 30px;*/
 /*}*/
+.admin-def {
+    /*text-align: right;*/
+    margin-bottom: 10px;
+}
 
 .text,
 #home-tab-pane {
@@ -256,6 +264,10 @@ input[type="search"]::-webkit-search-results-decoration {
     padding: 10px;
 }
 
+#prod .card img {
+    border-radius: 5px;
+}
+
 #prod .card-body .btn-group {
     margin-top: 20px;
     width: 100%;
@@ -274,7 +286,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
 #prod .card-body h5 a {
     border-radius: 0;
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid white;
 }
 
 #prod .card-body h5 a:hover {
@@ -335,9 +347,11 @@ input[type="search"]::-webkit-search-results-decoration {
 
 #prod .fotorama {
     margin-bottom: 20px;
+    border-radius: 5px;
 }
 
-#prod .nav-link {
+#prod .nav-link,
+#profile .nav-link {
     color: var(--color-accent);
 }
 
@@ -417,4 +431,8 @@ footer input {
     width: 30px;
     text-align: center;
     border: 0;
+}
+
+#review-tab-pane .star {
+    padding: 0;
 }

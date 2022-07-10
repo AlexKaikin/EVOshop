@@ -9,10 +9,11 @@
             {% if user.is_superuser or user.is_staff %}
                 <div class="row">
                     <div class="col">
-                        <p>
+                        <div class="admin-def">
+                            <i class="bi bi-unlock"></i>
                             <a href="{% url 'edit_product' product.slug %}">Редактирова</a> /
                             <a href="{% url 'delete_product' product.slug %}">Удалить</a>
-                        </p>
+                        </div>
                     </div>
                 </div>
             {% endif %}
@@ -67,7 +68,6 @@
             </div>
             <div class="row">
                 <div class="col">
-
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
@@ -150,6 +150,53 @@
                             {% if product.reviews.all %}
                                 {% for review in product.reviews.all %}
                                     <div class="p-3 bg-light">
+                                        <p class="text">
+                                            {% if review.rating == '5' %}
+                                                <div class="star">
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                </div>
+                                            {% endif %}
+                                            {% if review.rating == '4' %}
+                                                <div class="star">
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star"></i>
+                                                </div>
+                                            {% endif %}
+                                            {% if review.rating == '3' %}
+                                                <div class="star">
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star"></i>
+                                                    <i class="bi bi-star"></i>
+                                                </div>
+                                            {% endif %}
+                                            {% if review.rating == '2' %}
+                                                <div class="star">
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star"></i>
+                                                    <i class="bi bi-star"></i>
+                                                    <i class="bi bi-star"></i>
+                                                </div>
+                                            {% endif %}
+                                            {% if review.rating == '1' %}
+                                                <div class="star">
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star"></i>
+                                                    <i class="bi bi-star"></i>
+                                                    <i class="bi bi-star"></i>
+                                                    <i class="bi bi-star"></i>
+                                                </div>
+                                            {% endif %}
+                                        </p>
                                         <p class="text">{{ review.description }}</p>
                                         <p class="text-end text">
                                             {% if user.is_superuser or user.is_staff %}

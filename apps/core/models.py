@@ -70,7 +70,16 @@ class Review(models.Model):
         verbose_name_plural = 'Отзывы'
         ordering = ('-created',)
 
+    RATING = (
+        ('1', 1),
+        ('2', 2),
+        ('3', 3),
+        ('4', 4),
+        ('5', 5)
+    )
+
     description = models.TextField(verbose_name='Текст')
+    rating = models.CharField(choices=RATING, max_length=1, verbose_name='Рейтинг')
     created = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews', blank=True, null=True,
                                 verbose_name='Продукт')
