@@ -9,6 +9,7 @@ from apps.core.models import Product
 
 
 class EditProductView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    """ Обновление товара """
     model = Product
     template_name = 'administrator/edit_product.html'
     form_class = ProductForm
@@ -21,6 +22,7 @@ class EditProductView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 
 
 class AddProductView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    """ Добавление товара """
     model = Product
     template_name = 'administrator/add_product.html'
     form_class = ProductForm
@@ -35,6 +37,7 @@ class AddProductView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
 
 
 def delete_product(request, slug):
+    """ Удаление товара """
     product = Product.objects.get(slug=slug)
     product.delete()
     return redirect(reverse('main'))

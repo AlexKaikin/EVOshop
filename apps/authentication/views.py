@@ -6,6 +6,7 @@ from django.views.generic import CreateView
 
 
 class RegisterForm(SuccessMessageMixin, CreateView):
+    """ Страница регистрации """
     form_class = UserRegisterForm
     template_name = 'accounts/register.html'
     success_url = reverse_lazy('login')
@@ -13,6 +14,7 @@ class RegisterForm(SuccessMessageMixin, CreateView):
 
 
 class LoginForm(SuccessMessageMixin, LoginView):
+    """ Страница авторизации """
     template_name = 'accounts/login.html'
     form_class = UserLoginForm
     success_message = '%(username)s, добро пожаловать!'
@@ -20,5 +22,6 @@ class LoginForm(SuccessMessageMixin, LoginView):
 
 
 class LogOutForm(LogoutView):
+    """ Выход  """
     template_name = 'accounts/logout.html'
     success_url = reverse_lazy('logout')

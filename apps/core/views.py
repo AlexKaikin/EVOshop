@@ -10,6 +10,7 @@ from apps.cart.cart import Cart
 
 
 class IndexView(ListView):
+    """ Главная страница """
     model = Category
     template_name = 'core/index.html'
 
@@ -19,6 +20,7 @@ class IndexView(ListView):
 
 
 class CatalogView(ListView):
+    """ Товары из категории """
     model = Product
     template_name = 'core/catalog.html'
 
@@ -30,6 +32,7 @@ class CatalogView(ListView):
 
 
 class ProductView(SuccessMessageMixin, FormMixin, DetailView):
+    """ Детализация товара """
     model = Product
     template_name = 'core/product.html'
     form_class = ReviewForm
@@ -65,6 +68,7 @@ class ProductView(SuccessMessageMixin, FormMixin, DetailView):
 
 
 def order_create(request):
+    """ Страница корзины """
     cart = Cart(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
@@ -86,30 +90,34 @@ def order_create(request):
 
 
 class SearchView(ListView):
-    # model = Product
+    """ Страница поиска """
     template_name = 'core/catalog.html'
 
     def get_queryset(self):
-        return Product.objects.filter(name__icontains=self.request.GET.get('search'), is_active=True)
+        return Product.objects.filter(name__icontains=self.request.GET.get('q'), is_active=True)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['search'] = self.request.GET.get('search')
+        context['q'] = self.request.GET.get('q')
         return context
 
 
 class ProfileView(DetailView):
+    """ Страница профиль пользователя """
     model = Profile
     template_name = 'accounts/profile.html'
 
 
 def about(request):
+    """ Страница о компании """
     return render(request, 'core/about.html')
 
 
 def contacts(request):
+    """ Страница контактов """
     return render(request, 'core/contacts.html')
 
 
 def no_page(request):
+    """ Страница 404 """
     return render(request, 'core/404-page.html')

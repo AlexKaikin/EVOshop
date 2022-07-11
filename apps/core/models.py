@@ -5,6 +5,8 @@ from django.dispatch import receiver
 
 
 class Category(models.Model):
+    """ Категории """
+
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
@@ -14,7 +16,7 @@ class Category(models.Model):
     is_active = models.BooleanField(default=True, verbose_name="Активация категории")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
-    image = models.ImageField(upload_to='category/', verbose_name='Изображение категории')
+    image = models.FileField(upload_to='category/', verbose_name='Изображение категории')
     url = models.CharField(max_length=30, blank=True, null=True, default=None, verbose_name='Ссылка на Категорию')
 
     def __str__(self):
@@ -22,6 +24,8 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    """ Товары """
+
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
@@ -41,7 +45,7 @@ class Product(models.Model):
     tag = models.CharField(max_length=100, blank=True, null=True, default=None, verbose_name='Метки')
     talk_forum = models.URLField(blank=True, null=True, default=None, verbose_name='Ссылка на форум')
     is_active = models.BooleanField(default=True, verbose_name="Активация товара")
-    image = models.ImageField(upload_to='product/', verbose_name='Изображение обложки')
+    image = models.FileField(upload_to='product/', verbose_name='Изображение обложки')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
@@ -50,6 +54,8 @@ class Product(models.Model):
 
 
 class ProductImage(models.Model):
+    """ Фотографии к товару """
+
     class Meta:
         verbose_name = 'Фотография'
         verbose_name_plural = 'Фотографии'
@@ -57,7 +63,7 @@ class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE, blank=True, null=True,
                                 default=None,
                                 verbose_name='Товар')
-    image = models.ImageField(upload_to='product/', verbose_name='Фотографии')
+    image = models.FileField(upload_to='product/', verbose_name='Фотографии')
     is_active = models.BooleanField(default=True, verbose_name="Активация изображения")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
@@ -67,6 +73,8 @@ class ProductImage(models.Model):
 
 
 class Review(models.Model):
+    """ Отзывы и рейтинги """
+
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
@@ -96,6 +104,7 @@ class Review(models.Model):
 
 
 class Profile(models.Model):  # расширяет модель User, таблица для связи 1 с 1
+    """ Профиль пользователя """
 
     class Meta:
         verbose_name = 'Пользователь'
@@ -119,6 +128,8 @@ class Profile(models.Model):  # расширяет модель User, табли
 
 
 class Order(models.Model):
+    """ Заказы """
+
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
@@ -147,7 +158,8 @@ class Order(models.Model):
     paid = models.CharField(choices=PAID, default='no', max_length=3, verbose_name='Оплачен')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Пользователь')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='orders', blank=True, null=True,
+                                verbose_name='Пользователь')
 
     def __str__(self):
         return 'Заказ №{}'.format(self.id)
@@ -157,6 +169,8 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
+    """ Товары в заказе """
+
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
@@ -171,4 +185,3 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
-

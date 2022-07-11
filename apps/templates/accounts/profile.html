@@ -39,10 +39,32 @@
                                 Ник: {{ profile.user }}
                             </div>
                         </div>
-                         <div class="tab-pane fade" id="order-tab-pane" role="tabpanel" aria-labelledby="order-tab"
+                        <div class="tab-pane fade" id="order-tab-pane" role="tabpanel" aria-labelledby="order-tab"
                              tabindex="0">
                             <div class="p-3 text">
-                                Заказы
+                                {% if profile.orders.all %}
+
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Заказ №</th>
+                                            <th scope="col">Создан</th>
+                                            <th scope="col">Статус</th>
+                                            <th scope="col">Оплата</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for order in profile.orders.all %}
+                                            <tr>
+                                                <th scope="row"> {{ order.id }}</th>
+                                                <td>{{ order.created }}</td>
+                                                <td>{{ order.status }}</td>
+                                                <td>{{ order.paid }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="tab-pane fade" id="cashback-tab-pane" role="tabpanel" aria-labelledby="cashback-tab"
