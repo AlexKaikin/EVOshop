@@ -23,11 +23,13 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg">
-                <div class="input-group">
-                    <input type="search" class="form-control form-control-dark searchF" placeholder="Поиск..."
-                           aria-label="Search" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary searchFB" type="button" id="button-addon2">Найти</button>
-                </div>
+                <form action="{% url 'search' %}" method="GET">
+                    <div class="input-group">
+                        <input type="search" class="form-control form-control-dark searchF" placeholder="Поиск..."
+                               aria-label="Search" aria-describedby="button-addon2" name="search">
+                        <button class="btn btn-outline-secondary searchFB" type="submit" id="button-addon2">Найти</button>
+                    </div>
+                </form>
             </div>
             <div class="col-lg">
                 <ul class="nav prodM">

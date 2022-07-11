@@ -10,9 +10,8 @@
                 <div class="row">
                     <div class="col">
                         <div class="admin-def">
-                            <i class="bi bi-unlock"></i>
-                            <a href="{% url 'edit_product' product.slug %}">Редактирова</a> /
-                            <a href="{% url 'delete_product' product.slug %}">Удалить</a>
+                            <a href="{% url 'edit_product' product.slug %}" class="btn btn-warning btn-sm">Редактирова</a>
+                            <a href="{% url 'delete_product' product.slug %}" class="btn btn-danger btn-sm">Удалить</a>
                         </div>
                     </div>
                 </div>

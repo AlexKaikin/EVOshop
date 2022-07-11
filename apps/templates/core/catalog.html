@@ -9,8 +9,7 @@
                 <div class="col">
                     <div class="admin-def">
                         {% if user.is_superuser or user.is_staff %}
-                            <i class="bi bi-unlock"></i>
-                            <a href="{% url 'add_product' %}">Добавить товар</a>
+                            <a href="{% url 'add_product' %}" class="btn btn-warning btn-sm">Добавить товар</a>
                         {% endif %}
                     </div>
                 </div>

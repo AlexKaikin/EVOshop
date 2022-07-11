@@ -18,7 +18,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'category', 'price', 'stock', 'is_active']
     list_editable = ['price', 'stock', 'is_active']
-    list_filter = ['category']
+    list_filter = ['category', 'is_active']
     inlines = [ProductImageInline]
     search_fields = ['name']
 
@@ -44,7 +44,7 @@ class OrderItemInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['surname', 'name', 'status', 'paid', 'created', 'updated']
+    list_display = ['surname', 'name', 'id', 'status', 'paid', 'created', 'updated']
     list_editable = ['status', 'paid']
     list_filter = ['status', 'paid']
     inlines = [OrderItemInline]

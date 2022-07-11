@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Category(models.Model):
@@ -93,6 +95,29 @@ class Review(models.Model):
     #     return reverse('main')
 
 
+class Profile(models.Model):  # расширяет модель User, таблица для связи 1 с 1
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Имя')
+    is_logged = models.BooleanField(default=True, verbose_name='Авторизован')
+
+    def __str__(self):
+        return self.user.username
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        """ Создание профиля пользователя при регистрации """
+        if created:
+            Profile.objects.create(user=instance)  # id=instance.id
+
+    @receiver
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
+
+
 class Order(models.Model):
     class Meta:
         verbose_name = 'Заказ'
@@ -122,9 +147,10 @@ class Order(models.Model):
     paid = models.CharField(choices=PAID, default='no', max_length=3, verbose_name='Оплачен')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Пользователь')
 
     def __str__(self):
-        return 'Order {}'.format(self.id)
+        return 'Заказ №{}'.format(self.id)
 
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
@@ -146,15 +172,3 @@ class OrderItem(models.Model):
     def get_cost(self):
         return self.price * self.quantity
 
-
-class Profile(models.Model):  # расширяет модель User, таблица для связи 1 с 1
-
-    class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Имя')
-    is_logged = models.BooleanField(default=True, verbose_name='Авторизован')
-
-    def __str__(self):
-        return self.user.username

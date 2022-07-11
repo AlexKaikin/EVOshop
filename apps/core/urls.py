@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from apps.core import views
 
 urlpatterns = [
@@ -6,11 +6,8 @@ urlpatterns = [
     path('catalog/<slug:slug>/', views.CatalogView.as_view(), name='catalog'),
     path('catalog/product/<slug:slug>/', views.ProductView.as_view(), name='product'),
     path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'),
-    path('create/', views.order_create, name='order_create'),
-    # # admin
-    # path('add_product/', views.AddProductView.as_view(), name='add_product'),
-    # path('catalog/product/<slug:slug>/edit_product/', views.EditProductView.as_view(), name='edit_product'),
-    # path('catalog/product/<slug:slug>/delete_product/', views.delete_product, name='delete_product'),
+    path('search/', views.SearchView.as_view(), name='search'),
+    re_path(r'^create/$', views.order_create, name='order_create'),
     # static
     path('about/', views.about, name='about'),
     path('contacts/', views.contacts, name='contacts'),

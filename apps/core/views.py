@@ -85,6 +85,19 @@ def order_create(request):
                   {'cart': cart, 'form': form})
 
 
+class SearchView(ListView):
+    # model = Product
+    template_name = 'core/catalog.html'
+
+    def get_queryset(self):
+        return Product.objects.filter(name__icontains=self.request.GET.get('search'), is_active=True)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['search'] = self.request.GET.get('search')
+        return context
+
+
 class ProfileView(DetailView):
     model = Profile
     template_name = 'accounts/profile.html'
