@@ -436,3 +436,17 @@ footer input {
 #review-tab-pane .star {
     padding: 0;
 }
+
+#paginator {
+    margin-top: 50px;
+}
+
+#paginator .page-link {
+    color: var(--color-accent);
+    padding: 10px 19px;
+}
+
+#paginator .active .page-link {
+    color: white;
+    background-color: var(--color-accent);
+}

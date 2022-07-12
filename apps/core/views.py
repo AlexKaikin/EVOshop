@@ -22,6 +22,7 @@ class IndexView(ListView):
 class CatalogView(ListView):
     """ Товары из категории """
     model = Product
+    paginate_by = 9
     template_name = 'core/catalog.html'
 
     def get_queryset(self):
