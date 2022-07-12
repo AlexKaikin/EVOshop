@@ -7,8 +7,7 @@
       "slug": "tea",
       "image": "demo/category/cat1.jpg",
       "created": "2022-06-29",
-      "updated": "2022-06-29",
-      "url": "catalog/tea/"
+      "updated": "2022-06-29"
     }
   },
   {
@@ -19,8 +18,7 @@
       "slug": "coffee",
       "image": "demo/category/cat2.jpg",
       "created": "2022-06-29",
-      "updated": "2022-06-29",
-      "url": "catalog/coffee/"
+      "updated": "2022-06-29"
     }
   },
   {
@@ -31,8 +29,7 @@
       "slug": "spices",
       "image": "demo/category/cat3.jpg",
       "created": "2022-06-29",
-      "updated": "2022-06-29",
-      "url": "catalog/spices/"
+      "updated": "2022-06-29"
     }
   },
   {
@@ -43,8 +40,7 @@
       "slug": "nuts",
       "image": "demo/category/cat4.jpg",
       "created": "2022-06-29",
-      "updated": "2022-06-29",
-      "url": "/"
+      "updated": "2022-06-29"
     }
   },
   {
@@ -55,8 +51,7 @@
       "slug": "grits",
       "image": "demo/category/cat5.jpg",
       "created": "2022-06-29",
-      "updated": "2022-06-29",
-      "url": "/"
+      "updated": "2022-06-29"
     }
   },
   {
@@ -67,8 +62,7 @@
       "slug": "grain",
       "image": "demo/category/cat6.jpg",
       "created": "2022-06-29",
-      "updated": "2022-06-29",
-      "url": "/"
+      "updated": "2022-06-29"
     }
   },
   {

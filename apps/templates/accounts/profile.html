@@ -50,7 +50,7 @@
                                             <th scope="col">Заказ №</th>
                                             <th scope="col">Создан</th>
                                             <th scope="col">Статус</th>
-                                            <th scope="col">Оплата</th>
+                                            <th scope="col">Оплачен</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -58,8 +58,8 @@
                                             <tr>
                                                 <th scope="row"> {{ order.id }}</th>
                                                 <td>{{ order.created }}</td>
-                                                <td>{{ order.status }}</td>
-                                                <td>{{ order.paid }}</td>
+                                                <td>{{ order.get_status_display }}</td>
+                                                <td>{{ order.get_paid_display }}</td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>

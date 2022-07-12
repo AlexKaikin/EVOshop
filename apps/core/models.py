@@ -4,6 +4,19 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+def get_category_file_path(instance, filename):
+    # return os.path.join("%s" % instance.slug, filename)
+    return '{0}/{1}/{2}'.format('category', instance.slug, filename)
+
+
+def get_product_file_path(instance, filename):
+    return '{0}/{1}/{2}'.format('product', instance.slug, filename)
+
+
+def get_product_image_file_path(instance, filename):
+    return '{0}/{1}/{2}'.format('product', instance.product.slug, filename)
+
+
 class Category(models.Model):
     """ Категории """
 
@@ -16,8 +29,7 @@ class Category(models.Model):
     is_active = models.BooleanField(default=True, verbose_name="Активация категории")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
-    image = models.FileField(upload_to='category/', verbose_name='Изображение категории')
-    url = models.CharField(max_length=30, blank=True, null=True, default=None, verbose_name='Ссылка на Категорию')
+    image = models.FileField(upload_to=get_category_file_path, verbose_name='Изображение категории')
 
     def __str__(self):
         return self.name
@@ -45,7 +57,7 @@ class Product(models.Model):
     tag = models.CharField(max_length=100, blank=True, null=True, default=None, verbose_name='Метки')
     talk_forum = models.URLField(blank=True, null=True, default=None, verbose_name='Ссылка на форум')
     is_active = models.BooleanField(default=True, verbose_name="Активация товара")
-    image = models.FileField(upload_to='product/', verbose_name='Изображение обложки')
+    image = models.FileField(upload_to=get_product_file_path, verbose_name='Изображение обложки')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
@@ -63,7 +75,7 @@ class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE, blank=True, null=True,
                                 default=None,
                                 verbose_name='Товар')
-    image = models.FileField(upload_to='product/', verbose_name='Фотографии')
+    image = models.FileField(upload_to=get_product_image_file_path, verbose_name='Фотографии')
     is_active = models.BooleanField(default=True, verbose_name="Активация изображения")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
