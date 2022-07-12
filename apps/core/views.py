@@ -7,29 +7,28 @@ from .models import Category, Product, Profile, OrderItem
 from .forms import ReviewForm, OrderCreateForm
 from apps.cart.forms import CartAddProductForm
 from apps.cart.cart import Cart
+from .services.index_service import get_category_list
+from .services.catalog_service import get_product_list
+from .services.search_service import get_search_list
 
 
 class IndexView(ListView):
-    """ Главная страница """
+    """ Главная страница, вывод категорий """
     model = Category
     template_name = 'core/index.html'
 
     def get_queryset(self):
-        object_list = Category.objects.filter(is_active=True)
-        return object_list
+        return get_category_list()
 
 
 class CatalogView(ListView):
-    """ Товары из категории """
+    """ Вывод товаров из категории """
     model = Product
     paginate_by = 9
     template_name = 'core/catalog.html'
 
     def get_queryset(self):
-        slug = self.kwargs['slug']
-        object_list = Category.objects.get(slug=slug)
-        object_list = object_list.products.filter(is_active=True)
-        return object_list
+        return get_product_list(self)
 
 
 class ProductView(SuccessMessageMixin, FormMixin, DetailView):
@@ -91,11 +90,11 @@ def order_create(request):
 
 
 class SearchView(ListView):
-    """ Страница поиска """
+    """ Вывод товаров по совпадению слова в заголовке товара """
     template_name = 'core/catalog.html'
 
     def get_queryset(self):
-        return Product.objects.filter(name__icontains=self.request.GET.get('q'), is_active=True)
+        return get_search_list(self)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -122,3 +121,4 @@ def contacts(request):
 def no_page(request):
     """ Страница 404 """
     return render(request, 'core/404-page.html')
+
