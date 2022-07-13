@@ -1,6 +1,7 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 
-from .models import Product, ProductImage, Order, Profile, Category, Review, OrderItem
+from .models import Profile, Product, ProductImage, Order, Category, Review, OrderItem
 
 
 class ProductImageInline(admin.TabularInline):
@@ -51,5 +52,27 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 @admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'is_logged']
+class ProfileAdmin(UserAdmin):
+    # model = Profile
+    # add_fieldsets = (
+    #     *UserAdmin.add_fieldsets,
+    #     (
+    #         'Расширение',
+    #         {
+    #             'fields': (
+    #                 'avatar',
+    #             ),
+    #         },
+    #     ),
+    # )
+    fieldsets = (
+        *UserAdmin.fieldsets,  # original form fieldsets, expanded
+        (                      # new fieldset added on to the bottom
+            'Расширение',  # group heading of your choice; set to None for a blank space instead of a header
+            {
+                'fields': (
+                    'avatar',
+                ),
+            },
+        ),
+    )

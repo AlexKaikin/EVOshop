@@ -1,12 +1,11 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
+from apps.core.models import Profile
 
 
 class UserRegisterForm(UserCreationForm, forms.ModelForm):
     class Meta:
-        model = User
+        model = Profile
         fields = ['username', 'email', 'password1', 'password2']
         widgets = {
             'description': forms.Textarea(attrs={'class': 'form-control'}),
@@ -22,7 +21,7 @@ class UserRegisterForm(UserCreationForm, forms.ModelForm):
 
 class UserLoginForm(AuthenticationForm, forms.ModelForm):
     class Meta:
-        model = User
+        model = Profile
         fields = ['username', 'password']
 
     def __init__(self, *args, **kwargs):

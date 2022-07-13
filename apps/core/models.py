@@ -1,7 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+from django.contrib.auth.models import AbstractUser
 
 
 def get_category_file_path(instance, filename):
@@ -15,6 +13,23 @@ def get_product_file_path(instance, filename):
 
 def get_product_image_file_path(instance, filename):
     return '{0}/{1}/{2}'.format('product', instance.product.slug, filename)
+
+
+def get_avatar_file_path(instance, filename):
+    return '{0}/{1}/{2}'.format('profile', instance.username, filename)
+
+
+class Profile(AbstractUser):
+    """ Профиль пользователя """
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
+    avatar = models.FileField(upload_to=get_avatar_file_path, null=True, blank=True, verbose_name='Ваше фото')
+
+    def __str__(self):
+        return self.username
 
 
 class Category(models.Model):
@@ -105,7 +120,7 @@ class Review(models.Model):
     created = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews', blank=True, null=True,
                                 verbose_name='Продукт')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Автор')
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Автор')
     status = models.BooleanField(default=False, verbose_name='Видимость отзыва')
 
     # def __str__(self):
@@ -113,30 +128,6 @@ class Review(models.Model):
     #
     # def get_absolute_url(self):
     #     return reverse('main')
-
-
-class Profile(models.Model):  # расширяет модель User, таблица для связи 1 с 1
-    """ Профиль пользователя """
-
-    class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Имя')
-    is_logged = models.BooleanField(default=True, verbose_name='Авторизован')
-
-    def __str__(self):
-        return self.user.username
-
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        """ Создание профиля пользователя при регистрации """
-        if created:
-            Profile.objects.create(user=instance)  # id=instance.id
-
-    @receiver
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
 
 
 class Order(models.Model):
