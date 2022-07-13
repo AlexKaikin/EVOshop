@@ -182,9 +182,17 @@ input[type="search"]::-webkit-search-results-decoration {
     padding: 10px 20px;
 }
 
+#search .searchFF {
+    border: 1px solid white;
+    background-color: white;
+    color: var(--color-accent);
+    padding: 10px 20px;
+    border-right: 2px solid rgb(0 0 0 / 40%);
+}
+
 @media (max-width: 992px) {
     #search .prodM {
-        margin-top: 20px;
+        margin-bottom: 30px;
     }
 }
 
@@ -410,6 +418,10 @@ footer input {
 #prod .sort span {
     float: left;
     margin: 3px 10px 0 0;
+}
+
+#prod .minus {
+    margin-left: 10px;
 }
 
 #prod .sort select {

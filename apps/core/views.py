@@ -91,6 +91,7 @@ def order_create(request):
 
 class SearchView(ListView):
     """ Вывод товаров по совпадению слова в заголовке товара """
+    paginate_by = 9
     template_name = 'core/catalog.html'
 
     def get_queryset(self):

@@ -8,12 +8,12 @@
             <div class="row">
                 <div class="col">
                     <h1>Корзина</h1>
-                    {% if user.is_authenticated %}
-                    {% else %}
-                        <p>Оформить заказ могут только зарегистрированные пользователи</p>
-                    {% endif %}
                     {% with total_items=cart|length %}
                         {% if cart|length > 0 %}
+                            {% if user.is_authenticated %}
+                            {% else %}
+                                <p>Оформить заказ может только зарегистрированный пользователь</p>
+                            {% endif %}
                             <div class="table-responsive">
                                 <table class="table table-hover cart">
                                     <thead>
@@ -59,7 +59,8 @@
                                 </table>
                             </div>
                             <p class="text-end">
-                                <a href="{% url "main" %}" class="button btn btn-secondary btnS">Продолжить подбор товаров</a>
+                                <a href="{% url "main" %}" class="button btn btn-secondary btnS">Продолжить подбор
+                                    товаров</a>
                                 {% if user.is_authenticated %}
                                     <a href="{% url "order_create" %}" class="button btn btn-success btnS">
                                         Оформить заказ

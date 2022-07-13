@@ -22,16 +22,7 @@
 <section id="search" class="navClass text-bg-success text-white">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg">
-                <form action="{% url 'search' %}" method="GET">
-                    <div class="input-group">
-                        <input type="search" class="form-control form-control-dark searchF" placeholder="Поиск..."
-                               aria-label="Search" aria-describedby="button-addon2" name="q">
-                        <button class="btn btn-outline-secondary searchFB" type="submit">Найти</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-lg">
+            <div class="col-lg d-flex justify-content-center order-lg-2">
                 <ul class="nav prodM">
                     <li class="nav-item">
                         <a class="btn position-relative" href="#">
@@ -68,6 +59,21 @@
                         </a>
                     </li>
                 </ul>
+            </div>
+            <div class="col-lg">
+                <form action="{% url 'search' %}" method="GET">
+                    <div class="input-group">
+                        <input type="search" class="form-control form-control-dark searchF"
+                               placeholder="Поиск товара..."
+                               aria-label="Search" aria-describedby="button-addon2" name="q">
+                        <button class="btn btn-outline-secondary searchFF" type="button">
+                            <i class="bi bi-funnel"></i>
+                        </button>
+                        <button class="btn btn-outline-secondary searchFB" type="submit">
+                            <i class="bi bi-search"></i> Найти
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
