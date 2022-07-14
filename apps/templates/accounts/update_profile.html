@@ -1,0 +1,29 @@
+{% extends 'layouts/base.html' %}
+{% load  static %}
+{% block title %}EVO магазин / Обновить профиль{% endblock %}
+{% block content %}
+    <section id="prod" class="paddingTopBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><a href="{% url 'profile' profile.pk %}">Вернуться в профиль</a></p>
+                    <h1>Обновить профиль</h1>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success btnS">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

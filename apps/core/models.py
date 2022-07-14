@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 
 
 def get_category_file_path(instance, filename):
@@ -15,23 +14,6 @@ def get_product_image_file_path(instance, filename):
     return '{0}/{1}/{2}'.format('product', instance.product.slug, filename)
 
 
-def get_avatar_file_path(instance, filename):
-    return '{0}/{1}/{2}'.format('profile', instance.username, filename)
-
-
-class Profile(AbstractUser):
-    """ Профиль пользователя """
-
-    class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
-
-    avatar = models.FileField(upload_to=get_avatar_file_path, null=True, blank=True, verbose_name='Ваше фото')
-
-    def __str__(self):
-        return self.username
-
-
 class Category(models.Model):
     """ Категории """
 
@@ -39,9 +21,14 @@ class Category(models.Model):
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
+    STATUS = (
+        ('no', 'Нет'),
+        ('yes', 'Да')
+    )
+
     name = models.CharField(max_length=20, db_index=True, verbose_name='Категория')
     slug = models.SlugField(max_length=200, db_index=True, unique=True, verbose_name="URL")
-    is_active = models.BooleanField(default=True, verbose_name="Активация категории")
+    status = models.CharField(choices=STATUS, default='yes', max_length=3, verbose_name="Опубликована")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
     image = models.FileField(upload_to=get_category_file_path, verbose_name='Изображение категории')
@@ -59,6 +46,11 @@ class Product(models.Model):
         index_together = (('id', 'slug'),)
         ordering = ('-created',)
 
+    STATUS = (
+        ('no', 'Нет'),
+        ('yes', 'Да')
+    )
+
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='Категория')
     name = models.CharField(max_length=50, db_index=True, verbose_name='Название')
     slug = models.SlugField(max_length=200, db_index=True, verbose_name="URL")
@@ -71,7 +63,7 @@ class Product(models.Model):
     stock = models.PositiveIntegerField(verbose_name='Остаток на складе, штук')
     tag = models.CharField(max_length=100, blank=True, null=True, default=None, verbose_name='Метки')
     talk_forum = models.URLField(blank=True, null=True, default=None, verbose_name='Ссылка на форум')
-    is_active = models.BooleanField(default=True, verbose_name="Активация товара")
+    status = models.CharField(choices=STATUS, default='yes', max_length=3, verbose_name="Опубликован")
     image = models.FileField(upload_to=get_product_file_path, verbose_name='Изображение обложки')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
@@ -87,11 +79,16 @@ class ProductImage(models.Model):
         verbose_name = 'Фотография'
         verbose_name_plural = 'Фотографии'
 
+    STATUS = (
+        ('no', 'Нет'),
+        ('yes', 'Да')
+    )
+
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE, blank=True, null=True,
                                 default=None,
                                 verbose_name='Товар')
     image = models.FileField(upload_to=get_product_image_file_path, verbose_name='Фотографии')
-    is_active = models.BooleanField(default=True, verbose_name="Активация изображения")
+    status = models.CharField(choices=STATUS, default='yes', max_length=3, verbose_name="Опубликована")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
 
@@ -115,13 +112,21 @@ class Review(models.Model):
         ('5', 5)
     )
 
+    STATUS = (
+        ('1', 'На проверке'),
+        ('2', 'Опубликован'),
+        ('3', 'Отклонён')
+    )
+
     description = models.TextField(verbose_name='Текст')
     rating = models.CharField(choices=RATING, max_length=1, verbose_name='Рейтинг')
     created = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews', blank=True, null=True,
                                 verbose_name='Продукт')
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Автор')
-    status = models.BooleanField(default=False, verbose_name='Видимость отзыва')
+    profile = models.ForeignKey('authentication.Profile', on_delete=models.CASCADE, related_name='reviews',
+                                blank=True, null=True,
+                                verbose_name='Автор')
+    status = models.CharField(choices=STATUS, default='1', max_length=1, verbose_name='Статус отзыва')
 
     # def __str__(self):
     #     return self.description
@@ -161,7 +166,8 @@ class Order(models.Model):
     paid = models.CharField(choices=PAID, default='no', max_length=3, verbose_name='Оплачен')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='orders', blank=True, null=True,
+    profile = models.ForeignKey('authentication.Profile', on_delete=models.CASCADE, related_name='orders',
+                                blank=True, null=True,
                                 verbose_name='Пользователь')
 
     def __str__(self):

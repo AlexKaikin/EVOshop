@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from .models import Category, Product, Profile, OrderItem
+from .models import Category, Product, OrderItem
 from .forms import ReviewForm, OrderCreateForm
 from apps.cart.forms import CartAddProductForm
 from apps.cart.cart import Cart
@@ -55,7 +55,7 @@ class ProductView(SuccessMessageMixin, FormMixin, DetailView):
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.product = self.get_object()
-        self.object.author = self.request.user
+        self.object.profile = self.request.user
         self.object.save()
         return super().form_valid(form)
 
@@ -101,12 +101,6 @@ class SearchView(ListView):
         context = super().get_context_data(*args, **kwargs)
         context['q'] = self.request.GET.get('q')
         return context
-
-
-class ProfileView(DetailView):
-    """ Страница профиль пользователя """
-    model = Profile
-    template_name = 'accounts/profile.html'
 
 
 def about(request):

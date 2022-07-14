@@ -119,6 +119,16 @@ input[type="search"]::-webkit-search-results-decoration {
     padding-bottom: 5%;
 }
 
+#profile-tab-pane .avatar{
+    width: 200px;
+    height: 200px;
+}
+
+#profile-tab-pane .avatar img{
+    border-radius: 5px;
+    width: 100%;
+}
+
 #navbar {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -126,6 +136,8 @@ input[type="search"]::-webkit-search-results-decoration {
 
 #navbar .navbar-brand {
     letter-spacing: 5px;
+    font-size: 50px;
+    font-weight: 100;
 }
 
 .dropdown-menu[data-bs-popper] {

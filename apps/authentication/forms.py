@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
-from apps.core.models import Profile
+from .models import Profile
 
 
 class UserRegisterForm(UserCreationForm, forms.ModelForm):
@@ -28,3 +28,12 @@ class UserLoginForm(AuthenticationForm, forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
         self.fields['username'].widget = forms.TextInput(attrs={'class': 'form-control'})
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['username', 'avatar']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+        }

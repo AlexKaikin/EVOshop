@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% load  static %}
 {% block title %}EVO магазин / Профиль{% endblock %}
 {% block content %}
     <section id="profile" class="paddingTopBottom">
@@ -19,9 +20,15 @@
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="cashback-tab" data-bs-toggle="tab"
-                                    data-bs-target="#cashback-tab-pane" type="button" role="tab"
-                                    aria-controls="cashback-tab-pane" aria-selected="false">Кешбек
+                            <button class="nav-link" id="review-tab" data-bs-toggle="tab"
+                                    data-bs-target="#review-tab-pane" type="button" role="tab"
+                                    aria-controls="review-tab-pane" aria-selected="false">Отзывы
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="wallet-tab" data-bs-toggle="tab"
+                                    data-bs-target="#wallet-tab-pane" type="button" role="tab"
+                                    aria-controls="cashback-tab-pane" aria-selected="false">Кошелёк
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
@@ -35,15 +42,26 @@
                         <div class="tab-pane fade show active" id="profile-tab-pane" role="tabpanel"
                              aria-labelledby="profile-tab"
                              tabindex="0">
-                            <div class="p-3 text">
-                                Ник: {{ profile.user }}
+                            <div class="p-3 text row">
+                                <div class="col-lg-3 mb-5">
+                                    <div class="avatar">
+                                        {% if profile.avatar %}
+                                            <img src="{{ profile.avatar.url }}" alt="">
+                                        {% else %}
+                                            <img src="{% static 'img/no_avatar.png' %}" alt="No avatar">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 mb-5">
+                                    <p>Ник: {{ profile.username }}</p>
+                                    <a href="{% url 'update_profile' profile.pk %}" class="btn btn-warning">Обновить</a>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="order-tab-pane" role="tabpanel" aria-labelledby="order-tab"
                              tabindex="0">
                             <div class="p-3 text">
                                 {% if profile.orders.all %}
-
                                     <table class="table table-hover">
                                         <thead>
                                         <tr>
@@ -67,14 +85,40 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="cashback-tab-pane" role="tabpanel" aria-labelledby="cashback-tab"
+                        <div class="tab-pane fade" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab"
                              tabindex="0">
                             <div class="p-3 text">
-                                Кешбек
-                                Активность:
-                                Покупки
-                                Отзывы
-                                Рейтинги
+                                {% if profile.reviews.all %}
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Товар</th>
+                                            <th scope="col">Отзыв</th>
+                                            <th scope="col">Рейтинг</th>
+                                            <th scope="col">Статус</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for review in profile.reviews.all %}
+                                            <tr>
+                                                <td>
+                                                    <a href="{% url 'product' review.product.slug %}">{{ review.product }}</a>
+                                                </td>
+                                                <td>{{ review.description|truncatechars:'20' }}</td>
+                                                <td>{{ review.rating }}</td>
+                                                <td>{{ review.get_status_display }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="wallet-tab-pane" role="tabpanel" aria-labelledby="wallet-tab"
+                             tabindex="0">
+                            <div class="p-3 text">
+                                <p>Баланс 0</p>
+                                <p>Транзакции</p>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="partner-tab-pane" role="tabpanel" aria-labelledby="partner-tab"
@@ -86,7 +130,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
 {% endblock %}

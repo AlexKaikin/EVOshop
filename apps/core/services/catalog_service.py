@@ -9,6 +9,6 @@ def get_product_list(self):
     """
     slug = self.kwargs['slug']
     category = Category.objects.get(slug=slug)
-    product_list = category.products.filter(is_active=True)
+    product_list = category.products.filter(status='yes')
 
     return product_list

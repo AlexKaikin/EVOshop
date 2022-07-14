@@ -5,7 +5,6 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='main'),
     path('catalog/<slug:slug>/', views.CatalogView.as_view(), name='catalog'),
     path('catalog/product/<slug:slug>/', views.ProductView.as_view(), name='product'),
-    path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'),
     path('search/', views.SearchView.as_view(), name='search'),
     re_path(r'^create/$', views.order_create, name='order_create'),
     # static

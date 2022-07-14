@@ -31,7 +31,7 @@
                                         <td><a href="{% url 'update_review' review.id %}"
                                                class="text-dark">{{ review.description|truncatechars:'20' }}</a></td>
                                         <td>{{ review.rating }}</td>
-                                        <td>{{ review.status }}</td>
+                                        <td>{{ review.get_status_display }}</td>
                                         <td>{{ review.author }}</td>
                                         <td>{{ review.product }}</td>
                                         <td><a href="{% url 'delete_review' review.id %}" class="btn btn-danger btn-sm">Удалить</a></td>

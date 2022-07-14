@@ -1,7 +1,6 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 
-from .models import Profile, Product, ProductImage, Order, Category, Review, OrderItem
+from .models import Product, ProductImage, Order, Category, Review, OrderItem
 
 
 class ProductImageInline(admin.TabularInline):
@@ -11,22 +10,22 @@ class ProductImageInline(admin.TabularInline):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'is_active']
-    list_editable = ['is_active']
+    list_display = ['name', 'status']
+    list_editable = ['status']
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'category', 'price', 'stock', 'is_active']
-    list_editable = ['price', 'stock', 'is_active']
-    list_filter = ['category', 'is_active']
+    list_display = ['name', 'category', 'price', 'stock', 'status']
+    list_editable = ['price', 'stock', 'status']
+    list_filter = ['category', 'status']
     inlines = [ProductImageInline]
     search_fields = ['name']
 
 
 @admin.register(ProductImage)
 class ProductImageAdmin(admin.ModelAdmin):
-    list_display = ['product', 'is_active', 'created']
+    list_display = ['product', 'status', 'created']
 
     def has_module_permission(self, request):  # скрыть модель из админки
         return False
@@ -34,7 +33,7 @@ class ProductImageAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ['description', 'author', 'status']
+    list_display = ['description', 'profile', 'status']
     list_editable = ['status']
 
 
@@ -50,17 +49,3 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ['status', 'paid']
     inlines = [OrderItemInline]
 
-
-@admin.register(Profile)
-class ProfileAdmin(UserAdmin):
-    fieldsets = (
-        *UserAdmin.fieldsets,  # original form fieldsets, expanded
-        (                      # new fieldset added on to the bottom
-            'Расширение',  # group heading of your choice; set to None for a blank space instead of a header
-            {
-                'fields': (
-                    'avatar',
-                ),
-            },
-        ),
-    )

@@ -30,8 +30,7 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">Название</th>
                                     <th scope="col">Категория</th>
-                                    <th scope="col">Активна</th>
-                                    <th scope="col">URL</th>
+                                    <th scope="col">Опубликован</th>
                                     <th scope="col">&nbsp;</th>
                                 </tr>
                                 </thead>
@@ -42,8 +41,7 @@
                                         <td><a href="{% url 'update_product' product.slug %}"
                                                class="text-dark">{{ product.name }}</a></td>
                                         <td>{{ product.category }}</td>
-                                        <td>{{ product.is_active }}</td>
-                                        <td>{{ product.slug }}</td>
+                                        <td>{{ product.get_status_display }}</td>
                                         <td><a href="{% url 'delete_product' product.slug %}" class="btn btn-danger btn-sm">Удалить</a></td>
                                     </tr>
                                 {% endfor %}

@@ -9,6 +9,7 @@ class CategoryForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'slug': forms.TextInput(attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-select'}),
         }
 
 
@@ -29,6 +30,7 @@ class ProductForm(forms.ModelForm):
             'stock': forms.TextInput(attrs={'class': 'form-control'}),
             'tag': forms.TextInput(attrs={'class': 'form-control'}),
             'talk_forum': forms.TextInput(attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-select'}),
         }
 
 
@@ -41,6 +43,7 @@ class ReviewForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'product': forms.Select(attrs={'class': 'form-select'}),
             'author': forms.Select(attrs={'class': 'form-select'}),
+            'status': forms.Select(attrs={'class': 'form-select'}),
         }
 
 
