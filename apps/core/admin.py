@@ -53,18 +53,6 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(UserAdmin):
-    # model = Profile
-    # add_fieldsets = (
-    #     *UserAdmin.add_fieldsets,
-    #     (
-    #         'Расширение',
-    #         {
-    #             'fields': (
-    #                 'avatar',
-    #             ),
-    #         },
-    #     ),
-    # )
     fieldsets = (
         *UserAdmin.fieldsets,  # original form fieldsets, expanded
         (                      # new fieldset added on to the bottom

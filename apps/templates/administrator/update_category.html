@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load  static %}
-{% block title %}EVO магазин / Редактировать товар{% endblock %}
+{% block title %}EVO магазин / Обновить категорию{% endblock %}
 {% block content %}
     <section id="prod" class="paddingTopBottom">
         <div class="container">
@@ -15,8 +15,8 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <p><a href="{% url 'product' product.slug %}">Вернуться назад</a></p>
-                    <h1>Редактировать товар</h1>
+                    <p><a href="{% url 'admin_category' %}">Вернуться в панель администратора</a></p>
+                    <h1>Обновить категорию</h1>
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_p }}

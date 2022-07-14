@@ -1,0 +1,49 @@
+{% extends 'layouts/base.html' %}
+{% load  static %}
+{% block title %}EVO магазин / Администрирование отзывов{% endblock %}
+{% block content %}
+    <section id="administrator" class="paddingTopBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-5">
+                    {% include 'includes/sidebar.html' %}
+                </div>
+                <div class="col-md-9">
+                    <h3>Администрирование отзывов</h3>
+                    {% if object_list %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Отзыв</th>
+                                    <th scope="col">Рейтинг</th>
+                                    <th scope="col">Статус</th>
+                                    <th scope="col">Автор</th>
+                                    <th scope="col">Товар</th>
+                                    <th scope="col">&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for review in object_list %}
+                                    <tr>
+                                        <th scope="row">{{ review.id }}</th>
+                                        <td><a href="{% url 'update_review' review.id %}"
+                                               class="text-dark">{{ review.description|truncatechars:'20' }}</a></td>
+                                        <td>{{ review.rating }}</td>
+                                        <td>{{ review.status }}</td>
+                                        <td>{{ review.author }}</td>
+                                        <td>{{ review.product }}</td>
+                                        <td><a href="{% url 'delete_review' review.id %}" class="btn btn-danger btn-sm">Удалить</a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                    {% include 'includes/paginator.html' %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

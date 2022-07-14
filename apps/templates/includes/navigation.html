@@ -63,6 +63,9 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                         {% if user.is_authenticated %}
                             <li><a class="dropdown-item" href="{% url 'profile' user.id %}">Профиль</a></li>
+                            {% if user.is_superuser or user.is_staff %}
+                                <li><a class="dropdown-item" href="{% url 'administrator' %}">Панель администратора</a></li>
+                            {% endif %}
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Выход</a></li>
                         {% else %}
                             <li><a class="dropdown-item" href="{% url 'login' %}">Вход</a></li>

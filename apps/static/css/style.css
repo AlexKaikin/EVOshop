@@ -53,7 +53,6 @@ select option:hover {
 /*    padding: 20px 30px;*/
 /*}*/
 .admin-def {
-    text-align: right;
     margin-bottom: 10px;
 }
 
@@ -127,6 +126,11 @@ input[type="search"]::-webkit-search-results-decoration {
 
 #navbar .navbar-brand {
     letter-spacing: 5px;
+}
+
+.dropdown-menu[data-bs-popper] {
+    left: inherit;
+    right: 0;
 }
 
 #search {
@@ -461,4 +465,17 @@ footer input {
 #paginator .active .page-link {
     color: white;
     background-color: var(--color-accent);
+}
+
+#administrator .list-group a{
+    text-decoration: none;
+}
+
+#administrator .list-group-item.active{
+    background-color: var(--color-accent);
+    color: white;
+}
+
+#administrator .list-group-item.active a{
+    color: white;
 }

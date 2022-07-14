@@ -1,18 +1,18 @@
 {% extends 'layouts/base.html' %}
 {% load  static %}
-{% block title %}EVO магазин / Добавить товар{% endblock %}
+{% block title %}EVO магазин / Добавить категорию{% endblock %}
 {% block content %}
     <section id="prod" class="paddingTopBottom">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p><a href="{% url 'admin_product' %}">Вернуться в панель администратора</a></p>
+                    <p><a href="{% url 'admin_category' %}">Вернуться в панель администратора</a></p>
                     {% if messages %}
                         {% for message in messages %}
                             <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
                         {% endfor %}
                     {% endif %}
-                    <h1>Добавить товар</h1>
+                    <h1>Добавить Категорию</h1>
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_p }}
