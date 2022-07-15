@@ -1,16 +1,20 @@
 from django.db import models
+from transliterate import translit
 
 
 def get_category_file_path(instance, filename):
     # return os.path.join("%s" % instance.slug, filename)
+    filename = translit(filename, reversed=True)
     return '{0}/{1}/{2}'.format('category', instance.slug, filename)
 
 
 def get_product_file_path(instance, filename):
+    filename = translit(filename, reversed=True)
     return '{0}/{1}/{2}'.format('product', instance.slug, filename)
 
 
 def get_product_image_file_path(instance, filename):
+    filename = translit(filename, reversed=True)
     return '{0}/{1}/{2}'.format('product', instance.product.slug, filename)
 
 
