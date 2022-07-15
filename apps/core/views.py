@@ -43,36 +43,33 @@ class ProductView(SuccessMessageMixin, FormMixin, DetailView):
         context['cart_product_form'] = CartAddProductForm()
         return context
 
-    def get_success_url(self, **kwargs):
-        return reverse_lazy('product', kwargs={'slug': self.get_object().slug})
-
-    # def get_initial(self):
-    #     return {
-    #         'author': self.request.user,
-    #         'product': self.get_object()
-    #     }
-
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.product = self.get_object()
-        self.object.profile = self.request.user
-        self.object.save()
-        return super().form_valid(form)
+    def get_initial(self):
+        return {
+            'profile': self.request.user,
+            'product': self.get_object()
+        }
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
+            form.save()
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
 
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('product', kwargs={'slug': self.get_object().slug})
+
 
 def order_create(request):
-    """ Страница корзины """
+    """ Страница оформления заказа """
     cart = Cart(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
+            instance = form.save(commit=False)
+            instance.profile = request.user
+            instance.save()
             order = form.save()
             for item in cart:
                 OrderItem.objects.create(order=order,
@@ -116,4 +113,3 @@ def contacts(request):
 def no_page(request):
     """ Страница 404 """
     return render(request, 'core/404-page.html')
-

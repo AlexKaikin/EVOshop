@@ -5,10 +5,12 @@ from django import forms
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['rating', 'description']
+        fields = ['rating', 'description', 'profile', 'product']
         widgets = {
             'rating': forms.Select(attrs={'class': 'form-select'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'profile': forms.HiddenInput(),
+            'product': forms.HiddenInput(),
         }
 
 

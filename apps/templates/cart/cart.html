@@ -12,7 +12,9 @@
                         {% if cart|length > 0 %}
                             {% if user.is_authenticated %}
                             {% else %}
-                                <p>Оформить заказ может только зарегистрированный пользователь</p>
+                                <p>Оформить заказ может только зарегистрированный пользователь.
+                                    <a href="{% url 'login' %}">Вход</a> |
+                                    <a href="{% url 'register' %}">Регистрация</a></p>
                             {% endif %}
                             <div class="table-responsive">
                                 <table class="table table-hover cart">
