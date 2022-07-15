@@ -6,10 +6,11 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = '__all__'
+        exclude = ('slug',)
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'slug': forms.TextInput(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-select'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -17,10 +18,10 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
+        exclude = ('slug',)
         widgets = {
             'category': forms.Select(attrs={'class': 'form-select'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'slug': forms.TextInput(attrs={'class': 'form-control'}),
             'desc': forms.Textarea(attrs={'class': 'form-control'}),
             'country': forms.TextInput(attrs={'class': 'form-control'}),
             'town': forms.TextInput(attrs={'class': 'form-control'}),
@@ -31,6 +32,7 @@ class ProductForm(forms.ModelForm):
             'tag': forms.TextInput(attrs={'class': 'form-control'}),
             'talk_forum': forms.TextInput(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-select'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -38,11 +40,11 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = '__all__'
+        exclude = ('profile', 'product',)
         widgets = {
             'rating': forms.Select(attrs={'class': 'form-select'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'product': forms.Select(attrs={'class': 'form-select'}),
-            'author': forms.Select(attrs={'class': 'form-select'}),
             'status': forms.Select(attrs={'class': 'form-select'}),
         }
 
@@ -51,6 +53,7 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = '__all__'
+        exclude = ('profile',)
         widgets = {
             'surname': forms.TextInput(attrs={'class': 'form-control'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),

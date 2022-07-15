@@ -1,20 +1,17 @@
 from django.db import models
-from transliterate import translit
+from pytils import translit
 
 
 def get_category_file_path(instance, filename):
     # return os.path.join("%s" % instance.slug, filename)
-    filename = translit(filename, reversed=True)
     return '{0}/{1}/{2}'.format('category', instance.slug, filename)
 
 
 def get_product_file_path(instance, filename):
-    filename = translit(filename, reversed=True)
     return '{0}/{1}/{2}'.format('product', instance.slug, filename)
 
 
 def get_product_image_file_path(instance, filename):
-    filename = translit(filename, reversed=True)
     return '{0}/{1}/{2}'.format('product', instance.product.slug, filename)
 
 
@@ -31,11 +28,16 @@ class Category(models.Model):
     )
 
     name = models.CharField(max_length=20, db_index=True, verbose_name='Категория')
-    slug = models.SlugField(max_length=200, db_index=True, unique=True, verbose_name="URL")
+    slug = models.SlugField(max_length=200, db_index=True, blank=True, unique=True, verbose_name="URL")
     status = models.CharField(choices=STATUS, default='yes', max_length=3, verbose_name="Опубликована")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
     image = models.FileField(upload_to=get_category_file_path, verbose_name='Изображение категории')
+
+    def save(self, *args, **kwargs):
+        name = self.name
+        self.slug = translit.slugify(name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -57,7 +59,7 @@ class Product(models.Model):
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='Категория')
     name = models.CharField(max_length=50, db_index=True, verbose_name='Название')
-    slug = models.SlugField(max_length=200, db_index=True, verbose_name="URL")
+    slug = models.SlugField(max_length=200, db_index=True, blank=True, verbose_name="URL")
     desc = models.TextField(verbose_name='Описание')
     country = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Страна')
     town = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Город')
@@ -71,6 +73,11 @@ class Product(models.Model):
     image = models.FileField(upload_to=get_product_file_path, verbose_name='Изображение обложки')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
+
+    def save(self, *args, **kwargs):
+        name = self.name
+        self.slug = translit.slugify(name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
