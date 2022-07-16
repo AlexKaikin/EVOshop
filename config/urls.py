@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from apps.core.views import page_not_found
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -33,3 +34,5 @@ urlpatterns = [
 # включаем возможность обработки картинок
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = page_not_found

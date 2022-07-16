@@ -8,6 +8,7 @@ media/*
 !media/demo/
 !logs/
 logs/*
+management/
 
 
 # Created by https://www.gitignore.io/api/django

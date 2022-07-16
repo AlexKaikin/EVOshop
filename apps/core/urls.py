@@ -10,5 +10,4 @@ urlpatterns = [
     # static
     path('about/', views.about, name='about'),
     path('contacts/', views.contacts, name='contacts'),
-    path('404-page/', views.no_page, name='no_page'),
 ]

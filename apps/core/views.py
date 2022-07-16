@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -110,6 +110,6 @@ def contacts(request):
     return render(request, 'core/contacts.html')
 
 
-def no_page(request):
+def page_not_found(request, exception):
     """ Страница 404 """
-    return render(request, 'core/404-page.html')
+    return render(request, 'core/404-page.html', status=404)
