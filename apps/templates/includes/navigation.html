@@ -64,7 +64,7 @@
                         {% if user.is_authenticated %}
                             <li><a class="dropdown-item" href="{% url 'profile' user.id %}">Профиль</a></li>
                             {% if user.is_superuser or user.is_staff %}
-                                <li><a class="dropdown-item" href="{% url 'administrator' %}">Панель администратора</a></li>
+                                <li><a class="dropdown-item" href="{% url 'administrator' %}">Администрирование</a></li>
                             {% endif %}
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Выход</a></li>
                         {% else %}

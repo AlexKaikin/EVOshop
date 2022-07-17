@@ -30,8 +30,8 @@ class Category(models.Model):
     name = models.CharField(max_length=20, db_index=True, verbose_name='Категория')
     slug = models.SlugField(max_length=200, db_index=True, blank=True, unique=True, verbose_name="URL")
     status = models.CharField(choices=STATUS, default='yes', max_length=3, verbose_name="Опубликована")
-    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
     image = models.FileField(upload_to=get_category_file_path, verbose_name='Изображение категории')
 
     def save(self, *args, **kwargs):
@@ -100,8 +100,8 @@ class ProductImage(models.Model):
                                 verbose_name='Товар')
     image = models.FileField(upload_to=get_product_image_file_path, verbose_name='Фотографии')
     status = models.CharField(choices=STATUS, default='yes', max_length=3, verbose_name="Опубликована")
-    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name='Дата создания')
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Дата изменения')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
     def __str__(self):
         return str(self.product)
@@ -131,7 +131,7 @@ class Review(models.Model):
 
     description = models.TextField(verbose_name='Текст')
     rating = models.CharField(choices=RATING, max_length=1, verbose_name='Рейтинг')
-    created = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews', blank=True, null=True,
                                 verbose_name='Продукт')
     profile = models.ForeignKey('authentication.Profile', on_delete=models.CASCADE, related_name='reviews',
