@@ -119,9 +119,10 @@ input[type="search"]::-webkit-search-results-decoration {
     padding-bottom: 5%;
 }
 
-#profile-tab-pane .avatar{
+#profile .avatar{
     width: 200px;
     height: 200px;
+    display: flex;
 }
 
 #profile-tab-pane .avatar img{
@@ -479,7 +480,8 @@ footer input {
     background-color: var(--color-accent);
 }
 
-#administrator .list-group a{
+#administrator .list-group a,
+#profile .list-group a{
     text-decoration: none;
 }
 

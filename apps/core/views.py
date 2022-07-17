@@ -3,12 +3,15 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from .models import Category, Product, OrderItem
-from .forms import ReviewForm, OrderCreateForm
+
+from apps.core.models import Category, Product, OrderItem
 from apps.cart.forms import CartAddProductForm
 from apps.cart.cart import Cart
+
+from .forms import ReviewForm, OrderCreateForm
 from .services.index_service import get_category_list
 from .services.catalog_service import get_product_list
+from .services.product_service import get_product, get_review_list, get_images_list
 from .services.search_service import get_search_list
 
 
@@ -41,21 +44,24 @@ class ProductView(SuccessMessageMixin, FormMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['cart_product_form'] = CartAddProductForm()
+        context['images'] = get_images_list(self)
+        context['reviews'] = get_review_list(self)
         return context
-
-    def get_initial(self):
-        return {
-            'profile': self.request.user,
-            'product': self.get_object()
-        }
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
+            instance = form.save(commit=False)
+            instance.profile = request.user
+            instance.product = self.get_object()
+            instance.save()
             form.save()
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
+    def get_queryset(self):
+        return get_product(self)
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('product', kwargs={'slug': self.get_object().slug})

@@ -4,8 +4,11 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import UpdateView, CreateView, ListView
 
-from .forms import CategoryForm, ProductForm, ReviewForm, OrderForm
 from apps.core.models import Category, Product, Review, Order
+
+from .forms import CategoryForm, ProductForm, ReviewForm, OrderForm
+from .services.admin_product_view import get_product_list
+from .services.admin_review_view import get_review_list
 from .services.administrator_servece import get_count_review, get_count_order
 
 
@@ -59,6 +62,9 @@ class AdminProductView(ListView):
     paginate_by = 10
     template_name = 'administrator/admin_product.html'
 
+    def get_queryset(self):
+        return get_product_list(self)
+
 
 class AddProductView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     """ Добавление товара """
@@ -94,6 +100,9 @@ class AdminReviewView(ListView):
     model = Review
     paginate_by = 10
     template_name = 'administrator/admin_review.html'
+
+    def get_queryset(self):
+        return get_review_list(self)
 
 
 class UpdateReviewView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):

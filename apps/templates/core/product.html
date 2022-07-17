@@ -22,8 +22,8 @@
                         {% else %}
                             <img src="{% static 'img/noimg.jpg' %}" alt="No image">
                         {% endif %}
-                        {% if product.images.all %}
-                            {% for photo in product.images.all %}
+                        {% if images %}
+                            {% for photo in images %}
                                 <img src="{{ photo.image.url }}" alt="">
                             {% endfor %}
                         {% endif %}
@@ -77,7 +77,7 @@
                             <button class="nav-link link-success" id="contact-tab" data-bs-toggle="tab"
                                     data-bs-target="#review-tab-pane" type="button" role="tab"
                                     aria-controls="review-tab-pane" aria-selected="false">Отзывы
-                                ({{ product.reviews.all.count }})
+                                ({{ product.count }})
                             </button>
                         </li>
                     </ul>
@@ -139,8 +139,8 @@
                                 {% endif %}
                             </div>
                             <br>
-                            {% if product.reviews.all %}
-                                {% for review in product.reviews.all %}
+                            {% if reviews %}
+                                {% for review in reviews %}
                                     <div class="p-3 bg-light">
                                         <p class="text">
                                             {% if review.rating == '5' %}

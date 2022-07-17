@@ -1,0 +1,30 @@
+{% extends 'layouts/base.html' %}
+{% load  static %}
+{% block title %}EVO магазин / Профиль{% endblock %}
+{% block content %}
+    <section id="profile" class="paddingTopBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-5">
+                    {% include 'includes/sidebar_profile.html' %}
+                </div>
+                <div class="col-md-9">
+                    <h3>Профиль</h3>
+                    <div class="col-lg-3 mb-5">
+                        <div class="avatar">
+                            {% if profile.avatar %}
+                                <img src="{{ profile.avatar.url }}" alt="">
+                            {% else %}
+                                <img src="{% static 'img/no_avatar.png' %}" alt="No avatar">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-lg-9 mb-5">
+                        <p>Ник: {{ profile.username }}</p>
+                        <a href="{% url 'update_profile' profile.pk %}" class="btn btn-warning">Обновить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

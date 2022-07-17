@@ -1,12 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-from .models import Profile
-
+from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic import CreateView, DetailView, UpdateView, ListView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy, reverse
+
 from .forms import UserRegisterForm, UserLoginForm, ProfileForm
-from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView, DetailView, UpdateView
+from .models import Profile
+
+from apps.core.models import Order, Review
+from .services.profile_order_view import get_order_list
+from .services.profile_review_view import get_review_list
 
 
 class RegisterForm(SuccessMessageMixin, CreateView):
@@ -34,13 +37,13 @@ class LogOutForm(LogoutView):
 class ProfileView(DetailView):
     """ Страница профиль пользователя """
     model = Profile
-    template_name = 'accounts/profile.html'
+    template_name = 'accounts/profile/profile.html'
 
 
 class UpdateProfileView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     """ Обновление профиля """
     model = Profile
-    template_name = 'accounts/update_profile.html'
+    template_name = 'accounts/profile/update_profile.html'
     form_class = ProfileForm
     success_url = reverse_lazy('update_product')
     success_message = 'Профиль обновлён'
@@ -48,3 +51,23 @@ class UpdateProfileView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         pk = self.kwargs['pk']
         return reverse("update_profile", kwargs={'pk': pk})
+
+
+class ProfileOrderView(ListView):
+    """ Страница заказов пользователя """
+    model = Order
+    paginate_by = 10
+    template_name = 'accounts/profile/order.html'
+
+    def get_queryset(self):
+        return get_order_list(self)
+
+
+class ProfileReviewView(ListView):
+    """ Страница отзывов пользователя """
+    model = Review
+    paginate_by = 10
+    template_name = 'accounts/profile/review.html'
+
+    def get_queryset(self):
+        return get_review_list(self)

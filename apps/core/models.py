@@ -50,7 +50,7 @@ class Product(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
         index_together = (('id', 'slug'),)
-        ordering = ('-created',)
+        ordering = ('-updated', '-created',)
 
     STATUS = (
         ('no', 'Нет'),
@@ -138,12 +138,6 @@ class Review(models.Model):
                                 blank=True, null=True,
                                 verbose_name='Автор')
     status = models.CharField(choices=STATUS, default='1', max_length=1, verbose_name='Статус отзыва')
-
-    # def __str__(self):
-    #     return self.description
-    #
-    # def get_absolute_url(self):
-    #     return reverse('main')
 
 
 class Order(models.Model):
