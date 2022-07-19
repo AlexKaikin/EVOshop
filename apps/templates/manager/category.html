@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load  static %}
-{% block title %}EVO магазин / Администрирование товаров{% endblock %}
+{% block title %}EVO магазин / Управление категориями{% endblock %}
 {% block content %}
     <section id="administrator" class="paddingTopBottom">
         <div class="container">
@@ -15,12 +15,12 @@
             </div>
             <div class="row">
                 <div class="col-md-3 mb-5">
-                    {% include 'includes/sidebar_administrator.html' %}
+                    {% include 'includes/manager/sidebar.html' %}
                 </div>
                 <div class="col-md-9">
-                    <h3>Администрирование товаров</h3>
+                    <h3>Управление категориями</h3>
                     <div class="admin-def">
-                        <a href="{% url 'add_product' %}" class="btn btn-warning btn-sm">Добавить товар</a>
+                        <a href="{% url 'add_category' %}" class="btn btn-warning btn-sm">Добавить категорию</a>
                     </div>
                     {% if object_list %}
                         <div class="table-responsive">
@@ -29,20 +29,19 @@
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Название</th>
-                                    <th scope="col">Категория</th>
-                                    <th scope="col">Опубликован</th>
+                                    <th scope="col">Опубликована</th>
                                     <th scope="col">&nbsp;</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for product in object_list %}
+                                {% for category in object_list %}
                                     <tr>
-                                        <th scope="row">{{ product.id }}</th>
-                                        <td><a href="{% url 'update_product' product.slug %}"
-                                               class="text-dark">{{ product.name }}</a></td>
-                                        <td>{{ product.category }}</td>
-                                        <td>{{ product.get_status_display }}</td>
-                                        <td><a href="{% url 'delete_product' product.slug %}" class="btn btn-danger btn-sm">Удалить</a></td>
+                                        <td>{{ category.id }}</td>
+                                        <td><a href="{% url 'update_category' category.slug %}"
+                                               class="text-dark">{{ category.name }}</a></td>
+                                        <td>{{ category.get_status_display }}</td>
+                                        <td><a href="{% url 'delete_category' category.slug %}"
+                                               class="btn btn-danger btn-sm">Удалить</a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

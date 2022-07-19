@@ -4,13 +4,12 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
-from apps.core.models import Category, Product, OrderItem
+from apps.core.models import Category, Product
 from apps.cart.forms import CartAddProductForm
-from apps.cart.cart import Cart
 
-from .forms import ReviewForm, OrderCreateForm
+from .forms import ReviewForm
 from .services.index_service import get_category_list
-from .services.catalog_service import get_product_list
+from .services.category_service import get_product_list
 from .services.product_service import get_product, get_review_list, get_images_list
 from .services.search_service import get_search_list
 
@@ -24,11 +23,11 @@ class IndexView(ListView):
         return get_category_list()
 
 
-class CatalogView(ListView):
+class CategoryView(ListView):
     """ Вывод товаров из категории """
     model = Product
     paginate_by = 9
-    template_name = 'core/catalog.html'
+    template_name = 'core/category.html'
 
     def get_queryset(self):
         return get_product_list(self)
@@ -67,35 +66,10 @@ class ProductView(SuccessMessageMixin, FormMixin, DetailView):
         return reverse_lazy('product', kwargs={'slug': self.get_object().slug})
 
 
-def order_create(request):
-    """ Страница оформления заказа """
-    cart = Cart(request)
-    if request.method == 'POST':
-        form = OrderCreateForm(request.POST)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.profile = request.user
-            instance.save()
-            order = form.save()
-            for item in cart:
-                OrderItem.objects.create(order=order,
-                                         product=item['product'],
-                                         price=item['price'],
-                                         quantity=item['quantity'])
-            # очистка корзины
-            cart.clear()
-            return render(request, 'cart/created.html',
-                          {'order': order})
-    else:
-        form = OrderCreateForm
-    return render(request, 'cart/create.html',
-                  {'cart': cart, 'form': form})
-
-
 class SearchView(ListView):
     """ Вывод товаров по совпадению слова в заголовке товара """
     paginate_by = 9
-    template_name = 'core/catalog.html'
+    template_name = 'core/category.html'
 
     def get_queryset(self):
         return get_search_list(self)

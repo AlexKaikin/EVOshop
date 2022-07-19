@@ -1,6 +1,6 @@
 <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'main' %}">EVO</a>
+        <a class="navbar-brand" href="{% url 'index' %}">EVO</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Переключатель навигации">
             <span class="navbar-toggler-icon"></span>
@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'main' %}">Главная</a>
+                    <a class="nav-link" href="{% url 'index' %}">Главная</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink1"
@@ -17,12 +17,13 @@
                         Магазин
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="{% url 'catalog' 'tea' %}">Чай</a></li>
-                        <li><a class="dropdown-item" href="{% url 'catalog' 'coffee' %}">Кофе</a></li>
-                        <li><a class="dropdown-item" href="{% url 'catalog' 'spices' %}">Специи</a></li>
-                        <li><a class="dropdown-item" href="{% url 'catalog' 'nuts' %}">Орехи</a></li>
-                        <li><a class="dropdown-item" href="{% url 'catalog' 'grits' %}">Крупы</a></li>
-                        <li><a class="dropdown-item" href="{% url 'catalog' 'grain' %}">Семена</a></li>
+                        {% if categories %}
+                            {% for category in categories %}
+                                <li><a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+                            {% endfor %}
+                        {% else %}
+                            <li><a class="dropdown-item" href="#">Категорий нет</a></li>
+                        {% endif %}
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -64,7 +65,7 @@
                         {% if user.is_authenticated %}
                             <li><a class="dropdown-item" href="{% url 'profile' user.id %}">Профиль</a></li>
                             {% if user.is_superuser or user.is_staff %}
-                                <li><a class="dropdown-item" href="{% url 'administrator' %}">Администрирование</a></li>
+                                <li><a class="dropdown-item" href="{% url 'manager' %}">Управление</a></li>
                             {% endif %}
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Выход</a></li>
                         {% else %}

@@ -1,23 +1,10 @@
 {% extends 'layouts/base.html' %}
-{% load static %}
-{% block title %}EVO магазин / Каталог{% endblock %}
+{% load  static %}
+{% block title %}EVO магазин / Каталог {% endblock %}
 {% block description %}Продукция категории{% endblock %}
 {% block content %}
     <section id="prod" class="paddingTopBottom">
         <div class="container">
-            {#            <div class="row">#}
-            {#                <div class="col-md-4">#}
-            {#                    {% if object_list %}#}
-            {#                        <div class="sort"><span>Сортировка</span>#}
-            {#                            <select class="form-select form-select-sm" aria-label="Сортировать">#}
-            {#                                <option selected>дата добавления</option>#}
-            {#                                <option value="1">цены: по возрастанию</option>#}
-            {#                                <option value="2">цены: по убыванию</option>#}
-            {#                            </select>#}
-            {#                        </div>#}
-            {#                    {% endif %}#}
-            {#                </div>#}
-            {#            </div>#}
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 {% if object_list %}
                     {% for product in object_list %}
@@ -31,14 +18,14 @@
                                     <img src="{% static 'img/noimg.jpg' %}" alt="No image">
                                 {% endif %}
                                 <div class="card-body">
-                                    <h5 class="card-title"><a href="{% url 'product' product.slug %}"
+                                    <h5 class="card-title"><a href="{{ product.get_absolute_url }}"
                                                               class="link-dark">{{ product.name }}</a></h5>
                                     <div class="volume"><span class="text">Вес {{ product.volume }} грамм</span></div>
                                     <div class="price float-end">{{ product.price }} <span class="text">руб.</span>
                                     </div>
                                     <div class="btn-group" role="group">
                                         <a type="button" class="btn btn-success"
-                                           href="{% url 'product' product.slug %}">Подробнее</a>
+                                           href="{{ product.get_absolute_url }}">Подробнее</a>
                                         <a type="button" class="btn btn-outline-success"><i class="bi bi-bookmarks"></i></a>
                                         <a type="button" class="btn btn-outline-success"><i class="bi bi-heart"></i></a>
                                         <a type="button" class="btn btn-outline-success"><i class="bi bi-cart3"></i></a>

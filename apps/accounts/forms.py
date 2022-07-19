@@ -36,4 +36,5 @@ class ProfileForm(forms.ModelForm):
         fields = ['username', 'avatar']
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'avatar': forms.FileInput(attrs={'class': 'form-control'}),
         }

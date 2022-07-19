@@ -1,5 +1,7 @@
-from apps.core.models import Category, Product, Review, Order
+from django.core.exceptions import ValidationError
 from django import forms
+
+from apps.core.models import Category, Product, Review, Order
 
 
 class CategoryForm(forms.ModelForm):
@@ -12,6 +14,12 @@ class CategoryForm(forms.ModelForm):
             'status': forms.Select(attrs={'class': 'form-select'}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
         }
+        
+    # def clean_name(self):
+    #     name = self.cleaned_data['name']
+    #     if len(name) > 5:
+    #         raise ValidationError('Длина превышает 200 символов')
+    #     return name
 
 
 class ProductForm(forms.ModelForm):

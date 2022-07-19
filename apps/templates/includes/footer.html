@@ -4,7 +4,7 @@
             <div class="col-md-2 col-sm-6 col-6 mt-5">
                 <h5 class="text-bg-white">EVO</h5>
                 <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="{% url 'main' %}" class="nav-link p-0 link-secondary">Главная</a>
+                    <li class="nav-item mb-2"><a href="{% url 'index' %}" class="nav-link p-0 link-secondary">Главная</a>
                     </li>
                     <li class="nav-item mb-2"><a href="{% url 'about' %}" class="nav-link p-0 link-secondary">О нас</a>
                     </li>
@@ -19,14 +19,15 @@
             <div class="col-md-2 col-sm-6 col-6 mt-5">
                 <h5 class="text-bg-white">Магазин</h5>
                 <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="{% url 'catalog' 'tea' %}" class="nav-link p-0 link-secondary">Чай</a></li>
-                    <li class="nav-item mb-2"><a href="{% url 'catalog' 'coffee' %}" class="nav-link p-0 link-secondary">Кофе</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="{% url 'catalog' 'spices' %}"
-                                                 class="nav-link p-0 link-secondary">Специи</a></li>
-                    <li class="nav-item mb-2"><a href="{% url 'catalog' 'nuts' %}" class="nav-link p-0 link-secondary">Орехи</a></li>
-                    <li class="nav-item mb-2"><a href="{% url 'catalog' 'grits' %}" class="nav-link p-0 link-secondary">Крупы</a></li>
-                    <li class="nav-item mb-2"><a href="{% url 'catalog' 'grain' %}" class="nav-link p-0 link-secondary">Семена</a></li>
+                    {% if categories %}
+                        {% for category in categories %}
+                            <li class="nav-item mb-2">
+                                <a class="nav-link p-0 link-secondary" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li><a class="dropdown-item" href="#">Категорий нет</a></li>
+                    {% endif %}
                 </ul>
             </div>
             <div class="col-md-2 mt-5">

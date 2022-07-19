@@ -1,12 +1,11 @@
-from django.urls import path, re_path
+from django.urls import path
 from apps.core import views
 
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='main'),
-    path('catalog/<slug:slug>/', views.CatalogView.as_view(), name='catalog'),
-    path('catalog/product/<slug:slug>/', views.ProductView.as_view(), name='product'),
+    path('', views.IndexView.as_view(), name='index'),
+    path('category/<slug:slug>/', views.CategoryView.as_view(), name='category'),
+    path('category/product/<slug:slug>/', views.ProductView.as_view(), name='product'),
     path('search/', views.SearchView.as_view(), name='search'),
-    re_path(r'^create/$', views.order_create, name='order_create'),
     # static
     path('about/', views.about, name='about'),
     path('contacts/', views.contacts, name='contacts'),

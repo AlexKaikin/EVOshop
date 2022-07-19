@@ -1,15 +1,24 @@
 {% extends 'layouts/base.html' %}
 {% load  static %}
-{% block title %}EVO магазин / Администрирование отзывов{% endblock %}
+{% block title %}EVO магазин / Управление отзывами{% endblock %}
 {% block content %}
     <section id="administrator" class="paddingTopBottom">
         <div class="container">
             <div class="row">
+                <div class="col">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-3 mb-5">
-                    {% include 'includes/sidebar_administrator.html' %}
+                    {% include 'includes/manager/sidebar.html' %}
                 </div>
                 <div class="col-md-9">
-                    <h3>Администрирование отзывов</h3>
+                    <h3>Управление отзывами</h3>
                     {% if object_list %}
                         <div class="table-responsive">
                             <table class="table table-hover">
@@ -27,14 +36,15 @@
                                 <tbody>
                                 {% for review in object_list %}
                                     <tr>
-                                        <th scope="row">{{ review.id }}</th>
+                                        <td>{{ review.id }}</td>
                                         <td><a href="{% url 'update_review' review.id %}"
                                                class="text-dark">{{ review.description|truncatechars:'20' }}</a></td>
                                         <td>{{ review.rating }}</td>
                                         <td>{{ review.get_status_display }}</td>
                                         <td>{{ review.profile }}</td>
                                         <td>{{ review.product }}</td>
-                                        <td><a href="{% url 'delete_review' review.id %}" class="btn btn-danger btn-sm">Удалить</a></td>
+                                        <td><a href="{% url 'delete_review' review.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

@@ -119,13 +119,13 @@ input[type="search"]::-webkit-search-results-decoration {
     padding-bottom: 5%;
 }
 
-#profile .avatar{
+#profile .avatar {
     width: 200px;
     height: 200px;
     display: flex;
 }
 
-#profile-tab-pane .avatar img{
+#profile-tab-pane .avatar img {
     border-radius: 5px;
     width: 100%;
 }
@@ -265,6 +265,30 @@ input[type="search"]::-webkit-search-results-decoration {
     opacity: 0.7;
 }
 
+#filter{
+    background-color: lightgrey;
+}
+
+#filter .collapse{
+    padding-top: 3%;
+    padding-bottom: 3%;
+    transition: all ease .3s;
+}
+
+#filter .sort {
+    margin-bottom: 10px;
+}
+
+#filter .sort span {
+    float: left;
+    margin: 3px 10px 0 0;
+}
+
+#filter .sort select {
+    display: inline-block;
+    width: auto;
+}
+
 .card,
 .card a {
     transition: all ease .3s;
@@ -326,12 +350,14 @@ input[type="search"]::-webkit-search-results-decoration {
 
 #prod .price {
     font-size: 30px;
-    color: black;
+    color: var(--color-accent);
+    font-weight: 900;
     opacity: 1;
 }
 
 #prod .price span {
     font-size: initial;
+    font-weight: normal;
 }
 
 #prod .btn-group {
@@ -428,22 +454,8 @@ footer input {
     padding: 20px;
 }
 
-#prod .sort {
-    margin-bottom: 20px;
-}
-
-#prod .sort span {
-    float: left;
-    margin: 3px 10px 0 0;
-}
-
 #prod .minus {
     margin-left: 10px;
-}
-
-#prod .sort select {
-    display: inline-block;
-    width: auto;
 }
 
 .fotorama__thumb-border {
@@ -481,15 +493,28 @@ footer input {
 }
 
 #administrator .list-group a,
-#profile .list-group a{
+#profile .list-group a {
     text-decoration: none;
 }
 
-#administrator .list-group-item.active{
+#administrator .list-group-item.active {
     background-color: var(--color-accent);
     color: white;
 }
 
-#administrator .list-group-item.active a{
+#administrator .list-group-item.active a {
     color: white;
+}
+
+.form-floating textarea {
+    min-height: 200px;
+}
+
+.form-floating > .form-control-plaintext:focus, .form-floating > .form-control-plaintext:not(:placeholder-shown), .form-floating > .form-control:focus, .form-floating > .form-control:not(:placeholder-shown) {
+    padding-top: 2.5rem;
+    padding-bottom: 2rem;
+}
+
+.table-hover>tbody>tr:hover>*{
+    transition: all ease .3s;
 }

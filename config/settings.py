@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9___2vqixj1xq#w6pdms7(8+dt#=n639=kn3fu!nit$ah(u6kr'
+SECRET_KEY = config('SECRET_KEY'),
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,8 +44,8 @@ INSTALLED_APPS = [
 
     'apps.core.apps.CoreConfig',
     'apps.cart.apps.CartConfig',
-    'apps.authentication.apps.AuthenticationConfig',
-    'apps.administrator.apps.AdministratorConfig',
+    'apps.accounts.apps.AccountsConfig',
+    'apps.manager.apps.ManagerConfig',
     'apps.api.apps.ApiConfig',
 
     'rest_framework',
@@ -63,7 +63,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -134,7 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'apps/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'root/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'apps/static')
 ]
@@ -147,9 +147,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'authentication.Profile'
+AUTH_USER_MODEL = 'accounts.Profile'
 
-LOGIN_REDIRECT_URL = 'main'
+LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'login'
 
 CART_SESSION_ID = 'cart'

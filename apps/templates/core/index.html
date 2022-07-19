@@ -1,5 +1,4 @@
 {% extends 'layouts/base.html' %}
-{% load static %}
 {% block title %}EVO магазин / Главная{% endblock %}
 {% block description %}Продукция с сертификатом качества. Честные отзывы. Программа лояльности: кешбек, партнёрская
     ссылка.{% endblock %}
@@ -16,14 +15,14 @@
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                {% if object_list %}
-                    {% for category in object_list %}
+                {% if categories %}
+                    {% for category in categories|slice:':6' %}
                         <div class="col">
                             <div class="card h-100">
                                 <img src="{{ category.image.url }}" alt="image">
                                 <div class="card-body-cat">
                                     <h5 class="card-title">
-                                        <a href="{% url 'catalog' category.slug %}" class="text-dark">{{ category.name }}</a>
+                                        <a href="{{ category.get_absolute_url }}" class="text-dark">{{ category.name }}</a>
                                     </h5>
                                 </div>
                             </div>
@@ -47,8 +46,9 @@
             <div class="row align-items-md-stretch">
                 <div class="col-md-6">
                     <div class="h-100 p-5 rounded-3 text-bg-success pos-rel">
-                        <h2>Программа лояльности</h2>
-                        <p class="text">Начисление кешбека на личный внутренний счёт за покупку, отзыв, рейтинг</p>
+                        <h2>Бонусная программа</h2>
+                        <p class="text">Начисление бонусов на личный внутренний счёт за покупку, отзыв и
+                            рекомендации</p>
                         <button class="btn btn-outline-light btnS" type="button">Подробнее</button>
                         <i class="bi bi-percent"></i>
                     </div>

@@ -1,15 +1,15 @@
 {% extends 'layouts/base.html' %}
 {% load  static %}
-{% block title %}EVO магазин / Администрирование сайта{% endblock %}
+{% block title %}EVO магазин / Управление сайтом{% endblock %}
 {% block content %}
     <section id="administrator" class="paddingTopBottom">
         <div class="container">
             <div class="row">
                 <div class="col-md-3 mb-5">
-                    {% include 'includes/sidebar_administrator.html' %}
+                    {% include 'includes/manager/sidebar.html' %}
                 </div>
                 <div class="col-md-9">
-                    <h3>Администрирование</h3>
+                    <h3>Управление</h3>
                     <p>Отзывов на проверку {{ count_review }}</p>
                     <p>Заказов на обработку {{ count_order }}</p>
                 </div>

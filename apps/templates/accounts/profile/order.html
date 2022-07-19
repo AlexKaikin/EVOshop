@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3 mb-5">
-                    {% include 'includes/sidebar_profile.html' %}
+                    {% include 'includes/profile/sidebar.html' %}
                 </div>
                 <div class="col-md-9">
                     <h3>Заказы</h3>
@@ -21,7 +21,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                             {% for order in object_list %}
+                            {% for order in object_list %}
                                 <tr>
                                     <th scope="row"> {{ order.id }}</th>
                                     <td>{{ order.created }}</td>
@@ -31,6 +31,8 @@
                             {% endfor %}
                             </tbody>
                         </table>
+                    {% else %}
+                        <p>Заказов нет</p>
                     {% endif %}
                     {% include 'includes/paginator.html' %}
                 </div>

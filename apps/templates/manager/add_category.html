@@ -1,25 +1,29 @@
 {% extends 'layouts/base.html' %}
 {% load  static %}
-{% block title %}EVO магазин / Обновить отзыв{% endblock %}
+{% block title %}EVO магазин / Добавить категорию{% endblock %}
 {% block content %}
     <section id="prod" class="paddingTopBottom">
         <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col-md-6">
+                    <p><a href="{% url 'manager_category' %}">Вернуться</a></p>
                     {% if messages %}
                         {% for message in messages %}
                             <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
                         {% endfor %}
                     {% endif %}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <p><a href="{% url 'admin_review' %}">Вернуться в панель администратора</a></p>
-                    <h1>Обновить отзыв</h1>
+                    <h1>Добавить Категорию</h1>
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{ form.as_p }}
+                        {#{{ form.as_p }}#}
+                        {% for f in form %}
+                            <div class="form-floating has-validation mb-3">
+                                {{ f }}
+                                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                                <div>{{ f.errors }}</div>
+                            </div>
+
+                        {% endfor %}
                         <button type="submit" class="btn btn-success btnS">Сохранить</button>
                     </form>
                 </div>

@@ -44,16 +44,17 @@
 
                     <h3>{{ product.name }}</h3>
                     <p class="text">Вес <span>{{ product.volume }}</span> грамм</p>
-                    <p>
                     <form id="order" action="{% url 'cart_add' product.id %}" method="POST">
                         {% csrf_token %}
-                        <div class="number">Количество
-                            <button class="minus btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
-                            {{ cart_product_form }}
-                            <button class="plus btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
+                        <div class="number">
+                            <p>
+                                Количество
+                                <button class="minus btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
+                                {{ cart_product_form }}
+                                <button class="plus btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
+                            </p>
                         </div>
                     </form>
-                    </p>
                     <p class="price">{{ product.price }} <span class="text">рублей</span></p>
                     <p><input type="submit" form="order" class="btn btn-success btnS" value="Добавить в корзину"></p>
                 </div>
@@ -84,7 +85,7 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active " id="description-tab-pane" role="tabpanel"
                              aria-labelledby="description-tab" tabindex="0">
-                            <div class="p-3 text">{{ product.desc }}</div>
+                            <div class="p-3 text">{{ product.desc|linebreaks }}</div>
                         </div>
                         <div class="tab-pane fade" id="property-tab-pane" role="tabpanel" aria-labelledby="property-tab"
                              tabindex="0">
@@ -220,8 +221,14 @@
                 <div class="modal-body">
                     <form action="" method="POST">
                         {% csrf_token %}
-                        {{ form.as_p }}
-                        <br>
+                        {#{{ form.as_p }}#}
+                        {% for f in form %}
+                            <div class="form-floating mb-3">
+                                {{ f }}
+                                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                            </div>
+                            <div>{{ f.errors }}</div>
+                        {% endfor %}
                         <button type="submit" class="btn btn-success btnS">Сохранить</button>
                     </form>
                     <br>

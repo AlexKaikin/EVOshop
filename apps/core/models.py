@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from pytils import translit
 
 
@@ -27,7 +28,7 @@ class Category(models.Model):
         ('yes', 'Да')
     )
 
-    name = models.CharField(max_length=20, db_index=True, verbose_name='Категория')
+    name = models.CharField(max_length=20, db_index=True, verbose_name='Название')
     slug = models.SlugField(max_length=200, db_index=True, blank=True, unique=True, verbose_name="URL")
     status = models.CharField(choices=STATUS, default='yes', max_length=3, verbose_name="Опубликована")
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
@@ -41,6 +42,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'slug': self.slug})
 
 
 class Product(models.Model):
@@ -59,7 +63,7 @@ class Product(models.Model):
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='Категория')
     name = models.CharField(max_length=50, db_index=True, verbose_name='Название')
-    slug = models.SlugField(max_length=200, db_index=True, blank=True, verbose_name="URL")
+    slug = models.SlugField(max_length=200, db_index=True, blank=True, unique=True, verbose_name="URL")
     desc = models.TextField(verbose_name='Описание')
     country = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Страна')
     town = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Город')
@@ -81,6 +85,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('product', kwargs={'slug': self.slug})
 
 
 class ProductImage(models.Model):
@@ -129,12 +136,12 @@ class Review(models.Model):
         ('3', 'Отклонён')
     )
 
-    description = models.TextField(verbose_name='Текст')
+    description = models.TextField(verbose_name='Отзыв')
     rating = models.CharField(choices=RATING, max_length=1, verbose_name='Рейтинг')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews', blank=True, null=True,
                                 verbose_name='Продукт')
-    profile = models.ForeignKey('authentication.Profile', on_delete=models.CASCADE, related_name='reviews',
+    profile = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE, related_name='reviews',
                                 blank=True, null=True,
                                 verbose_name='Автор')
     status = models.CharField(choices=STATUS, default='1', max_length=1, verbose_name='Статус отзыва')
@@ -171,7 +178,7 @@ class Order(models.Model):
     paid = models.CharField(choices=PAID, default='no', max_length=3, verbose_name='Оплачен')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
-    profile = models.ForeignKey('authentication.Profile', on_delete=models.CASCADE, related_name='orders',
+    profile = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE, related_name='orders',
                                 blank=True, null=True,
                                 verbose_name='Пользователь')
 

@@ -25,7 +25,7 @@ class LoginForm(SuccessMessageMixin, LoginView):
     template_name = 'accounts/login.html'
     form_class = UserLoginForm
     success_message = '%(username)s, добро пожаловать!'
-    success_url = reverse_lazy('main')
+    success_url = reverse_lazy('index')
 
 
 class LogOutForm(LogoutView):

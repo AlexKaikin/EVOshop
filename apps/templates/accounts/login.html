@@ -17,8 +17,14 @@
                     <h1>Вход</h1>
                     <form action="" method="POST">
                         {% csrf_token %}
-                        {{ form.as_p }}
-                        <br>
+                        {#{{ form.as_p }}#}
+                        {% for f in form %}
+                            <div class="form-floating mb-3">
+                                {{ f }}
+                                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                            </div>
+                            <div>{{ f.errors }}</div>
+                        {% endfor %}
                         <button class="btn btn-success btnS">Отправить</button>
                     </form>
                     <br>

@@ -1,4 +1,6 @@
 {% load static %}
+{% load tags %}
+{% get_category_tag as categories %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -66,7 +68,8 @@
                         <input type="search" class="form-control form-control-dark searchF"
                                placeholder="Поиск товара..."
                                aria-label="Search" aria-describedby="button-addon2" name="q">
-                        <button class="btn btn-outline-secondary searchFF" type="button">
+                        <button class="btn btn-outline-secondary searchFF" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                             <i class="bi bi-funnel"></i>
                         </button>
                         <button class="btn btn-outline-secondary searchFB" type="submit">
@@ -74,6 +77,25 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="filter">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="collapse" id="collapseFilter">
+                    <div class="col-md-4">
+                        <div class="sort"><span>Сортировка</span>
+                            <select class="form-select form-select-sm" aria-label="Сортировать">
+                                <option selected>дата добавления</option>
+                                <option value="1">цены: по возрастанию</option>
+                                <option value="2">цены: по убыванию</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
