@@ -8,7 +8,7 @@ from apps.core.models import Category, Product
 from apps.cart.forms import CartAddProductForm
 
 from .forms import ReviewForm
-from .services.index_service import get_category_list
+from .services.index_service import get_category_list, get_popular_list
 from .services.category_service import get_product_list
 from .services.product_service import get_product, get_review_list, get_images_list
 from .services.search_service import get_search_list
@@ -18,6 +18,11 @@ class IndexView(ListView):
     """ Главная страница, вывод категорий """
     model = Category
     template_name = 'core/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['popular'] = get_popular_list()
+        return context
 
     def get_queryset(self):
         return get_category_list()
@@ -38,6 +43,7 @@ class ProductView(SuccessMessageMixin, FormMixin, DetailView):
     model = Product
     template_name = 'core/product.html'
     form_class = ReviewForm
+    context_object_name = 'product'
     success_message = 'Отзыв добавлен и ожидает модерации'
 
     def get_context_data(self, **kwargs):

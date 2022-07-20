@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
 {% block title %}EVO магазин / Главная{% endblock %}
 {% block description %}Продукция с сертификатом качества. Честные отзывы. Программа лояльности: кешбек, партнёрская
     ссылка.{% endblock %}
@@ -22,13 +23,33 @@
                                 <img src="{{ category.image.url }}" alt="image">
                                 <div class="card-body-cat">
                                     <h5 class="card-title">
-                                        <a href="{{ category.get_absolute_url }}" class="text-dark">{{ category.name }}</a>
+                                        <a href="{{ category.get_absolute_url }}"
+                                           class="text-dark">{{ category.name }}</a>
                                     </h5>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                 {% endif %}
+            </div>
+        </div>
+    </section>
+    <section id="slider-index" class="paddingTopBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2>Самые популярные товары</h2>
+                    <div class="slider-index">
+                        {% if popular %}
+                            {% for product in popular %}
+                                <div>
+                                    <img src="{{ product.image.url }}" alt="No image">
+                                    <div class="title"><a href="{{ product.get_absolute_url }}">{{ product.name}}</a></div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
     </section>

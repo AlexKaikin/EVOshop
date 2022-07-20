@@ -1,4 +1,6 @@
-from apps.core.models import Category
+from django.db.models import Count
+
+from apps.core.models import Category, Product
 
 
 def get_category_list():
@@ -8,3 +10,15 @@ def get_category_list():
     """
     category_list = Category.objects.filter(published='yes')
     return category_list
+
+
+def get_popular_list():
+    """
+    Вернет список товаров по фильтру:
+    - к каждому товару добавлено поле "количество заказов" на данный товар
+    - сортировка по убыванию поле "количество заказов" на товар
+    - отфильтруем опубликованные товары
+    """
+    products = Product.objects.all().annotate(count=Count("order_items"))
+    popular_list = products.order_by('-count').filter(published='yes')[:7]
+    return popular_list
