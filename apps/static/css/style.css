@@ -285,7 +285,6 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 #filter .collapse {
-    padding-top: 3%;
     padding-bottom: 3%;
     transition: all ease .3s;
 }
@@ -416,7 +415,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 #prod .fotorama {
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
     border-radius: 5px;
 }
 
@@ -571,4 +570,8 @@ footer input {
 
 .btn .badge {
     background-color: #212529;
+}
+
+.cart img {
+    border-radius: 5px;
 }

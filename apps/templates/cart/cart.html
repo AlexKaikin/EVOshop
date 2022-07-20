@@ -44,13 +44,24 @@
                                                 <td>{{ item.quantity }}</td>
                                                 <td class="num">{{ item.price }} руб.</td>
                                                 <td class="num">{{ item.total_price }} руб.</td>
-                                                <td class="text-center"><a href="{% url "cart_remove" product.id %}"><i class="bi bi-x-square-fill"></i></a></td>
+                                                <td class="text-center"><a href="{% url "cart_remove" product.id %}"><i
+                                                        class="bi bi-x-square-fill"></i></a></td>
                                             </tr>
                                         {% endwith %}
                                     {% endfor %}
                                     <tr class="total">
-                                        <td>Стоимость</td>
-                                        <td colspan="3"></td>
+                                        <td colspan="4">Стоимость товаров</td>
+                                        <td class="num">{{ cart.get_total_price }} руб.</td>
+                                        <td colspan="1"></td>
+                                    </tr>
+                                    <tr class="">
+                                        <td colspan="4">Доставка (бесплатно от 1000 руб.)</td>
+                                        <td class="num">0 руб.</td>
+                                        <td colspan="1"></td>
+                                    </tr>
+                                    </tbody>
+                                    <tr class="">
+                                        <td colspan="4">Итого</td>
                                         <td class="num">{{ cart.get_total_price }} руб.</td>
                                         <td colspan="1"></td>
                                     </tr>
