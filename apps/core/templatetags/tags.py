@@ -10,4 +10,4 @@ def get_category_tag():
     Вернет список категорий по фильтру:
     - активные
     """
-    return Category.objects.filter(status='yes')
+    return Category.objects.filter(published='yes')

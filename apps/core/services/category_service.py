@@ -8,5 +8,5 @@ def get_product_list(self):
     - активные товары
     """
     slug = self.kwargs['slug']
-    product_list = Product.objects.filter(category__slug=slug).filter(status='yes')
+    product_list = Product.objects.filter(category__slug=slug).filter(published='yes')
     return product_list

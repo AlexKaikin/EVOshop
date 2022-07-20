@@ -11,7 +11,7 @@ class CategoryForm(forms.ModelForm):
         exclude = ('slug',)
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'status': forms.Select(attrs={'class': 'form-select'}),
+            'published': forms.Select(attrs={'class': 'form-select'}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
         }
         
@@ -39,7 +39,7 @@ class ProductForm(forms.ModelForm):
             'stock': forms.TextInput(attrs={'class': 'form-control'}),
             'tag': forms.TextInput(attrs={'class': 'form-control'}),
             'talk_forum': forms.TextInput(attrs={'class': 'form-control'}),
-            'status': forms.Select(attrs={'class': 'form-select'}),
+            'published': forms.Select(attrs={'class': 'form-select'}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
         }
 
@@ -53,7 +53,7 @@ class ReviewForm(forms.ModelForm):
             'rating': forms.Select(attrs={'class': 'form-select'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'product': forms.Select(attrs={'class': 'form-select'}),
-            'status': forms.Select(attrs={'class': 'form-select'}),
+            'published': forms.Select(attrs={'class': 'form-select'}),
         }
 
 

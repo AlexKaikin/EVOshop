@@ -41,8 +41,8 @@
                                         <td><a href="{% url 'update_product' product.slug %}"
                                                class="text-dark">{{ product.name }}</a></td>
                                         <td>{{ product.category }}</td>
-                                        <td>{{ product.get_status_display }}</td>
-                                        <td><a href="{% url 'delete_product' product.slug %}" class="btn btn-danger btn-sm">Удалить</a></td>
+                                        <td>{{ product.get_published_display }}</td>
+                                        <td><a href="{% url 'delete_product' product.slug %}"><i class="bi bi-x-square-fill"></i></a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

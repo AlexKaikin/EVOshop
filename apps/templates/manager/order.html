@@ -30,7 +30,7 @@
                                                class="text-dark">{{ order.surname }} {{ order.name }}</a></td>
                                         <td>{{ order.get_status_display }}</td>
                                         <td>{{ order.get_paid_display }}</td>
-                                        <td><a href="{% url 'delete_order' order.pk %}" class="btn btn-danger btn-sm">Удалить</a></td>
+                                        <td><a href="{% url 'delete_order' order.pk %}"><i class="bi bi-x-square-fill"></i></a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

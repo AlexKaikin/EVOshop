@@ -13,7 +13,8 @@ class Profile(AbstractUser):
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
-    avatar = models.FileField(upload_to=get_avatar_file_path, null=True, blank=True, verbose_name='Ваше фото')
+    avatar = models.FileField(upload_to=get_avatar_file_path, null=True, blank=True,
+                              verbose_name='Ваше фото')
 
     def __str__(self):
         return self.username

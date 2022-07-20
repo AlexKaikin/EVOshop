@@ -5,7 +5,7 @@ from apps.core.models import Review, ProductImage, Product
 def get_product(self):
     """ Вернет товар и количество у него опубликованных отзывов """
     slug = self.kwargs['slug']
-    return Product.objects.filter(slug=slug).annotate(count=Count('reviews', filter=Q(reviews__status='2')))
+    return Product.objects.filter(slug=slug).annotate(count=Count('reviews', filter=Q(reviews__published='yes')))
 
 
 def get_review_list(self):
@@ -14,7 +14,7 @@ def get_review_list(self):
     - опубликованные
     """
     slug = self.kwargs['slug']
-    review_list = Review.objects.filter(product__slug=slug, status='2').select_related('profile')
+    review_list = Review.objects.filter(product__slug=slug, published='yes').select_related('profile')
     return review_list
 
 

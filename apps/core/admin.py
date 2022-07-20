@@ -10,17 +10,17 @@ class ProductImageInline(admin.TabularInline):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'status']
-    list_editable = ['status']
+    list_display = ['id', 'name', 'published']
+    list_editable = ['published']
     list_display_links = ['name']
     prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'category', 'price', 'stock', 'status']
-    list_editable = ['price', 'stock', 'status']
-    list_filter = ['category', 'status']
+    list_display = ['id', 'name', 'category', 'price', 'stock', 'published']
+    list_editable = ['price', 'stock', 'published']
+    list_filter = ['category', 'published']
     inlines = [ProductImageInline]
     search_fields = ['name']
     list_display_links = ['name']
@@ -29,7 +29,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(ProductImage)
 class ProductImageAdmin(admin.ModelAdmin):
-    list_display = ['product', 'status', 'created']
+    list_display = ['product', 'published', 'created']
 
     def has_module_permission(self, request):  # скрыть модель из админки
         return False
@@ -37,8 +37,8 @@ class ProductImageAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ['id', 'description', 'profile', 'status']
-    list_editable = ['status']
+    list_display = ['id', 'description', 'profile', 'published']
+    list_editable = ['published']
     list_display_links = ['description']
 
 

@@ -3,7 +3,7 @@ from apps.core.models import Review, Order
 
 def get_count_review():
     """ Вернет количество новых не проверенных отзывов: """
-    count_review = Review.objects.all().filter(status=1).count()
+    count_review = Review.objects.all().filter(published='checking').count()
     return count_review
 
 

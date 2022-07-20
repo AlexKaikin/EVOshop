@@ -23,14 +23,14 @@ class Category(models.Model):
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
-    STATUS = (
+    PUBLISHED = (
         ('no', 'Нет'),
         ('yes', 'Да')
     )
 
     name = models.CharField(max_length=20, db_index=True, verbose_name='Название')
     slug = models.SlugField(max_length=200, db_index=True, blank=True, unique=True, verbose_name="URL")
-    status = models.CharField(choices=STATUS, default='yes', max_length=3, verbose_name="Опубликована")
+    published = models.CharField(choices=PUBLISHED, default='yes', max_length=3, verbose_name="Опубликована")
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
     image = models.FileField(upload_to=get_category_file_path, verbose_name='Изображение категории')
@@ -56,7 +56,7 @@ class Product(models.Model):
         index_together = (('id', 'slug'),)
         ordering = ('-updated', '-created',)
 
-    STATUS = (
+    PUBLISHED = (
         ('no', 'Нет'),
         ('yes', 'Да')
     )
@@ -73,7 +73,7 @@ class Product(models.Model):
     stock = models.PositiveIntegerField(verbose_name='Остаток на складе, штук')
     tag = models.CharField(max_length=100, blank=True, null=True, default=None, verbose_name='Метки')
     talk_forum = models.URLField(blank=True, null=True, default=None, verbose_name='Ссылка на форум')
-    status = models.CharField(choices=STATUS, default='yes', max_length=3, verbose_name="Опубликован")
+    published = models.CharField(choices=PUBLISHED, default='yes', max_length=3, verbose_name="Опубликован")
     image = models.FileField(upload_to=get_product_file_path, verbose_name='Изображение обложки')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
@@ -97,7 +97,7 @@ class ProductImage(models.Model):
         verbose_name = 'Фотография'
         verbose_name_plural = 'Фотографии'
 
-    STATUS = (
+    PUBLISHED = (
         ('no', 'Нет'),
         ('yes', 'Да')
     )
@@ -106,7 +106,7 @@ class ProductImage(models.Model):
                                 default=None,
                                 verbose_name='Товар')
     image = models.FileField(upload_to=get_product_image_file_path, verbose_name='Фотографии')
-    status = models.CharField(choices=STATUS, default='yes', max_length=3, verbose_name="Опубликована")
+    published = models.CharField(choices=PUBLISHED, default='yes', max_length=3, verbose_name="Опубликована")
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
@@ -130,10 +130,10 @@ class Review(models.Model):
         ('5', 5)
     )
 
-    STATUS = (
-        ('1', 'На проверке'),
-        ('2', 'Опубликован'),
-        ('3', 'Отклонён')
+    PUBLISHED = (
+        ('checking', 'На проверке'),
+        ('yes', 'Опубликован'),
+        ('no', 'Отклонён')
     )
 
     description = models.TextField(verbose_name='Отзыв')
@@ -144,7 +144,7 @@ class Review(models.Model):
     profile = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE, related_name='reviews',
                                 blank=True, null=True,
                                 verbose_name='Автор')
-    status = models.CharField(choices=STATUS, default='1', max_length=1, verbose_name='Статус отзыва')
+    published = models.CharField(choices=PUBLISHED, default='checking', max_length=8, verbose_name='Статус отзыва')
 
 
 class Order(models.Model):

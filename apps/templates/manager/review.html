@@ -40,10 +40,10 @@
                                         <td><a href="{% url 'update_review' review.id %}"
                                                class="text-dark">{{ review.description|truncatechars:'20' }}</a></td>
                                         <td>{{ review.rating }}</td>
-                                        <td>{{ review.get_status_display }}</td>
+                                        <td>{{ review.get_published_display }}</td>
                                         <td>{{ review.profile }}</td>
                                         <td>{{ review.product }}</td>
-                                        <td><a href="{% url 'delete_review' review.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                                        <td><a href="{% url 'delete_review' review.id %}"><i class="bi bi-x-square-fill"></i></a>
                                         </td>
                                     </tr>
                                 {% endfor %}

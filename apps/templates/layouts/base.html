@@ -29,7 +29,7 @@
                     <li class="nav-item">
                         <a class="btn position-relative" href="#">
                             <i class="bi bi-bookmarks"></i>
-                            <span class="position-absolute top-0 start-1 translate-middle badge rounded-pill text-bg-white">
+                            <span class="position-absolute top-0 start-1 translate-middle badge text-bg-white">
                                 1
                                 <span class="visually-hidden">закладки</span>
                             </span>
@@ -39,7 +39,7 @@
                     <li class="nav-item">
                         <a class="btn position-relative" href="#">
                             <i class="bi bi-heart"></i>
-                            <span class="position-absolute top-0 start-1 translate-middle badge rounded-pill text-bg-white">
+                            <span class="position-absolute top-0 start-1 translate-middle badge text-bg-white">
                                 4
                                 <span class="visually-hidden">избранные</span>
                             </span>
@@ -51,7 +51,7 @@
                             <i class="bi bi-cart3"></i>
                             {% with total_items=cart|length %}
                                 {% if cart|length > 0 %}
-                                    <span class="position-absolute top-0 start-1 translate-middle badge rounded-pill text-bg-white">
+                                    <span class="position-absolute top-0 start-1 translate-middle badge text-bg-white">
                                             {{ total_items }}
                                         <span class="visually-hidden">товаров</span>
                                     </span>
@@ -100,7 +100,15 @@
         </div>
     </div>
 </section>
-{% block content %}{% endblock %}
+<section id="main-section">
+    <div id="main-container" class="container">
+        <div class="row">
+            <div class="col">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</section>
 {% include 'includes/footer.html' %}
 {% include 'includes/scripts.html' %}
 </body>

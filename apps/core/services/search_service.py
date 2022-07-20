@@ -7,5 +7,5 @@ def get_search_list(self):
     - совпадение слова в заголовке товара
     - активные товары
     """
-    product_list = Product.objects.filter(name__icontains=self.request.GET.get('q'), status='yes')
+    product_list = Product.objects.filter(name__icontains=self.request.GET.get('q'), published='yes')
     return product_list

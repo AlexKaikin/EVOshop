@@ -29,7 +29,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-5 offset-md-1">
+                <div class="col-md-5 offset-md-1 pt-5">
                     <div class="btn-group" role="group">
                         <a type="button" class="btn btn-outline-success"><i class="bi bi-bookmarks"></i></a>
                         <a type="button" class="btn btn-outline-success"><i class="bi bi-heart"></i></a>
@@ -143,59 +143,75 @@
                             {% if reviews %}
                                 {% for review in reviews %}
                                     <div class="p-3 bg-light">
-                                        <p class="text">
-                                            {% if review.rating == '5' %}
-                                                <div class="star">
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                    <i class="bi bi-star-fill"></i>
-                                                </div>
-                                            {% endif %}
-                                        {% if review.rating == '4' %}
-                                            <div class="star">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star"></i>
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-8">
+                                                <p class="text">
+                                                    {% if review.rating == '5' %}
+                                                        <div class="star">
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                        </div>
+                                                    {% endif %}
+                                                {% if review.rating == '4' %}
+                                                    <div class="star">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </div>
+                                                {% endif %}
+                                                {% if review.rating == '3' %}
+                                                    <div class="star">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </div>
+                                                {% endif %}
+                                                {% if review.rating == '2' %}
+                                                    <div class="star">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </div>
+                                                {% endif %}
+                                                {% if review.rating == '1' %}
+                                                    <div class="star">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </div>
+                                                {% endif %}
+                                                </p>
+                                                <p class="text">{{ review.description }}</p>
                                             </div>
-                                        {% endif %}
-                                        {% if review.rating == '3' %}
-                                            <div class="star">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star"></i>
-                                                <i class="bi bi-star"></i>
+                                            <div class="col-md-2 col-sm-4 text">
+                                                <p class="avatar">
+                                                    {% if review.profile.avatar %}
+                                                        <img src="{{ review.profile.avatar.url }}" alt="">
+                                                    {% else %}
+                                                        <img src="{% static 'img/no_avatar.png' %}" alt="">
+                                                    {% endif %}
+                                                </p>
+                                                <p>
+                                                    {{ review.profile }}
+                                                </p>
+                                                <p>
+                                                    <i class="bi bi-clock"></i> {{ review.created|date:'H:i d.m.Y' }}
+                                                </p>
                                             </div>
-                                        {% endif %}
-                                        {% if review.rating == '2' %}
-                                            <div class="star">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star"></i>
-                                                <i class="bi bi-star"></i>
-                                                <i class="bi bi-star"></i>
-                                            </div>
-                                        {% endif %}
-                                        {% if review.rating == '1' %}
-                                            <div class="star">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star"></i>
-                                                <i class="bi bi-star"></i>
-                                                <i class="bi bi-star"></i>
-                                                <i class="bi bi-star"></i>
-                                            </div>
-                                        {% endif %}
-                                        </p>
-                                        <p class="text">{{ review.description }}</p>
-                                        <p class="text-end text">
-                                            <span><i class="bi bi-person-circle"></i> {{ review.profile }} /</span>
-                                            <span><i
-                                                    class="bi bi-clock"></i> {{ review.created|date:'H:i d.m.Y' }}</span>
-                                        </p>
+                                        </div>
+
+
                                     </div>
                                     <br>
                                 {% endfor %}
