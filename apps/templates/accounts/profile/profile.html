@@ -5,6 +5,15 @@
     <section id="profile" class="paddingTopBottom">
         <div class="container">
             <div class="row">
+                <div class="col">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-3 mb-5">
                     {% include 'includes/profile/sidebar.html' %}
                 </div>
@@ -20,8 +29,18 @@
                         </div>
                     </div>
                     <div class="col-lg-9 mb-5">
-                        <p>Логин: {{ profile.username }}</p>
-                        <a href="{% url 'update_profile' profile.pk %}" class="btn btn-warning">Обновить</a>
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div>{{ form.non_field_errors }}</div>
+                            {% for f in form %}
+                                <div class="form-floating mb-3">
+                                    {{ f }}
+                                    <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                                </div>
+                                <div>{{ f.errors }}</div>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-success btnS">Обновить</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@ from apps.core.models import Review, ProductImage, Product
 
 
 def get_product(self):
-    """ Вернет товар и количество у него опубликованных отзывов """
+    """ Вернет товар, количество у него опубликованных отзывов и рейтинг"""
     slug = self.kwargs['slug']
     return (Product.objects.filter(slug=slug)
             .annotate(count=Count('reviews', filter=Q(reviews__published='yes')))

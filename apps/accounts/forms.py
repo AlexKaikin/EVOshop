@@ -8,10 +8,12 @@ class UserRegisterForm(UserCreationForm, forms.ModelForm):
         model = Profile
         fields = ['username', 'email', 'password1', 'password2']
         widgets = {
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+    username = forms.CharField(label='Логин пользователя',
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -24,6 +26,9 @@ class UserLoginForm(AuthenticationForm, forms.ModelForm):
         model = Profile
         fields = ['username', 'password']
 
+    username = forms.CharField(label='Логин пользователя',
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
@@ -33,8 +38,14 @@ class UserLoginForm(AuthenticationForm, forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['username', 'avatar']
+        fields = ['avatar', 'username', 'email', 'first_name', 'last_name']
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
             'avatar': forms.FileInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'readonly': 'readonly', 'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+    username = forms.CharField(label='Логин пользователя',
+                               widget=forms.TextInput(attrs={'readonly': 'readonly', 'class': 'form-control'}))

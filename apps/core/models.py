@@ -78,6 +78,7 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='Категория')
+    review = models.ManyToManyField('core.Review', related_name='reviews', verbose_name='Отзывы')
 
     def save(self, *args, **kwargs):
         name = self.name
@@ -123,14 +124,6 @@ class Review(models.Model):
         verbose_name_plural = 'Отзывы'
         ordering = ('-created',)
 
-    # RATING = (
-    #     ('1', 1),
-    #     ('2', 2),
-    #     ('3', 3),
-    #     ('4', 4),
-    #     ('5', 5)
-    # )
-
     class Rating(models.IntegerChoices):
         V = 5, '5'
         IV = 4, '4'
@@ -145,7 +138,7 @@ class Review(models.Model):
     )
 
     description = models.TextField(verbose_name='Отзыв')
-    rating = models.IntegerField(choices=Rating.choices, max_length=1, verbose_name='Рейтинг')
+    rating = models.IntegerField(choices=Rating.choices, verbose_name='Рейтинг')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     published = models.CharField(choices=PUBLISHED, default='checking', max_length=8, verbose_name='Статус отзыва')
 

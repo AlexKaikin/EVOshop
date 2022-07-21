@@ -14,7 +14,7 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">Заказ №</th>
+                                <th scope="col">№ заказа</th>
                                 <th scope="col">Создан</th>
                                 <th scope="col">Статус</th>
                                 <th scope="col">Оплачен</th>
@@ -23,7 +23,7 @@
                             <tbody>
                             {% for order in object_list %}
                                 <tr>
-                                    <th scope="row"> {{ order.id }}</th>
+                                    <td> {{ order.id }}</td>
                                     <td>{{ order.created }}</td>
                                     <td>{{ order.get_status_display }}</td>
                                     <td>{{ order.get_paid_display }}</td>

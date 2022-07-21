@@ -274,7 +274,7 @@
                 <div class="modal-body">
                     <form action="" method="POST">
                         {% csrf_token %}
-                        {#{{ form.as_p }}#}
+                        <div>{{ form.non_field_errors }}</div>
                         {% for f in form %}
                             <div class="form-floating mb-3">
                                 {{ f }}
@@ -285,7 +285,7 @@
                         <button type="submit" class="btn btn-success btnS">Сохранить</button>
                     </form>
                     <br>
-                    <p><a href="#">Правила написания отзыва</a></p>
+                    <p><a href="#">Пользовательское соглашение</a></p>
                 </div>
             </div>
         </div>

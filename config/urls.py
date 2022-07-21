@@ -25,13 +25,12 @@ urlpatterns = [
                   path('cart/', include('apps.cart.urls')),
                   path('admin/', admin.site.urls),
                   path('api/', include('apps.api.urls')),
-                  path('__debug__/', include('debug_toolbar.urls')),
                   re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0),
                           name='schema-json'),
                   re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+                  path('__debug__/', include('debug_toolbar.urls')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-# включаем возможность обработки картинок
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
