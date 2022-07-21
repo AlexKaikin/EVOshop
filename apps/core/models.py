@@ -123,13 +123,20 @@ class Review(models.Model):
         verbose_name_plural = 'Отзывы'
         ordering = ('-created',)
 
-    RATING = (
-        ('1', 1),
-        ('2', 2),
-        ('3', 3),
-        ('4', 4),
-        ('5', 5)
-    )
+    # RATING = (
+    #     ('1', 1),
+    #     ('2', 2),
+    #     ('3', 3),
+    #     ('4', 4),
+    #     ('5', 5)
+    # )
+
+    class Rating(models.IntegerChoices):
+        V = 5, '5'
+        IV = 4, '4'
+        III = 3, '3'
+        II = 2, '2'
+        I = 1, '1'
 
     PUBLISHED = (
         ('checking', 'На проверке'),
@@ -138,7 +145,7 @@ class Review(models.Model):
     )
 
     description = models.TextField(verbose_name='Отзыв')
-    rating = models.CharField(choices=RATING, max_length=1, verbose_name='Рейтинг')
+    rating = models.IntegerField(choices=Rating.choices, max_length=1, verbose_name='Рейтинг')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     published = models.CharField(choices=PUBLISHED, default='checking', max_length=8, verbose_name='Статус отзыва')
 

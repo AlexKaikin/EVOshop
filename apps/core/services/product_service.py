@@ -1,4 +1,4 @@
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Sum
 from apps.core.models import Review, ProductImage, Product
 
 
@@ -7,6 +7,7 @@ def get_product(self):
     slug = self.kwargs['slug']
     return (Product.objects.filter(slug=slug)
             .annotate(count=Count('reviews', filter=Q(reviews__published='yes')))
+            .annotate(rating=Sum('reviews__rating', filter=Q(reviews__published='yes')) / Count('reviews', filter=Q(reviews__published='yes')))
             )
 
 

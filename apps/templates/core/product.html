@@ -33,15 +33,52 @@
                     <div class="btn-group" role="group">
                         <a type="button" class="btn btn-outline-success"><i class="bi bi-bookmarks"></i></a>
                         <a type="button" class="btn btn-outline-success"><i class="bi bi-heart"></i></a>
-                        <div class="star">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
+                        {% if product.rating == 5 %}
+                            <div class="star">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                        {% endif %}
+                        {% if product.rating == 4 %}
+                            <div class="star">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                        {% endif %}
+                        {% if product.rating == 3 %}
+                            <div class="star">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                        {% endif %}
+                        {% if product.rating == 2 %}
+                            <div class="star">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                        {% endif %}
+                        {% if product.rating == 1 %}
+                            <div class="star">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                        {% endif %}
                     </div>
-
                     <h3>{{ product.name }}</h3>
                     <p class="text">Вес <span>{{ product.volume }}</span> грамм</p>
                     <form id="order" action="{% url 'cart_add' product.id %}" method="POST">
@@ -146,7 +183,7 @@
                                         <div class="row">
                                             <div class="col-md-10 col-sm-8">
                                                 <p class="text">
-                                                    {% if review.rating == '5' %}
+                                                    {% if review.rating == 5 %}
                                                         <div class="star">
                                                             <i class="bi bi-star-fill"></i>
                                                             <i class="bi bi-star-fill"></i>
@@ -155,7 +192,7 @@
                                                             <i class="bi bi-star-fill"></i>
                                                         </div>
                                                     {% endif %}
-                                                {% if review.rating == '4' %}
+                                                {% if review.rating == 4 %}
                                                     <div class="star">
                                                         <i class="bi bi-star-fill"></i>
                                                         <i class="bi bi-star-fill"></i>
@@ -164,7 +201,7 @@
                                                         <i class="bi bi-star"></i>
                                                     </div>
                                                 {% endif %}
-                                                {% if review.rating == '3' %}
+                                                {% if review.rating == 3 %}
                                                     <div class="star">
                                                         <i class="bi bi-star-fill"></i>
                                                         <i class="bi bi-star-fill"></i>
@@ -173,7 +210,7 @@
                                                         <i class="bi bi-star"></i>
                                                     </div>
                                                 {% endif %}
-                                                {% if review.rating == '2' %}
+                                                {% if review.rating == 2 %}
                                                     <div class="star">
                                                         <i class="bi bi-star-fill"></i>
                                                         <i class="bi bi-star-fill"></i>
@@ -182,7 +219,7 @@
                                                         <i class="bi bi-star"></i>
                                                     </div>
                                                 {% endif %}
-                                                {% if review.rating == '1' %}
+                                                {% if review.rating == 1 %}
                                                     <div class="star">
                                                         <i class="bi bi-star-fill"></i>
                                                         <i class="bi bi-star"></i>

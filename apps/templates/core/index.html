@@ -1,8 +1,6 @@
 {% extends 'layouts/base.html' %}
-{% load static %}
 {% block title %}EVO магазин / Главная{% endblock %}
-{% block description %}Продукция с сертификатом качества. Честные отзывы. Программа лояльности: кешбек, партнёрская
-    ссылка.{% endblock %}
+{% block description %}Продукция с сертификатом качества. Честные отзывы. Бонусная программа.{% endblock %}
 {% block content %}
     <section id="prod" class="paddingTopBottom">
         <div class="container">
@@ -38,7 +36,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h2>Самые популярные товары</h2>
+                    <h2>Популярные товары</h2>
                     <div class="slider-index">
                         {% if popular %}
                             {% for product in popular %}
