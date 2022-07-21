@@ -5,11 +5,24 @@
     <section class="paddingTopBottom">
         <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col-md-6">
                     <h1>Контакты</h1>
                     <p><span class="text">Телефон:</span> 8 800 000 00 00</p>
                     <p><span class="text">Email:</span> mail@mail.ru</p>
                     <p><span class="text">Адрес:</span> 232234, Москва, ул. Ленина д. 23</p>
+                    <h2 class="pt-5">Написать нам</h2>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div>{{ form.non_field_errors }}</div>
+                        {% for f in form %}
+                            <div class="form-floating mb-3">
+                                {{ f }}
+                                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                            </div>
+                            <div>{{ f.errors }}</div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-success btnS">Отправить</button>
+                    </form>
                 </div>
             </div>
         </div>

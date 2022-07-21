@@ -182,16 +182,15 @@
                                     <div class="p-3 bg-light">
                                         <div class="row">
                                             <div class="col-md-10 col-sm-8">
-                                                <p class="text">
-                                                    {% if review.rating == 5 %}
-                                                        <div class="star">
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                        </div>
-                                                    {% endif %}
+                                                {% if review.rating == 5 %}
+                                                    <div class="star">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                    </div>
+                                                {% endif %}
                                                 {% if review.rating == 4 %}
                                                     <div class="star">
                                                         <i class="bi bi-star-fill"></i>
@@ -228,10 +227,11 @@
                                                         <i class="bi bi-star"></i>
                                                     </div>
                                                 {% endif %}
-                                                </p>
-                                                <p class="text">{{ review.description }}</p>
+                                                <div class="text pt-3">
+                                                    {{ review.description|linebreaks }}
+                                                </div>
                                             </div>
-                                            <div class="col-md-2 col-sm-4 text">
+                                            <div class="col-md-2 col-sm-4 author">
                                                 <p class="avatar">
                                                     {% if review.profile.avatar %}
                                                         <img src="{{ review.profile.avatar.url }}" alt="">

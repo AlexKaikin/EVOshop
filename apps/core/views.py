@@ -1,13 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import FormMixin
+from django.views.generic.edit import FormMixin, FormView
 from django.contrib.messages.views import SuccessMessageMixin
 
 from apps.core.models import Category, Product
 from apps.cart.forms import CartAddProductForm
 
-from .forms import ReviewForm
+from .forms import ReviewForm, ContactForm
 from .services.index_service import get_category_list, get_popular_list
 from .services.category_service import get_product_list
 from .services.product_service import get_product, get_review_list, get_images_list
@@ -86,14 +86,20 @@ class SearchView(ListView):
         return context
 
 
+class ContactView(SuccessMessageMixin, FormView):
+    form_class = ContactForm
+    template_name = 'core/contacts.html'
+    success_url = reverse_lazy('index')
+    success_message = 'Письмо отправлено'
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return redirect('index')
+
+
 def about(request):
     """ Страница о компании """
     return render(request, 'core/about.html')
-
-
-def contacts(request):
-    """ Страница контактов """
-    return render(request, 'core/contacts.html')
 
 
 def page_not_found(request, exception):

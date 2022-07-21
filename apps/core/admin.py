@@ -14,6 +14,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_editable = ['published']
     list_display_links = ['name']
     prepopulated_fields = {'slug': ('name',)}
+    readonly_fields = ['created', 'updated']
 
 
 @admin.register(Product)
@@ -25,6 +26,7 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_display_links = ['name']
     prepopulated_fields = {'slug': ('name',)}
+    readonly_fields = ['created', 'updated']
 
 
 @admin.register(ProductImage)
@@ -40,6 +42,7 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ['id', 'description', 'profile', 'published']
     list_editable = ['published']
     list_display_links = ['description']
+    readonly_fields = ['created']
 
 
 class OrderItemInline(admin.TabularInline):
@@ -54,4 +57,9 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ['status', 'paid']
     inlines = [OrderItemInline]
     list_display_links = ['surname']
+    readonly_fields = ['created', 'updated']
+
+
+admin.site.site_title = 'EVO'
+admin.site.site_header = 'EVO администрирование'
 

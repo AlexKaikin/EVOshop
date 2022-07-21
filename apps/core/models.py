@@ -78,7 +78,6 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='Категория')
-    review = models.ManyToManyField('core.Review', related_name='reviews', verbose_name='Отзывы')
 
     def save(self, *args, **kwargs):
         name = self.name
