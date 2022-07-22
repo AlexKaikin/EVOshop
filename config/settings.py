@@ -154,7 +154,6 @@ LOGIN_URL = 'login'
 
 CART_SESSION_ID = 'cart'
 
-# журналирование
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -186,11 +185,8 @@ LOGGING = {
             'level': 'DEBUG',
         },
         'file': {
-            'class': 'logging.handlers.TimedRotatingFileHandler',  # 'class': 'logging.FileHandler',
+            'class': 'logging.FileHandler',
             'filename': BASE_DIR / 'logs/apps.log',
-            'when': 'D',  # this specifies the interval
-            'interval': 1,  # defaults to 1, only necessary for other values
-            'backupCount': 10,  # how many backup file to keep, 10 days
             'level': 'INFO',
             'formatter': 'simple',
         },
