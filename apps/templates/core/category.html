@@ -28,8 +28,11 @@
                                            href="{{ product.get_absolute_url }}">Подробнее</a>
                                         <a type="button" class="btn btn-outline-success"><i class="bi bi-bookmarks"></i></a>
                                         <a type="button" class="btn btn-outline-success"><i class="bi bi-heart"></i></a>
-                                        <a type="button" class="btn btn-outline-success"><i class="bi bi-cart3"></i></a>
+                                        <button type="submit" form="order{{ product.id }}" class="btn btn-outline-success"><i class="bi bi-cart3"></i></button>
                                     </div>
+                                    <form id="order{{ product.id }}" action="{% url 'cart_add' product.id %}" method="POST" style="display: none">
+                                            {% csrf_token %}{{ cart_product_form }}
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -34,6 +34,11 @@ class CategoryView(ListView):
     paginate_by = 9
     template_name = 'core/category.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cart_product_form'] = CartAddProductForm()
+        return context
+
     def get_queryset(self):
         return get_product_list(self)
 
@@ -87,6 +92,7 @@ class SearchView(ListView):
 
 
 class ContactView(SuccessMessageMixin, FormView):
+    """ Страница Контакты """
     form_class = ContactForm
     template_name = 'core/contacts.html'
     success_url = reverse_lazy('index')
