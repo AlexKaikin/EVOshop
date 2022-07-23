@@ -144,8 +144,7 @@ class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews', blank=True, null=True,
                                 verbose_name='Продукт')
     profile = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE, related_name='reviews',
-                                blank=True, null=True,
-                                verbose_name='Автор')
+                                blank=True, null=True, verbose_name='Автор')
 
     def __str__(self):
         return 'Отзыв №{}'.format(self.id)

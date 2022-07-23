@@ -154,6 +154,11 @@ LOGIN_URL = 'login'
 
 CART_SESSION_ID = 'cart'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
+}
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

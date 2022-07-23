@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, Sum, Q
 
 from apps.core.models import Category, Product
 
@@ -19,6 +19,6 @@ def get_popular_list():
     - сортировка по убыванию поле "количество заказов" на товар
     - отфильтруем опубликованные товары
     """
-    products = Product.objects.all().annotate(count=Count("order_items"))
+    products = Product.objects.all().annotate(count=Count("order_items")).annotate(rating=Sum('reviews__rating', filter=Q(reviews__published='yes')) / Count('reviews', filter=Q(reviews__published='yes')))
     popular_list = products.order_by('-count').filter(published='yes')[:7]
     return popular_list

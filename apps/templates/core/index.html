@@ -19,7 +19,7 @@
                         <div class="col">
                             <div class="card h-100">
                                 <img src="{{ category.image.url }}" alt="image">
-                                <div class="card-body-cat">
+                                <div class="card-body text-center">
                                     <h5 class="card-title">
                                         <a href="{{ category.get_absolute_url }}"
                                            class="text-dark">{{ category.name }}</a>
@@ -40,9 +40,58 @@
                     <div class="slider-index">
                         {% if popular %}
                             {% for product in popular %}
-                                <div>
+                                <div class="pop-card">
                                     <img src="{{ product.image.url }}" alt="No image">
-                                    <div class="title"><a href="{{ product.get_absolute_url }}">{{ product.name}}</a></div>
+                                    <div class="title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                                    </div>
+                                    <div class="pop-category">{{ product.category }}</div>
+                                    <div>
+                                        {% if product.rating == 5 %}
+                                            <div class="star">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                            </div>
+                                        {% endif %}
+                                        {% if product.rating == 4 %}
+                                            <div class="star">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star"></i>
+                                            </div>
+                                        {% endif %}
+                                        {% if product.rating == 3 %}
+                                            <div class="star">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star"></i>
+                                                <i class="bi bi-star"></i>
+                                            </div>
+                                        {% endif %}
+                                        {% if product.rating == 2 %}
+                                            <div class="star">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star"></i>
+                                                <i class="bi bi-star"></i>
+                                                <i class="bi bi-star"></i>
+                                            </div>
+                                        {% endif %}
+                                        {% if product.rating == 1 %}
+                                            <div class="star">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star"></i>
+                                                <i class="bi bi-star"></i>
+                                                <i class="bi bi-star"></i>
+                                                <i class="bi bi-star"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             {% endfor %}
                         {% endif %}

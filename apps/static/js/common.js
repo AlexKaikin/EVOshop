@@ -27,26 +27,26 @@ $(document).ready(function () {
         // swipeAngle: false,
         navPosition: 'bottom',
         controlsPosition: 'bottom',
-        controlsText: ["<i class=\"bi bi-arrow-left\"></i>", "<i class=\"bi bi-arrow-right\"></i>"],
+        controlsText: ["<i class=\"bi bi-chevron-left\"></i>", "<i class=\"bi bi-chevron-right\"></i>"],
         loop: false,
         // lazyload: true,
         responsive: {
             300: {
                 edgePadding: 20,
                 gutter: 20,
-                items: 2
+                items: 1
             },
             640: {
                 edgePadding: 20,
                 gutter: 20,
-                items: 3
+                items: 2
             },
             700: {
                 gutter: 30,
-                items: 4
+                items: 3
             },
             900: {
-                items: 5
+                items: 4
             }
         }
     });
