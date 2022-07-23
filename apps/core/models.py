@@ -124,11 +124,11 @@ class Review(models.Model):
         ordering = ('-created',)
 
     class Rating(models.IntegerChoices):
-        V = 5, '5'
-        IV = 4, '4'
-        III = 3, '3'
-        II = 2, '2'
-        I = 1, '1'
+        V = 5, '★★★★★'
+        IV = 4, '★★★★☆'
+        III = 3, '★★★☆☆'
+        II = 2, '★★☆☆☆'
+        I = 1, '★☆☆☆☆'
 
     PUBLISHED = (
         ('checking', 'На проверке'),

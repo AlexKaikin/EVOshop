@@ -39,7 +39,7 @@
                                         <td>{{ review.id }}</td>
                                         <td><a href="{% url 'update_review' review.id %}"
                                                class="text-dark">{{ review.description|truncatechars:'20' }}</a></td>
-                                        <td>{{ review.rating }}</td>
+                                        <td class="rating">{{ review.get_rating_display }}</td>
                                         <td>{{ review.get_published_display }}</td>
                                         <td>{{ review.profile }}</td>
                                         <td>{{ review.product }}</td>
