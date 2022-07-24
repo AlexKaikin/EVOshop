@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
@@ -31,16 +32,22 @@ class IndexView(ListView):
 class CategoryView(ListView):
     """ Вывод товаров из категории """
     model = Product
-    paginate_by = 9
     template_name = 'core/category.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['object_list'] = get_product_list(self)
+        paginator = Paginator(context['object_list'], 9)
+        page = self.request.GET.get('page')
+        try:
+            context['object_list'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['object_list'] = paginator.page(1)
+        except EmptyPage:
+            context['object_list'] = paginator.page(paginator.num_pages)
+
         context['cart_product_form'] = CartAddProductForm()
         return context
-
-    def get_queryset(self):
-        return get_product_list(self)
 
 
 class ProductView(SuccessMessageMixin, FormMixin, DetailView):
@@ -55,7 +62,15 @@ class ProductView(SuccessMessageMixin, FormMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['cart_product_form'] = CartAddProductForm()
         context['images'] = get_images_list(self)
-        context['reviews'] = get_review_list(self)
+        context['object_list'] = get_review_list(self)  # отзывы
+        paginator = Paginator(context['object_list'], 10)
+        page = self.request.GET.get('page')
+        try:
+            context['object_list'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['object_list'] = paginator.page(1)
+        except EmptyPage:
+            context['object_list'] = paginator.page(paginator.num_pages)
         return context
 
     def post(self, request, *args, **kwargs):

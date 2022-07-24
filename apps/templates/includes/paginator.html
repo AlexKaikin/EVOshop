@@ -1,29 +1,29 @@
-{% if page_obj.has_other_pages %}
+{% if object_list.has_other_pages %}
     <div class="row">
         <div class="col d-flex justify-content-center">
             <nav id="paginator" aria-label="Page navigation">
                 <ul class="pagination">
-                    {% if page_obj.has_previous %}
+                    {% if object_list.has_previous %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                            <a class="page-link" href="{{ request.path }}?page={{ object_list.previous_page_number }}">
                                 <i class="bi bi-arrow-left"></i>
                             </a>
                         </li>
                     {% endif %}
-                    {% for page in paginator.page_range %}
-                        {% if page_obj.number == page %}
+                    {% for page in object_list.paginator.page_range %}
+                        {% if object_list.number == page %}
                             <li class="page-item active" aria-current="page">
-                                <a class="page-link">{{ page }}</a>
+                                <div class="page-link">{{ page }}</div>
                             </li>
-                        {% elif page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
+                        {% elif page >= object_list.number|add:-2 and page <= object_list.number|add:2 %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                                <a class="page-link" href="{{ request.path }}?page={{ page }}">{{ page }}</a>
                             </li>
                         {% endif %}
                     {% endfor %}
-                    {% if page_obj.has_next %}
+                    {% if object_list.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                            <a class="page-link" href="{{ request.path }}?page={{ object_list.next_page_number }}">
                                 <i class="bi bi-arrow-right"></i>
                             </a>
                         </li>

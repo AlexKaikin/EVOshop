@@ -126,7 +126,7 @@
                         </div>
                         <div class="tab-pane fade" id="property-tab-pane" role="tabpanel" aria-labelledby="property-tab"
                              tabindex="0">
-                            <div class="col-md-6">
+                            <div class="col-md-6 p-3">
                                 <table class="table table-striped">
                                     <tbody>
                                     {% if product.volume %}
@@ -163,9 +163,9 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab"
+                        <div class="tab-pane fade content p-3" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab"
                              tabindex="0">
-                            <div>
+                            <div class="pt-3">
                                 {% if user.is_authenticated %}
                                     <!-- Кнопка-триггер модального окна добавления отзыва -->
                                     <button type="button" class="btn btn-success btnS" data-bs-toggle="modal"
@@ -177,8 +177,8 @@
                                 {% endif %}
                             </div>
                             <br>
-                            {% if reviews %}
-                                {% for review in reviews %}
+                            {% if object_list %}
+                                {% for review in object_list %}
                                     <div class="p-3 bg-light comment">
                                         <div class="row">
                                             <div class="col-md-10 col-sm-8">
@@ -257,6 +257,7 @@
                                     Отзывов нет
                                 </div>
                             {% endif %}
+                            {% include 'includes/paginator.html' %}
                         </div>
                     </div>
                 </div>

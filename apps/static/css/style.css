@@ -351,7 +351,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 #prod .nav-tabs {
-    margin-bottom: 30px;
+    /*margin-bottom: 30px;*/
     margin-top: 30px;
 }
 

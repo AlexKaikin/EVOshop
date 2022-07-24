@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import UpdateView, CreateView, ListView
@@ -7,6 +8,8 @@ from django.views.generic import UpdateView, CreateView, ListView
 from apps.core.models import Category, Product, Review, Order
 
 from .forms import CategoryForm, ProductForm, ReviewForm, OrderForm
+from .services.manager_category_view import get_category_list
+from .services.manager_order_view import get_order_list
 from .services.manager_product_view import get_product_list
 from .services.manager_review_view import get_review_list
 from .services.manager_servece import get_count_review, get_count_order
@@ -23,8 +26,20 @@ def manager(request):
 class ManagerCategoryView(ListView):
     """ Список категорий для панели управления """
     model = Category
-    paginate_by = 10
     template_name = 'manager/category.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = get_category_list()
+        paginator = Paginator(context['object_list'], 10)
+        page = self.request.GET.get('page')
+        try:
+            context['object_list'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['object_list'] = paginator.page(1)
+        except EmptyPage:
+            context['object_list'] = paginator.page(paginator.num_pages)
+        return context
 
 
 class AddCategoryView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -55,11 +70,20 @@ def delete_category(request, slug):
 class ManagerProductView(ListView):
     """ Список товаров для панели управления """
     model = Product
-    paginate_by = 10
     template_name = 'manager/product.html'
 
-    def get_queryset(self):
-        return get_product_list(self)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = get_product_list(self)
+        paginator = Paginator(context['object_list'], 10)
+        page = self.request.GET.get('page')
+        try:
+            context['object_list'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['object_list'] = paginator.page(1)
+        except EmptyPage:
+            context['object_list'] = paginator.page(paginator.num_pages)
+        return context
 
 
 class AddProductView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -90,11 +114,20 @@ def delete_product(request, slug):
 class ManagerReviewView(ListView):
     """ Список отзывов для панели управления """
     model = Review
-    paginate_by = 10
     template_name = 'manager/review.html'
 
-    def get_queryset(self):
-        return get_review_list(self)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = get_review_list(self)
+        paginator = Paginator(context['object_list'], 10)
+        page = self.request.GET.get('page')
+        try:
+            context['object_list'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['object_list'] = paginator.page(1)
+        except EmptyPage:
+            context['object_list'] = paginator.page(paginator.num_pages)
+        return context
 
 
 class UpdateReviewView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
@@ -120,8 +153,20 @@ def delete_review(request, pk):
 class ManagerOrderView(ListView):
     """ Список заказов для панели управления """
     model = Order
-    paginate_by = 10
     template_name = 'manager/order.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = get_order_list()
+        paginator = Paginator(context['object_list'], 10)
+        page = self.request.GET.get('page')
+        try:
+            context['object_list'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['object_list'] = paginator.page(1)
+        except EmptyPage:
+            context['object_list'] = paginator.page(paginator.num_pages)
+        return context
 
 
 class UpdateOrderView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
