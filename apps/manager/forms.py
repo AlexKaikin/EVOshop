@@ -14,7 +14,7 @@ class CategoryForm(forms.ModelForm):
             'published': forms.Select(attrs={'class': 'form-select'}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
         }
-        
+
     # def clean_name(self):
     #     name = self.cleaned_data['name']
     #     if len(name) > 5:

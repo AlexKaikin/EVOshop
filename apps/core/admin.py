@@ -62,4 +62,3 @@ class OrderAdmin(admin.ModelAdmin):
 
 admin.site.site_title = 'EVO'
 admin.site.site_header = 'EVO администрирование'
-

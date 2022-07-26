@@ -1,11 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Count
+from django.db.models.functions import TruncDay, TruncMonth
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import UpdateView, CreateView, ListView
 
-from apps.core.models import Category, Product, Review, Order
+from apps.core.models import Category, Product, Review, Order, OrderItem
 
 from .forms import CategoryForm, ProductForm, ReviewForm, OrderForm
 from .services.manager_category_view import get_category_list
@@ -19,7 +21,25 @@ def manager(request):
     """ Панель управления """
     count_review = get_count_review
     count_order = get_count_order
-    context = {'count_review': count_review, 'count_order': count_order}
+
+    orders_day = (Order.objects.all()
+                  .annotate(day=TruncDay('created'))
+                  .values('day')
+                  .annotate(count_order=Count('created'))
+                  .values('day', 'count_order')
+                  .order_by('day')
+                  )
+
+    orders_month = (Order.objects.all()
+                    .annotate(month=TruncMonth('created'))
+                    .values('month')
+                    .annotate(count_order=Count('created'))
+                    .values('month', 'count_order')
+                    .order_by('month')
+                    )
+
+    context = {'count_review': count_review, 'count_order': count_order, 'orders_day': orders_day,
+               'orders_month': orders_month}
     return render(request, 'manager/manager.html', context)
 
 
