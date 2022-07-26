@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django import forms
 
-from apps.core.models import Category, Product, Review, Order
+from apps.core.models import Category, Product, Review, Order, Setting
 
 
 class CategoryForm(forms.ModelForm):
@@ -74,4 +74,15 @@ class OrderForm(forms.ModelForm):
             'status': forms.Select(attrs={'class': 'form-select'}),
             'paid': forms.Select(attrs={'class': 'form-select'}),
             'profile': forms.Select(attrs={'class': 'form-select'}),
+        }
+
+
+class SettingForm(forms.ModelForm):
+    class Meta:
+        model = Setting
+        fields = '__all__'
+        exclude = ('name',)
+
+        widgets = {
+            'delivery': forms.TextInput(attrs={'class': 'form-control'}),
         }

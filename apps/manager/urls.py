@@ -21,4 +21,6 @@ urlpatterns = [
     path('order/', views.ManagerOrderView.as_view(), name='manager_order'),
     path('order/<int:pk>/update_order/', views.UpdateOrderView.as_view(), name='update_order'),
     path('order/<int:pk>/delete_order/', views.delete_order, name='delete_order'),
+
+    path('setting/<int:pk>', views.ManagerSettingView.as_view(), name='manager_setting'),
 ]

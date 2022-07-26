@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, ProductImage, Order, Category, Review, OrderItem
+from .models import Product, ProductImage, Order, Category, Review, OrderItem, Setting
 
 
 class ProductImageInline(admin.TabularInline):
@@ -58,6 +58,13 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderItemInline]
     list_display_links = ['surname']
     readonly_fields = ['created', 'updated']
+
+
+@admin.register(Setting)
+class SettingAdmin(admin.ModelAdmin):
+    list_display = ['name', 'delivery']
+    list_editable = ['delivery']
+    list_display_links = ['name']
 
 
 admin.site.site_title = 'EVO'

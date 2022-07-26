@@ -210,3 +210,20 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
+
+
+class Setting(models.Model):
+    """
+    Настройки сайта:
+    - бесплатная доставка
+    """
+    class Meta:
+        verbose_name = 'Настройки'
+        verbose_name_plural = 'Настройки'
+
+    name = models.CharField(max_length=50, verbose_name='Настройки')
+    delivery = models.PositiveIntegerField(default=0, verbose_name='Бесплатная доставка от, руб.')
+
+    def __str__(self):
+        return self.name
+

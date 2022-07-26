@@ -7,9 +7,9 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import UpdateView, CreateView, ListView
 
-from apps.core.models import Category, Product, Review, Order, OrderItem
+from apps.core.models import Category, Product, Review, Order, OrderItem, Setting
 
-from .forms import CategoryForm, ProductForm, ReviewForm, OrderForm
+from .forms import CategoryForm, ProductForm, ReviewForm, OrderForm, SettingForm
 from .services.manager_category_view import get_category_list
 from .services.manager_order_view import get_order_list
 from .services.manager_product_view import get_product_list
@@ -207,3 +207,16 @@ def delete_order(request, pk):
     order = Order.objects.get(pk=pk)
     order.delete()
     return redirect(reverse('manager_order'))
+
+
+class ManagerSettingView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    """ Настройки магазина """
+    model = Setting
+    template_name = 'manager/setting.html'
+    form_class = SettingForm
+    success_url = reverse_lazy('manager_setting')
+    success_message = 'Настройки обновлены'
+
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        return reverse("manager_setting", kwargs={'pk': pk})
