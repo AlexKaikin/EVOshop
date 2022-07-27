@@ -38,7 +38,9 @@
                                 {% for product in object_list %}
                                     <tr>
                                         <td>{{ product.id }}</td>
-                                        <td>{{ product.name }} <a href="{% url 'update_product' product.slug %}"><i class="bi bi-pencil"></i></a></td>
+                                        <td>{{ product.name }}
+                                            <a href="{% url 'update_product' product.slug %}"><i class="bi bi-pencil-square"></i></a>
+                                        </td>
                                         <td>{{ product.category }}</td>
                                         <td>{{ product.get_published_display }}</td>
                                         <td><a href="{% url 'delete_product' product.slug %}"><i class="bi bi-x-square-fill"></i></a></td>

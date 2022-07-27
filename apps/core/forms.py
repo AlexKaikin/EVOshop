@@ -18,4 +18,4 @@ class ReviewForm(forms.ModelForm):
 class ContactForm(forms.Form):
     name = forms.CharField(label='Имя', max_length=255, widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(label='Email', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    content = forms.CharField(label='Текст', widget=forms.Textarea(attrs={'class': 'form-control'}))
+    content = forms.CharField(label='Сообщение', widget=forms.Textarea(attrs={'class': 'form-control'}))

@@ -37,6 +37,7 @@ def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
+        q = Product.objects.get()
         if form.is_valid():
             instance = form.save(commit=False)
             instance.profile = request.user

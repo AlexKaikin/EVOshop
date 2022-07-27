@@ -26,7 +26,9 @@
                                 {% for order in object_list %}
                                     <tr>
                                         <td>{{ order.id }}</td>
-                                        <td>{{ order.surname }} {{ order.name }} <a href="{% url 'update_order' order.pk %}"><i class="bi bi-pencil"></i></a></td>
+                                        <td>{{ order.surname }} {{ order.name }}
+                                            <a href="{% url 'update_order' order.pk %}"><i class="bi bi-pencil-square"></i></a>
+                                        </td>
                                         <td>{{ order.get_status_display }}</td>
                                         <td>{{ order.get_paid_display }}</td>
                                         <td><a href="{% url 'delete_order' order.pk %}"><i class="bi bi-x-square-fill"></i></a></td>
