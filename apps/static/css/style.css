@@ -485,13 +485,13 @@ footer input {
 }
 
 .bi-pencil-square {
-    /*font-size: 1.5em;*/
+    font-size: 25px;
     margin-left: 5px;
 }
 
 .bi-x-square-fill {
     color: #dc3545;
-    /*font-size: 1.5em;*/
+    font-size: 25px;
 }
 
 .number input {
@@ -668,6 +668,25 @@ footer input {
 .rating {
     color: goldenrod;
     font-size: 20px;
+}
+
+#cart_form {
+    width: 100px;
+}
+#cart_form input{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#cart_form button{
+    border: 1px solid var(--color-accent);
+    background-color: var(--color-accent);
+    color: white;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
 }
 
 /* чарт */
