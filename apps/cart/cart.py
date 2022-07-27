@@ -78,7 +78,7 @@ class Cart(object):
         Подсчет стоимости товаров + доставка.
         """
         number = Setting.objects.get(pk=1)
-        if self.get_products_price() > number.delivery:
+        if self.get_products_price() > number.delivery_free:
             return self.get_products_price()
         else:
             return self.get_products_price() + number.delivery

@@ -37,8 +37,7 @@
                                 {% for category in object_list %}
                                     <tr>
                                         <td>{{ category.id }}</td>
-                                        <td>{{ category.name }}
-                                            <a href="{% url 'update_category' category.slug %}"><i class="bi bi-pencil-square"></i></a>
+                                        <td><a href="{% url 'update_category' category.slug %}">{{ category.name }} <i class="bi bi-pencil-square"></i></a>
                                         </td>
                                         <td>{{ category.get_published_display }}</td>
                                         <td>

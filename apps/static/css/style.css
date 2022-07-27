@@ -485,7 +485,7 @@ footer input {
 }
 
 .bi-pencil-square {
-    font-size: 25px;
+    /*font-size: 25px;*/
     margin-left: 5px;
 }
 
@@ -557,6 +557,13 @@ footer input {
     padding-bottom: 2rem;
 }
 
+.table {
+    vertical-align: inherit;
+}
+
+.table a {
+    text-decoration: none;
+}
 .table-hover > tbody > tr:hover > * {
     transition: all ease .3s;
 }

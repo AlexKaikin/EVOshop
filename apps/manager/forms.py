@@ -85,4 +85,5 @@ class SettingForm(forms.ModelForm):
 
         widgets = {
             'delivery': forms.TextInput(attrs={'class': 'form-control'}),
+            'delivery_free': forms.TextInput(attrs={'class': 'form-control'}),
         }

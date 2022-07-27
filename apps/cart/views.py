@@ -34,9 +34,10 @@ def cart_detail(request):
     cart = Cart(request)
     number = Setting.objects.get(pk=1)
     delivery = number.delivery
+    delivery_free = number.delivery_free
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
-    return render(request, 'cart/cart.html', {'cart': cart, 'delivery': delivery})
+    return render(request, 'cart/cart.html', {'cart': cart, 'delivery': delivery, 'delivery_free': delivery_free})
 
 
 def order_create(request):
@@ -44,6 +45,7 @@ def order_create(request):
     cart = Cart(request)
     number = Setting.objects.get(pk=1)
     delivery = number.delivery
+    delivery_free = number.delivery_free
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
@@ -63,4 +65,4 @@ def order_create(request):
     else:
         form = OrderCreateForm
     return render(request, 'cart/create.html',
-                  {'cart': cart, 'form': form, 'delivery': delivery})
+                  {'cart': cart, 'form': form, 'delivery': delivery, 'delivery_free': delivery_free})

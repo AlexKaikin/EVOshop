@@ -62,8 +62,8 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Setting)
 class SettingAdmin(admin.ModelAdmin):
-    list_display = ['name', 'delivery']
-    list_editable = ['delivery']
+    list_display = ['name', 'delivery', 'delivery_free']
+    list_editable = ['delivery', 'delivery_free']
     list_display_links = ['name']
 
 

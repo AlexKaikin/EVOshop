@@ -26,8 +26,7 @@
                                 {% for order in object_list %}
                                     <tr>
                                         <td>{{ order.id }}</td>
-                                        <td>{{ order.surname }} {{ order.name }}
-                                            <a href="{% url 'update_order' order.pk %}"><i class="bi bi-pencil-square"></i></a>
+                                        <td><a href="{% url 'update_order' order.pk %}">{{ order.surname }} {{ order.name }} <i class="bi bi-pencil-square"></i></a>
                                         </td>
                                         <td>{{ order.get_status_display }}</td>
                                         <td>{{ order.get_paid_display }}</td>

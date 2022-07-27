@@ -58,9 +58,9 @@
                                         <td colspan="1"></td>
                                     </tr>
                                     <tr class="">
-                                        <td colspan="4">Доставка (бесплатно от {{ delivery }} руб.)</td>
+                                        <td colspan="4">Доставка (бесплатно от {{ delivery_free }} руб.)</td>
                                         <td class="num">
-                                            {% if cart.get_products_price <  delivery %}{{ delivery }} руб.{% else %}0 руб.{% endif %}
+                                            {% if cart.get_products_price <  delivery_free %}{{ delivery }} руб.{% else %}0 руб.{% endif %}
                                         </td>
                                         <td colspan="1"></td>
                                     </tr>

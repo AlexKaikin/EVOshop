@@ -222,7 +222,8 @@ class Setting(models.Model):
         verbose_name_plural = 'Настройки'
 
     name = models.CharField(max_length=50, verbose_name='Настройки')
-    delivery = models.PositiveIntegerField(default=0, verbose_name='Бесплатная доставка от, руб.')
+    delivery = models.PositiveIntegerField(default=0, verbose_name='Доставка, руб.')
+    delivery_free = models.PositiveIntegerField(default=0, verbose_name='Бесплатная доставка от, руб.')
 
     def __str__(self):
         return self.name

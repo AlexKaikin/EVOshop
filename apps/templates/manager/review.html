@@ -37,8 +37,7 @@
                                 {% for review in object_list %}
                                     <tr>
                                         <td>{{ review.id }}</td>
-                                        <td>{{ review.description|truncatechars:'20' }}
-                                            <a href="{% url 'update_review' review.id %}"><i class="bi bi-pencil-square"></i></a>
+                                        <td><a href="{% url 'update_review' review.id %}"> {{ review.description|truncatechars:'20' }} <i class="bi bi-pencil-square"></i></a>
                                         </td>
                                         <td class="rating">{{ review.get_rating_display }}</td>
                                         <td>{{ review.get_published_display }}</td>
