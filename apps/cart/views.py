@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
-from apps.core.models import Product, OrderItem
+from apps.core.models import Product, OrderItem, Setting
 
 from .cart import Cart
 from .forms import CartAddProductForm, OrderCreateForm
@@ -29,17 +29,20 @@ def cart_remove(request, product_id):
 
 def cart_detail(request):
     cart = Cart(request)
+    number = Setting.objects.get(pk=1)
+    delivery = number.delivery
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
-    return render(request, 'cart/cart.html', {'cart': cart})
+    return render(request, 'cart/cart.html', {'cart': cart, 'delivery': delivery})
 
 
 def order_create(request):
     """ Страница оформления заказа """
     cart = Cart(request)
+    number = Setting.objects.get(pk=1)
+    delivery = number.delivery
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
-        q = Product.objects.get()
         if form.is_valid():
             instance = form.save(commit=False)
             instance.profile = request.user
@@ -57,4 +60,4 @@ def order_create(request):
     else:
         form = OrderCreateForm
     return render(request, 'cart/create.html',
-                  {'cart': cart, 'form': form})
+                  {'cart': cart, 'form': form, 'delivery': delivery})

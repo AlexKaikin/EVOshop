@@ -53,12 +53,14 @@
                                     {% endfor %}
                                     <tr class="total">
                                         <td colspan="4">Стоимость товаров</td>
-                                        <td class="num">{{ cart.get_total_price }} руб.</td>
+                                        <td class="num">{{ cart.get_products_price }} руб.</td>
                                         <td colspan="1"></td>
                                     </tr>
                                     <tr class="">
-                                        <td colspan="4">Доставка (бесплатно от 1000 руб.)</td>
-                                        <td class="num">0 руб.</td>
+                                        <td colspan="4">Доставка (бесплатно от {{ delivery }} руб.)</td>
+                                        <td class="num">
+                                            {% if cart.get_products_price <  delivery %}{{ delivery }} руб.{% else %}0 руб.{% endif %}
+                                        </td>
                                         <td colspan="1"></td>
                                     </tr>
                                     </tbody>

@@ -17,7 +17,10 @@
                                 </li>
                             {% endfor %}
                         </ul>
-                        <p>Стоимость заказа: {{ cart.get_total_price }} рублей</p>
+                        <br>
+                        <p>Стоимость товаров: {{ cart.get_products_price }} рублей</p>
+                        <p>Стоимость доставки: {% if cart.get_products_price <  delivery %}{{ delivery }}{% else %}0{% endif %} рублей</p>
+                        <p>Стоимость всего: {{ cart.get_total_price }} рублей</p>
                     </div>
                     <h1>Данные получателя</h1>
                     <form action="." method="post" class="order-form">

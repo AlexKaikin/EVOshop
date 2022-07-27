@@ -27,7 +27,7 @@
         const ctx2 = document.getElementById('orderInMonth');
 
         const myChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: [{%for order in orders_day%}'{{order.day|date:"d M Y"}}',{%endfor%}],
                 datasets: [{
@@ -42,14 +42,14 @@
         });
 
         const myChart2 = new Chart(ctx2, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: [{%for order in orders_month%}'{{order.month|date:"M Y"}}',{%endfor%}],
                 datasets: [{
                     label: 'Количество заказов в месяц',
                     backgroundColor: '#198754',
                     borderColor: '#198754',
-                    data: [{%for order in orders_day%}{{order.count_order}}, {%endfor%}],
+                    data: [{%for order in orders_month%}{{order.count_order}}, {%endfor%}],
                     fill: true,
                     borderWidth: 1,
                 }]
