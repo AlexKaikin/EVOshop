@@ -87,7 +87,8 @@
                             <p>
                                 Количество
                                 <button class="minus btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
-                                {{ cart_product_form }}
+{#                                {{ cart_product_form }}#}
+                                <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" required="" id="id_quantity">
                                 <button class="plus btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
                             </p>
                         </div>

@@ -39,7 +39,8 @@
                                                 <td>
                                                     <form action="{% url 'cart_add' product.id %}" method="POST" id="cart_form">
                                                         {% csrf_token %}
-                                                        {{ item.update_quantity_form.quantity }}
+{#                                                        {{ item.update_quantity_form.quantity }}#}
+                                                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ product.stock }}" required="" id="id_quantity">
                                                         {{ item.update_quantity_form.update }}
                                                         <button type="submit"><i class="bi bi-arrow-clockwise"></i></button>
                                                     </form>
