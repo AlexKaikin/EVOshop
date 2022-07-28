@@ -5,6 +5,7 @@ from apps.core.models import Product, OrderItem, Setting
 
 from .cart import Cart
 from .forms import CartAddProductForm, OrderCreateForm
+from .services.cart_detail import get_delivery, get_delivery_free
 
 
 @require_POST
@@ -32,9 +33,8 @@ def cart_remove(request, product_id):
 def cart_detail(request):
     """ Страница корзины """
     cart = Cart(request)
-    number = Setting.objects.get(pk=1)
-    delivery = number.delivery
-    delivery_free = number.delivery_free
+    delivery = get_delivery()
+    delivery_free = get_delivery_free()
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
     return render(request, 'cart/cart.html', {'cart': cart, 'delivery': delivery, 'delivery_free': delivery_free})
@@ -43,14 +43,19 @@ def cart_detail(request):
 def order_create(request):
     """ Страница оформления заказа """
     cart = Cart(request)
-    number = Setting.objects.get(pk=1)
-    delivery = number.delivery
-    delivery_free = number.delivery_free
+    delivery = get_delivery()
+    delivery_free = get_delivery_free()
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.profile = request.user
+            if cart.get_products_price() < delivery_free:
+                instance.delivery = delivery
+            else:
+                instance.delivery = 0
+            instance.products_price = cart.get_products_price()
+            instance.total_price = cart.get_total_price()
             instance.save()
             order = form.save()
             for item in cart:

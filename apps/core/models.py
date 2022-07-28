@@ -179,6 +179,9 @@ class Order(models.Model):
     comment = models.TextField(blank=True, null=True, default=None, verbose_name='Комментарий')
     status = models.CharField(choices=STATUS, default='1', max_length=1, verbose_name='Статус заказа')
     paid = models.CharField(choices=PAID, default='no', max_length=3, verbose_name='Оплачен')
+    products_price = models.DecimalField(max_digits=10, decimal_places=0, blank=True, verbose_name='Стоимость товаров, руб')
+    delivery = models.DecimalField(max_digits=10, decimal_places=0, blank=True, verbose_name='Стоимость доставки, руб')
+    total_price = models.DecimalField(max_digits=10, decimal_places=0, blank=True, verbose_name='Стоимость заказа, руб')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
@@ -190,6 +193,9 @@ class Order(models.Model):
 
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
+
+    def get_absolute_url(self):
+        return reverse('profile_order_detail', kwargs={'pk': self.pk})
 
 
 class OrderItem(models.Model):

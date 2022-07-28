@@ -61,7 +61,7 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = '__all__'
-        exclude = ('profile',)
+        exclude = ('profile', 'products_price', 'delivery', 'total_price',)
         widgets = {
             'surname': forms.TextInput(attrs={'class': 'form-control'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
