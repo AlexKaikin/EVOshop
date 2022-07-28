@@ -16,14 +16,12 @@
                                     <img src="{% static 'img/noimg.jpg' %}" alt="No image">
                                 {% endif %}
                                 <div class="card-body">
-                                    <h5 class="card-title"><a href="{{ product.get_absolute_url }}"
-                                                              class="link-dark">{{ product.name }}</a></h5>
+                                    <h5 class="card-title"><a href="{{ product.get_absolute_url }}" class="link-dark">{{ product.name }}</a></h5>
                                     <div class="volume"><span class="text">{{ product.volume }} грамм</span></div>
                                     <div class="price float-end">{{ product.price }} <span class="text">руб.</span>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <a type="button" class="btn btn-success"
-                                           href="{{ product.get_absolute_url }}">Подробнее</a>
+                                        <a type="button" class="btn btn-success btnSG" href="{{ product.get_absolute_url }}">Подробнее</a>
                                         <a type="button" class="btn btn-outline-success"><i class="bi bi-bookmark"></i></a>
                                         <a type="button" class="btn btn-outline-success"><i class="bi bi-heart"></i></a>
                                         <button type="submit" form="order{{ product.id }}" class="btn btn-outline-success"><i class="bi bi-cart3"></i></button>

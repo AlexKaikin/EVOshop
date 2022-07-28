@@ -349,6 +349,23 @@ input[type="search"]::-webkit-search-results-decoration {
 #prod .card-body a {
     text-decoration: none;
 }
+#prod .card-body-i {
+    position: absolute;
+    top: 35%;
+    left: 0;
+    right: 0;
+    border: 0;
+}
+#prod .card-body-i a{
+    text-decoration: none;
+    color: white !important;
+    font-weight: 900;
+    font-size: 50px;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    text-shadow: 0px 0px 10px black;
+    padding: 5px;
+}
 
 #prod .nav-tabs {
     /*margin-bottom: 30px;*/
@@ -407,7 +424,9 @@ input[type="search"]::-webkit-search-results-decoration {
     /*margin-bottom: 20px;*/
     border-radius: 5px;
 }
-
+#nav-tab .nav-link {
+    color: var(--bs-dark);
+}
 #prod .nav-link,
 #profile .nav-link {
     color: var(--color-accent);
@@ -430,6 +449,7 @@ footer input {
     -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;
     background-color: var(--color-accent);
+    border-color: var(--color-accent);
 }
 
 .btnG {
@@ -439,6 +459,10 @@ footer input {
     -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;
     background-color: #6c757d;
+}
+
+.btnSG {
+    background-color: var(--color-accent);
 }
 
 .btn-outline-success {

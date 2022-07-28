@@ -1,45 +1,32 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Count
-from django.db.models.functions import TruncDay, TruncMonth
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import UpdateView, CreateView, ListView
 
-from apps.core.models import Category, Product, Review, Order, OrderItem, Setting
+from apps.core.models import Category, Product, Review, Order, Setting
 
 from .forms import CategoryForm, ProductForm, ReviewForm, OrderForm, SettingForm
 from .services.manager_category_view import get_category_list
 from .services.manager_order_view import get_order_list
 from .services.manager_product_view import get_product_list
 from .services.manager_review_view import get_review_list
-from .services.manager_servece import get_count_review, get_count_order
+from .services.manager_servece import get_count_review, get_count_order, get_orders_day, get_orders_month, \
+    get_profit_day, get_profit_month
 
 
 def manager(request):
     """ Панель управления """
     count_review = get_count_review
     count_order = get_count_order
-
-    orders_day = (Order.objects.all()
-                  .annotate(day=TruncDay('created'))
-                  .values('day')
-                  .annotate(count_order=Count('created'))
-                  .values('day', 'count_order')
-                  .order_by('day')
-                  )
-
-    orders_month = (Order.objects.all()
-                    .annotate(month=TruncMonth('created'))
-                    .values('month')
-                    .annotate(count_order=Count('created'))
-                    .values('month', 'count_order')
-                    .order_by('month')
-                    )
+    orders_day = get_orders_day
+    orders_month = get_orders_month
+    profit_day = get_profit_day
+    profit_month = get_profit_month
 
     context = {'count_review': count_review, 'count_order': count_order, 'orders_day': orders_day,
-               'orders_month': orders_month}
+               'orders_month': orders_month, 'profit_day': profit_day, 'profit_month': profit_month}
     return render(request, 'manager/manager.html', context)
 
 

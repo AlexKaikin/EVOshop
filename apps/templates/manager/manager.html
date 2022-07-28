@@ -12,29 +12,48 @@
                     <h3>Дашборд</h3>
                     <p>Отзывов на проверку {{ count_review }}</p>
                     <p>Заказов на обработку {{ count_order }}</p>
-                    <div>
-                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                        <canvas id="orderInDay"></canvas>
-                        <br>
-                        <canvas id="orderInMonth"></canvas>
+                    <br>
+                    <nav>
+                      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-order-tab" data-bs-toggle="tab" data-bs-target="#nav-order" type="button" role="tab" aria-controls="nav-order" aria-selected="true">Заказы</button>
+                        <button class="nav-link" id="nav-profit-tab" data-bs-toggle="tab" data-bs-target="#nav-profit" type="button" role="tab" aria-controls="nav-profit" aria-selected="false">Прибыль</button>
+                      </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                      <div class="tab-pane fade show active" id="nav-order" role="tabpanel" aria-labelledby="nav-order-tab" tabindex="0">
+                          <br>
+                          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                          <canvas id="orderInDay"></canvas>
+                          <br>
+                          <canvas id="orderInMonth"></canvas>
+                      </div>
+                      <div class="tab-pane fade" id="nav-profit" role="tabpanel" aria-labelledby="nav-profit-tab" tabindex="0">
+                          <br>
+                          <canvas id="profitInDay"></canvas>
+                          <br>
+                          <canvas id="profitInMonth"></canvas>
+                      </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <script>
         const ctx = document.getElementById('orderInDay');
         const ctx2 = document.getElementById('orderInMonth');
+        const ctx3 = document.getElementById('profitInDay');
+        const ctx4 = document.getElementById('profitInMonth');
 
         const myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: [{%for order in orders_day%}'{{order.day|date:"d M Y"}}',{%endfor%}],
+                labels: [{% for order in orders_day %}'{{ order.day|date:"d.m.Y" }}',{% endfor %}],
                 datasets: [{
                     label: 'Количество заказов в день',
                     backgroundColor: '#198754',
                     borderColor: '#198754',
-                    data: [{%for order in orders_day%}{{order.count_order}}, {%endfor%}],
+                    data: [{% for order in orders_day %}{{ order.count_order }}, {% endfor %}],
                     fill: true,
                     borderWidth: 1,
                 }]
@@ -44,12 +63,42 @@
         const myChart2 = new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: [{%for order in orders_month%}'{{order.month|date:"M Y"}}',{%endfor%}],
+                labels: [{% for order in orders_month %}'{{ order.month|date:"m.Y" }}',{% endfor %}],
                 datasets: [{
                     label: 'Количество заказов в месяц',
                     backgroundColor: '#198754',
                     borderColor: '#198754',
-                    data: [{%for order in orders_month%}{{order.count_order}}, {%endfor%}],
+                    data: [{% for order in orders_month %}{{ order.count_order }}, {% endfor %}],
+                    fill: true,
+                    borderWidth: 1,
+                }]
+            },
+        });
+
+        const myChart3 = new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: [{% for profit in profit_day %}'{{ profit.day|date:"d.m.Y" }}',{% endfor %}],
+                datasets: [{
+                    label: 'Прибыль в день',
+                    backgroundColor: '#198754',
+                    borderColor: '#198754',
+                    data: [{% for profit in profit_day %}{{ profit.count_profit }}, {% endfor %}],
+                    fill: true,
+                    borderWidth: 1,
+                }]
+            },
+        });
+
+        const myChart4 = new Chart(ctx4, {
+            type: 'bar',
+            data: {
+                labels: [{% for profit in profit_month %}'{{ profit.month|date:"m.Y" }}',{% endfor %}],
+                datasets: [{
+                    label: 'Прибыль в месяц',
+                    backgroundColor: '#198754',
+                    borderColor: '#198754',
+                    data: [{% for profit in profit_month %}{{ profit.count_profit }}, {% endfor %}],
                     fill: true,
                     borderWidth: 1,
                 }]

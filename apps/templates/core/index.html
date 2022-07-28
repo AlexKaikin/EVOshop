@@ -13,16 +13,15 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                 {% if categories %}
                     {% for category in categories|slice:':6' %}
                         <div class="col">
                             <div class="card h-100">
                                 <img src="{{ category.image.url }}" alt="image">
-                                <div class="card-body text-center">
+                                <div class="card-body-i text-center">
                                     <h5 class="card-title">
-                                        <a href="{{ category.get_absolute_url }}"
-                                           class="text-dark">{{ category.name }}</a>
+                                        <a href="{{ category.get_absolute_url }}" class="text-dark">{{ category.name }}</a>
                                     </h5>
                                 </div>
                             </div>
