@@ -1,8 +1,8 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import FormMixin, FormView
+from django.views.generic.edit import FormMixin, CreateView
 from django.contrib.messages.views import SuccessMessageMixin
 
 from apps.core.models import Category, Product
@@ -106,16 +106,12 @@ class SearchView(ListView):
         return context
 
 
-class ContactView(SuccessMessageMixin, FormView):
+class ContactView(SuccessMessageMixin, CreateView):
     """ Страница Контакты """
     form_class = ContactForm
     template_name = 'core/contacts.html'
-    success_url = reverse_lazy('index')
-    success_message = 'Письмо отправлено'
-
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        return redirect('index')
+    success_url = reverse_lazy('contacts')
+    success_message = 'Сообщение отправлено'
 
 
 def about(request):

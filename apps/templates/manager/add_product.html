@@ -16,13 +16,27 @@
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div>{{ form.non_field_errors }}</div>
-                        {% for f in form %}
+                        {% for field in form %}
                             <div class="form-floating mb-3">
-                                {{ f }}
-                                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                                {{ field }}
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                             </div>
-                            <div>{{ f.errors }}</div>
+                            <div>{{ field.errors }}</div>
                         {% endfor %}
+                        <br>
+                        <div>
+                            <h3>Изображения товара</h3>
+                            {{ product_form.as_p }}
+{#                            {{ product_form.management_form }}#}
+{#                            {{ product_form.non_form_errors }}#}
+{#                            {% for field in product_form %}#}
+{#                                <div class="form-floating mb-3">#}
+{#                                    {{ field }}#}
+{#                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>#}
+{#                                </div>#}
+{#                                <div>{{ field.errors }}</div>#}
+{#                            {% endfor %}#}
+                        </div>
                         <button type="submit" class="btn btn-success btnS">Сохранить</button>
                     </form>
                 </div>

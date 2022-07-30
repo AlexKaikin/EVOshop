@@ -22,8 +22,8 @@
                                     </div>
                                     <div class="btn-group" role="group">
                                         <a type="button" class="btn btn-success btnSG" href="{{ product.get_absolute_url }}">Подробнее</a>
-                                        <a type="button" class="btn btn-outline-success"><i class="bi bi-bookmark"></i></a>
-                                        <a type="button" class="btn btn-outline-success"><i class="bi bi-heart"></i></a>
+                                        <button type="button" class="btn btn-outline-success"><i class="bi bi-bookmark"></i></button>
+                                        <button type="button" class="btn btn-outline-success"><i class="bi bi-heart"></i></button>
                                         <button type="submit" form="order{{ product.id }}" class="btn btn-outline-success"><i class="bi bi-cart3"></i></button>
                                     </div>
                                     <form id="order{{ product.id }}" action="{% url 'cart_add' product.id %}" method="POST" style="display: none">

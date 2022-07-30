@@ -87,8 +87,9 @@
                             <p>
                                 Количество
                                 <button class="minus btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
-{#                                {{ cart_product_form }}#}
-                                <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" required="" id="id_quantity">
+                                {#                                {{ cart_product_form }}#}
+                                <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}"
+                                       required="" id="id_quantity">
                                 <button class="plus btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
                             </p>
                         </div>
@@ -99,27 +100,23 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
                                     data-bs-target="#description-tab-pane" type="button" role="tab"
                                     aria-controls="description-tab-pane" aria-selected="true">Описание
                             </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link link-success" id="profile-tab" data-bs-toggle="tab"
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
                                     data-bs-target="#property-tab-pane" type="button" role="tab"
                                     aria-controls="property-tab-pane" aria-selected="false">Характеристики
                             </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link link-success" id="contact-tab" data-bs-toggle="tab"
+                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
                                     data-bs-target="#review-tab-pane" type="button" role="tab"
                                     aria-controls="review-tab-pane" aria-selected="false">Отзывы
                                 ({{ product.count }})
                             </button>
-                        </li>
-                    </ul>
+                        </div>
+                    </nav>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active " id="description-tab-pane" role="tabpanel"
                              aria-labelledby="description-tab" tabindex="0">
@@ -164,7 +161,8 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="tab-pane fade content p-3" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab"
+                        <div class="tab-pane fade content p-3" id="review-tab-pane" role="tabpanel"
+                             aria-labelledby="review-tab"
                              tabindex="0">
                             <div class="pt-3">
                                 {% if user.is_authenticated %}

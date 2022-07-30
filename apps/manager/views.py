@@ -1,13 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import UpdateView, CreateView, ListView
 
 from apps.core.models import Category, Product, Review, Order, Setting
 
-from .forms import CategoryForm, ProductForm, ReviewForm, OrderForm, SettingForm
+from .forms import CategoryForm, ProductForm, ReviewForm, OrderForm, SettingForm, ProductFormSet
 from .services.manager_category_view import get_category_list
 from .services.manager_order_view import get_order_list
 from .services.manager_product_view import get_product_list
@@ -100,6 +101,29 @@ class AddProductView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     form_class = ProductForm
     success_url = reverse_lazy('manager_product')
     success_message = 'Товар добавлен'
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        product_form = context['product_form']
+        if product_form.is_valid():
+            self.object = form.save()
+            product_form.instance = self.object
+            product_form.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def get_context_data(self, **kwargs):
+        context = super(AddProductView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['product_form'] = ProductFormSet(self.request.POST, self.request.FILES)
+        else:
+            context['product_form'] = ProductFormSet()
+
+        return context
 
 
 class UpdateProductView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):

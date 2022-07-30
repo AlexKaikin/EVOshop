@@ -1,4 +1,4 @@
-from django.db.models import Count, Sum, F, FloatField
+from django.db.models import Count, Sum, F
 from django.db.models.functions import TruncDay, TruncMonth
 
 from apps.core.models import Review, Order, OrderItem
@@ -45,7 +45,7 @@ def get_profit_day():
     orders_month = (OrderItem.objects.all()
                     .annotate(day=TruncDay('created'))
                     .values('day')
-                    .annotate(count_profit=Sum(F('price')*F('quantity'), output_field=FloatField()))
+                    .annotate(count_profit=Sum(F('price')*F('quantity')))
                     .values('day', 'count_profit')
                     .order_by('day')
                     )
@@ -57,7 +57,7 @@ def get_profit_month():
     orders_month = (OrderItem.objects.all()
                     .annotate(month=TruncMonth('created'))
                     .values('month')
-                    .annotate(count_profit=Sum(F('price')*F('quantity'), output_field=FloatField()))
+                    .annotate(count_profit=Sum(F('price')*F('quantity')))
                     .values('month', 'count_profit')
                     .order_by('month')
                     )

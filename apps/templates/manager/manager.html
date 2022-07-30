@@ -80,7 +80,7 @@
             data: {
                 labels: [{% for profit in profit_day %}'{{ profit.day|date:"d.m.Y" }}',{% endfor %}],
                 datasets: [{
-                    label: 'Прибыль в день',
+                    label: 'Прибыль в день, руб.',
                     backgroundColor: '#198754',
                     borderColor: '#198754',
                     data: [{% for profit in profit_day %}{{ profit.count_profit }}, {% endfor %}],
@@ -95,7 +95,7 @@
             data: {
                 labels: [{% for profit in profit_month %}'{{ profit.month|date:"m.Y" }}',{% endfor %}],
                 datasets: [{
-                    label: 'Прибыль в месяц',
+                    label: 'Прибыль в месяц, руб.',
                     backgroundColor: '#198754',
                     borderColor: '#198754',
                     data: [{% for profit in profit_month %}{{ profit.count_profit }}, {% endfor %}],

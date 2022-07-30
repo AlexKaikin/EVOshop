@@ -1,7 +1,8 @@
 from django.core.exceptions import ValidationError
 from django import forms
+from django.forms import inlineformset_factory
 
-from apps.core.models import Category, Product, Review, Order, Setting
+from apps.core.models import Category, Product, Review, Order, Setting, ProductImage
 
 
 class CategoryForm(forms.ModelForm):
@@ -42,6 +43,12 @@ class ProductForm(forms.ModelForm):
             'published': forms.Select(attrs={'class': 'form-select'}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
         }
+
+
+ProductFormSet = inlineformset_factory(Product, ProductImage, fields='__all__', extra=5, widgets={
+    'image': forms.FileInput(attrs={'class': 'form-control'}),
+    'published': forms.Select(attrs={'class': 'form-select'}),
+})
 
 
 class ReviewForm(forms.ModelForm):

@@ -103,7 +103,7 @@ class ProductImage(models.Model):
         ('yes', 'Да')
     )
 
-    image = models.FileField(upload_to=get_product_image_file_path, verbose_name='Фотографии')
+    image = models.FileField(upload_to=get_product_image_file_path, verbose_name='Фотография', blank=True)
     published = models.CharField(choices=PUBLISHED, default='yes', max_length=3, verbose_name="Опубликована")
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
@@ -124,11 +124,11 @@ class Review(models.Model):
         ordering = ('-created',)
 
     class Rating(models.IntegerChoices):
-        V = 5, '★★★★★'
-        IV = 4, '★★★★☆'
-        III = 3, '★★★☆☆'
-        II = 2, '★★☆☆☆'
-        I = 1, '★☆☆☆☆'
+        FIVE = 5, '★★★★★'
+        FOUR = 4, '★★★★☆'
+        THREE = 3, '★★★☆☆'
+        TWO = 2, '★★☆☆☆'
+        ONE = 1, '★☆☆☆☆'
 
     PUBLISHED = (
         ('checking', 'На проверке'),
@@ -179,7 +179,8 @@ class Order(models.Model):
     comment = models.TextField(blank=True, null=True, default=None, verbose_name='Комментарий')
     status = models.CharField(choices=STATUS, default='1', max_length=1, verbose_name='Статус заказа')
     paid = models.CharField(choices=PAID, default='no', max_length=3, verbose_name='Оплачен')
-    products_price = models.DecimalField(max_digits=10, decimal_places=0, blank=True, verbose_name='Стоимость товаров, руб')
+    products_price = models.DecimalField(max_digits=10, decimal_places=0, blank=True,
+                                         verbose_name='Стоимость товаров, руб')
     delivery = models.DecimalField(max_digits=10, decimal_places=0, blank=True, verbose_name='Стоимость доставки, руб')
     total_price = models.DecimalField(max_digits=10, decimal_places=0, blank=True, verbose_name='Стоимость заказа, руб')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
@@ -237,3 +238,17 @@ class Setting(models.Model):
         return self.name
 
 
+class Message(models.Model):
+    """
+    Сообщения со страницы контактов
+    """
+    class Meta:
+        verbose_name = 'Сообщения'
+        verbose_name_plural = 'Сообщения'
+
+    name = models.CharField(max_length=50, verbose_name='Ваше имя')
+    email = models.EmailField(blank=True, null=True, default=None, verbose_name='Ваш e-mail')
+    message = models.TextField(blank=True, null=True, default=None, verbose_name='Сообщение')
+
+    def __str__(self):
+        return 'Сообщение №{}'.format(self.id)

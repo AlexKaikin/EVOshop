@@ -1,28 +1,48 @@
 {% extends 'layouts/base.html' %}
 {% block title %}EVO магазин / Контакты{% endblock %}
-{% block description %}Телефон 8 800 000 00 00, Адрес: 232234, Москва, ул. Ленина д. 23. Email: mail@mail.ru{% endblock %}
+{% block description %}Телефон 8 800 000 00 00, Адрес: 232234, Москва, ул. Ленина д. 23. Email:
+    mail@mail.ru{% endblock %}
 {% block content %}
     <section class="paddingTopBottom">
         <div class="container">
+            <div class="row">
+                <div class="col">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-6">
                     <h1>Контакты</h1>
                     <p><span class="text">Телефон:</span> 8 800 000 00 00</p>
                     <p><span class="text">Email:</span> mail@mail.ru</p>
                     <p><span class="text">Адрес:</span> 232234, Москва, ул. Ленина д. 23</p>
-                    <h2 class="pt-5">Написать нам сообщение</h2>
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        <div>{{ form.non_field_errors }}</div>
-                        {% for f in form %}
+                    {% if not messages %}
+                        <h2 class="pt-5">Написать нам сообщение</h2>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div>{{ form.non_field_errors }}</div>
                             <div class="form-floating mb-3">
-                                {{ f }}
-                                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                                {{ form.name }}
+                                <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
                             </div>
-                            <div>{{ f.errors }}</div>
-                        {% endfor %}
-                        <button type="submit" class="btn btn-success btnS">Отправить</button>
-                    </form>
+                            <div>{{ form.name.errors }}</div>
+                            <div class="form-floating mb-3">
+                                {{ form.email }}
+                                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                            </div>
+                            <div>{{ form.email.errors }}</div>
+                            <div class="form-floating mb-3">
+                                {{ form.message }}
+                                <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
+                            </div>
+                            <div>{{ form.message.errors }}</div>
+                            <button type="submit" class="btn btn-success btnS">Отправить</button>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         </div>

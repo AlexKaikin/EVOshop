@@ -79,6 +79,7 @@ body {
 
 a,
 .btn-link {
+    /*color: black;*/
     color: var(--color-accent);
 }
 
@@ -341,9 +342,9 @@ input[type="search"]::-webkit-search-results-decoration {
     margin-right: 5px;
     border-radius: 5px;
     border: 0;
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
-    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
+    /*-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
+    /*-moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
+    /*box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
 }
 
 #prod .card-body a {
@@ -352,7 +353,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
 #prod .card-body-i {
     position: absolute;
-    top: 35%;
+    top: 40%;
     left: 0;
     right: 0;
     border: 0;
@@ -360,13 +361,13 @@ input[type="search"]::-webkit-search-results-decoration {
 
 #prod .card-body-i a {
     text-decoration: none;
-    color: white !important;
-    font-weight: 900;
-    font-size: 50px;
-    border-top: 2px solid white;
-    border-bottom: 2px solid white;
-    text-shadow: 0px 0px 10px black;
-    padding: 5px;
+    color: black !important;
+    font-weight: 100;
+    font-size: 33px;
+    border: 0;
+    padding: 20px 30px;
+    background-color: #ffffff;
+    border-radius: 5px;
 }
 
 #prod .nav-tabs {
@@ -377,13 +378,13 @@ input[type="search"]::-webkit-search-results-decoration {
 #prod .price {
     font-size: 30px;
     color: var(--color-accent);
-    font-weight: 900;
     opacity: 1;
 }
 
 #prod .price span {
     font-size: initial;
     font-weight: normal;
+    color: black;
 }
 
 #prod .btn-group {
@@ -431,10 +432,10 @@ input[type="search"]::-webkit-search-results-decoration {
     color: var(--bs-dark);
 }
 
-#prod .nav-link,
-#profile .nav-link {
-    color: var(--color-accent);
-}
+/*#prod .nav-link,*/
+/*#profile .nav-link {*/
+/*    color: var(--color-accent);*/
+/*}*/
 
 footer {
     -webkit-box-shadow: 0px 150px 100px -100px rgba(0, 0, 0, 1) inset;
@@ -449,9 +450,9 @@ footer input {
 .btnS {
     padding: 20px 30px;
     margin-bottom: 5px;
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;
-    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;
+    /*-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;*/
+    /*-moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;*/
+    /*box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;*/
     background-color: var(--color-accent);
     border-color: var(--color-accent);
 }
@@ -459,17 +460,17 @@ footer input {
 .btnG {
     padding: 20px 30px;
     margin-bottom: 5px;
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;
-    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;
+    /*-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;*/
+    /*-moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;*/
+    /*box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) inset;*/
     background-color: #6c757d;
 }
 
 .btnSG {
     background-color: var(--color-accent);
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
-    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
+    /*-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
+    /*-moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
+    /*box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
 }
 
 .btn-outline-success {
@@ -481,9 +482,9 @@ footer input {
 
 .form-control,
 .form-select {
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1) inset;
-    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1) inset;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1) inset;
+    /*-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1) inset;*/
+    /*-moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1) inset;*/
+    /*box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1) inset;*/
 }
 
 .pos-rel {
@@ -515,7 +516,8 @@ footer input {
     border-radius: 5px;
 }
 
-.bi-pencil-square {
+.bi-pencil-square,
+.bi-box-arrow-up-right {
     /*font-size: 25px;*/
     margin-left: 5px;
 }
@@ -547,9 +549,9 @@ footer input {
 #paginator .page-link {
     color: var(--color-accent);
     padding: 10px 19px;
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
-    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
+    /*-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
+    /*-moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
+    /*box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
 }
 
 #paginator .active .page-link {
@@ -565,9 +567,9 @@ footer input {
 
 #administrator .list-group-item,
 #profile .list-group-item {
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
-    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
+    /*-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
+    /*-moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
+    /*box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
 }
 
 #administrator .list-group-item.active {
@@ -625,6 +627,7 @@ footer input {
 
 .slider-index a {
     text-decoration: none;
+    color: black;
 }
 
 .tns-outer {
@@ -724,9 +727,9 @@ footer input {
     background-color: var(--color-accent);
     color: white;
     border-radius: 5px;
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
-    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;
+    /*-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
+    /*-moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
+    /*box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) inset;*/
 }
 
 /* чарт */
@@ -774,3 +777,23 @@ footer input {
 }
 
 /* /чарт */
+
+
+#myTab .link-success {
+    color: rgb(0 0 0 / 70%)!important;
+}
+.nav-tabs .nav-link {
+    background-color: #dee2e6;
+    margin-right: 5px;
+}
+
+.nav-tabs .nav-link.active{
+    background-color: white;
+}
+
+@media (max-width: 500px) {
+    .nav-tabs .nav-link {
+        padding: 7px;
+        margin-right: 3px;
+    }
+}
