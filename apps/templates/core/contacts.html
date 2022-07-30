@@ -6,7 +6,7 @@
     <section class="paddingTopBottom">
         <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col message">
                     {% if messages %}
                         {% for message in messages %}
                             <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
@@ -21,30 +21,53 @@
                     <p><span class="text">Email:</span> mail@mail.ru</p>
                     <p><span class="text">Адрес:</span> 232234, Москва, ул. Ленина д. 23</p>
                     {% if not messages %}
-                        <h2 class="pt-5">Написать нам сообщение</h2>
-                        <form action="" method="post">
-                            {% csrf_token %}
-                            <div>{{ form.non_field_errors }}</div>
-                            <div class="form-floating mb-3">
-                                {{ form.name }}
-                                <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
-                            </div>
-                            <div>{{ form.name.errors }}</div>
-                            <div class="form-floating mb-3">
-                                {{ form.email }}
-                                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-                            </div>
-                            <div>{{ form.email.errors }}</div>
-                            <div class="form-floating mb-3">
-                                {{ form.message }}
-                                <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
-                            </div>
-                            <div>{{ form.message.errors }}</div>
-                            <button type="submit" class="btn btn-success btnS">Отправить</button>
-                        </form>
+                        <div id="contact-form" class="contact-form">
+                            <h2 class="pt-5">Написать нам сообщение</h2>
+                            <form id="contactForm" action="" method="post">
+                                {% csrf_token %}
+                                <div>{{ form.non_field_errors }}</div>
+                                <div class="form-floating mb-3">
+                                    {{ form.name }}
+                                    <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                                </div>
+                                <div>{{ form.name.errors }}</div>
+                                <div class="form-floating mb-3">
+                                    {{ form.email }}
+                                    <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                                </div>
+                                <div>{{ form.email.errors }}</div>
+                                <div class="form-floating mb-3">
+                                    {{ form.message }}
+                                    <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
+                                </div>
+                                <div>{{ form.message.errors }}</div>
+                                <button type="submit" class="btn btn-success btnS">Отправить</button>
+                            </form>
+                        </div>
                     {% endif %}
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        $(document).ready(function () {
+            $('#contactForm').submit(function () { // отслеживаем событие отправки формы
+                $.ajax({ // создаем AJAX-вызов
+                    data: $(this).serialize(), // получаем данные формы
+                    type: $(this).attr('method'), // GET или POST
+                    url: "{% url 'contacts' %}",
+                    success: function (response) { // если успешно, то
+                        $('.message').after('<div class="alert alert-success" role="alert">Сообщение отправлено</div>');
+                        $('#contact-form').addClass('visually-hidden');
+                        $('html, body').animate({scrollTop: $("body").offset().top}, 0);
+                    },
+                    error: function (response) { // если ошибка, то
+                        alert(response.responseJSON.errors); // предупредим об ошибке
+                    }
+                });
+                return false;
+            });
+        })
+    </script>
 {% endblock %}

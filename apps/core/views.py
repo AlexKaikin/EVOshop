@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
@@ -112,6 +113,19 @@ class ContactView(SuccessMessageMixin, CreateView):
     template_name = 'core/contacts.html'
     success_url = reverse_lazy('contacts')
     success_message = 'Сообщение отправлено'
+
+    def form_valid(self, form):
+        """ Если форма валидна, вернем код 200 """
+        name = form.cleaned_data['name']
+        email = form.cleaned_data['email']
+        message = form.cleaned_data['message']
+        form.save()
+        return JsonResponse({"name": name, "email": email, "message": message, 'messages': 'Сообщение отправлено'}, status=200)
+
+    def form_invalid(self, form):
+        """ Если форма невалидна, возвращаем код 400 с ошибками. """
+        errors = form.errors.as_json()
+        return JsonResponse({"errors": errors}, status=400)
 
 
 def about(request):

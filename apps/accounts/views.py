@@ -1,6 +1,9 @@
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import JsonResponse
 from django.views.generic import CreateView, UpdateView, ListView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy, reverse
@@ -18,8 +21,31 @@ class RegisterForm(SuccessMessageMixin, CreateView):
     """ Страница регистрации """
     form_class = UserRegisterForm
     template_name = 'accounts/register.html'
-    success_url = reverse_lazy('login')
-    success_message = 'Регистрация прошла успешно, можете войти'
+    success_url = reverse_lazy('index')
+    success_message = '%(username)s, добро пожаловать!'
+
+    def form_valid(self, form):
+        valid = super().form_valid(form)
+        login(self.request, self.object)
+        return valid
+
+
+def validate_username(request):
+    """ Проверка доступности логина """
+    username = request.GET.get('username', None)
+    response = {
+        'username_taken': Profile.objects.filter(username__iexact=username).exists(),
+    }
+    return JsonResponse(response)
+
+
+def validate_email(request):
+    """ Проверка доступности e-mail """
+    email = request.GET.get('email', None)
+    response = {
+        'email_taken': Profile.objects.filter(email__iexact=email).exists(),
+    }
+    return JsonResponse(response)
 
 
 class LoginForm(SuccessMessageMixin, LoginView):

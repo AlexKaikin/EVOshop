@@ -6,17 +6,17 @@
             <div class="row">
                 <div class="col-md-6">
                     <h1>Регистрация</h1>
-                    <form action="" method="POST">
+                    <form id="signupForm" action="" method="POST">
                         {% csrf_token %}
                         <div>{{ form.non_field_errors }}</div>
-                        {% for f in form %}
+                        {% for field in form %}
                             <div class="form-floating mb-3">
-                                {{ f }}
-                                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                                {{ field }}
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                             </div>
-                            <div>{{ f.errors }}</div>
+                            <div>{{ field.errors }}</div>
                         {% endfor %}
-                        <button class="btn btn-success btnS">Отправить</button>
+                        <button type="submit" name="signupSubmit" class="btn btn-success btnS">Отправить</button>
                     </form>
                     <br>
                     <p>У вас есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
@@ -24,4 +24,46 @@
             </div>
         </div>
     </section>
+    <script>
+        $(document).ready(function () {
+            $('#id_username').keyup(function () { // отслеживаем событие отправки формы
+                $.ajax({ // создаем AJAX-вызов
+                    data: $(this).serialize(), // получаяем данные формы
+                    url: "{% url 'validate_username' %}",
+                    success: function (response) { // если успешно, то
+                        if (response.username_taken) {
+                            $('#id_username').removeClass('is-valid').addClass('is-invalid');
+                            $('#id_username').after('<div class="errorAjax" id="usernameError">Такой логин уже существует!</div>')
+                        } else {
+                            $('#id_username').removeClass('is-invalid').addClass('is-valid');
+                            $('#usernameError').remove();
+                        }
+                    },
+                    error: function (response) {  // если ошибка, то
+                        console.log(response.responseJSON.errors) // предупредим об ошибке
+                    }
+                });
+                return false;
+            });
+            $('#id_email').keyup(function () {
+                $.ajax({
+                    data: $(this).serialize(),
+                    url: "{% url 'validate_email' %}",
+                    success: function (response) {
+                        if (response.email_taken) {
+                            $('#id_email').removeClass('is-valid').addClass('is-invalid');
+                            $('#id_email').after('<div class="errorAjax" id="emailError">Такой e-mail уже зарегистрирован!</div>')
+                        } else {
+                            $('#id_email').removeClass('is-invalid').addClass('is-valid');
+                            $('#emailError').remove();
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response.responseJSON.errors)
+                    }
+                });
+                return false;
+            });
+        })
+    </script>
 {% endblock %}
