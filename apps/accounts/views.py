@@ -33,18 +33,14 @@ class RegisterForm(SuccessMessageMixin, CreateView):
 def validate_username(request):
     """ Проверка доступности логина """
     username = request.GET.get('username', None)
-    response = {
-        'username_taken': Profile.objects.filter(username__iexact=username).exists(),
-    }
+    response = {'username_taken': Profile.objects.filter(username__iexact=username).exists()}
     return JsonResponse(response)
 
 
 def validate_email(request):
     """ Проверка доступности e-mail """
     email = request.GET.get('email', None)
-    response = {
-        'email_taken': Profile.objects.filter(email__iexact=email).exists(),
-    }
+    response = {'email_taken': Profile.objects.filter(email__iexact=email).exists()}
     return JsonResponse(response)
 
 

@@ -3,19 +3,41 @@
 {% block content %}
     <section class="paddingTopBottom">
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <h1>Регистрация</h1>
+                    <h1 class="text-center">Регистрация</h1>
                     <form id="signupForm" action="" method="POST">
                         {% csrf_token %}
                         <div>{{ form.non_field_errors }}</div>
-                        {% for field in form %}
-                            <div class="form-floating mb-3">
-                                {{ field }}
-                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                            </div>
-                            <div>{{ field.errors }}</div>
-                        {% endfor %}
+
+                        <div class="form-floating mb-3">
+                            {{ form.username }}
+                            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                        </div>
+                        <div>{{ form.username.errors }}</div>
+                        <div>Логин должен содержать только буквы латинского алфавита и цифры</div>
+                        <br>
+
+                        <div class="form-floating mb-3">
+                            {{ form.email }}
+                            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                        </div>
+                        <div>{{ form.email.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.password1 }}
+                            <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                        </div>
+                        <div>{{ form.password1.errors }}</div>
+                        <div>Пароль должен быть от 8 символов</div>
+                        <br>
+
+                        <div class="form-floating mb-3">
+                            {{ form.password2 }}
+                            <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                        </div>
+                        <div>{{ form.password2.errors }}</div>
+
                         <button type="submit" name="signupSubmit" class="btn btn-success btnS">Отправить</button>
                     </form>
                     <br>
@@ -26,16 +48,16 @@
     </section>
     <script>
         $(document).ready(function () {
-            $('#id_username').keyup(function () { // отслеживаем событие отправки формы
+            $('#id_username').change(function () { // отслеживаем событие отправки формы
                 $.ajax({ // создаем AJAX-вызов
-                    data: $(this).serialize(), // получаяем данные формы
+                    data: $(this).serialize(), // получаем данные формы
                     url: "{% url 'validate_username' %}",
                     success: function (response) { // если успешно, то
                         if (response.username_taken) {
                             $('#id_username').removeClass('is-valid').addClass('is-invalid');
                             $('#id_username').after('<div class="errorAjax" id="usernameError">Такой логин уже существует!</div>')
                         } else {
-                            $('#id_username').removeClass('is-invalid').addClass('is-valid');
+                            $('#id_username').removeClass('is-invalid');
                             $('#usernameError').remove();
                         }
                     },
@@ -45,7 +67,7 @@
                 });
                 return false;
             });
-            $('#id_email').keyup(function () {
+            $('#id_email').change(function () {
                 $.ajax({
                     data: $(this).serialize(),
                     url: "{% url 'validate_email' %}",
@@ -54,7 +76,7 @@
                             $('#id_email').removeClass('is-valid').addClass('is-invalid');
                             $('#id_email').after('<div class="errorAjax" id="emailError">Такой e-mail уже зарегистрирован!</div>')
                         } else {
-                            $('#id_email').removeClass('is-invalid').addClass('is-valid');
+                            $('#id_email').removeClass('is-invalid');
                             $('#emailError').remove();
                         }
                     },
