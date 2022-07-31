@@ -2,35 +2,73 @@
 {% load  static %}
 {% block title %}EVO магазин / Обновить отзыв{% endblock %}
 {% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col message">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
     <section id="prod" class="paddingTopBottom">
         <div class="container">
-            <div class="row">
-                <div class="col">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-6">
                     <p><a href="{% url 'manager_review' %}">Вернуться</a></p>
                     <h1>Обновить отзыв</h1>
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form id="reviewForm" action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div>{{ form.non_field_errors }}</div>
-                        {% for f in form %}
-                            <div class="form-floating mb-3">
-                                {{ f }}
-                                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
-                            </div>
-                            <div>{{ f.errors }}</div>
-                        {% endfor %}
+
+                        <div class="form-floating mb-3">
+                            {{ form.description }}
+                            <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                        </div>
+                        <div>{{ form.rating.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.rating }}
+                            <label for="{{ form.rating.id_for_label }}">{{ form.rating.label }}</label>
+                        </div>
+                        <div>{{ form.rating.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.published }}
+                            <label for="{{ form.published.id_for_label }}">{{ form.published.label }}</label>
+                        </div>
+                        <div>{{ form.published.errors }}</div>
+
                         <button type="submit" class="btn btn-success btnS">Сохранить</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        $(document).ready(function () {
+            $('#reviewForm').submit(function () { // отслеживаем событие отправки формы
+                $.ajax({ // создаем AJAX-вызов
+                    data: $(this).serialize(), // получаем данные формы
+                    type: $(this).attr('method'), // GET или POST
+                    url: "{% url 'update_review' review.id %}",
+                    success: function (response) { // если успешно, то
+                        if (response.status == 'ok') {
+                            $('.validAjax').remove();
+                            $('.message').after('<div class="validAjax" role="alert">Отзыв обновлён</div>');
+                            $('html, body').animate({scrollTop: $("body").offset().top}, 0);
+                        } else {
+                        }
+                    },
+                    error: function (response) { // если ошибка, то
+                        console.log(response.responseJSON.errors) // предупредим об ошибке
+                    }
+                });
+                return false;
+            });
+        })
+    </script>
 {% endblock %}

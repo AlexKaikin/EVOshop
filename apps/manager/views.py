@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import UpdateView, CreateView, ListView
@@ -169,9 +169,10 @@ class UpdateReviewView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('update_review')
     success_message = 'Отзыв обновлён'
 
-    def get_success_url(self):
-        pk = self.kwargs['pk']
-        return reverse("update_review", kwargs={'pk': pk})
+    def form_valid(self, form):
+        form.save()
+        response = {'status': 'ok'}
+        return JsonResponse(response, status=200)
 
 
 def delete_review(request, pk):
