@@ -684,7 +684,15 @@ footer input {
     border-radius: 5px;
     margin: 15px 0;
     padding: 1rem;
-    list-style: none;
+}
+
+.validAjax {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+    border-radius: 5px;
+    padding: 1rem;
+    margin: 15px 0;
 }
 
 .author {

@@ -82,9 +82,10 @@ class ProductView(SuccessMessageMixin, FormMixin, DetailView):
             instance.product = self.get_object()
             instance.save()
             form.save()
-            return self.form_valid(form)
+            return JsonResponse({'status': 'ok'}, status=200)
         else:
-            return self.form_invalid(form)
+            errors = form.errors.as_json()
+            return JsonResponse({"errors": errors}, status=400)
 
     def get_queryset(self):
         return get_product(self)
@@ -120,7 +121,8 @@ class ContactView(SuccessMessageMixin, CreateView):
         email = form.cleaned_data['email']
         message = form.cleaned_data['message']
         form.save()
-        return JsonResponse({"name": name, "email": email, "message": message, 'messages': 'Сообщение отправлено'}, status=200)
+        return JsonResponse({"name": name, "email": email, "message": message, 'messages': 'Сообщение отправлено'},
+                            status=200)
 
     def form_invalid(self, form):
         """ Если форма невалидна, возвращаем код 400 с ошибками. """
