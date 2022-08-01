@@ -25,13 +25,31 @@
                     <form id="categoryForm" action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div>{{ form.non_field_errors }}</div>
-                        {% for field in form %}
-                            <div class="form-floating mb-3">
-                                {{ field }}
-                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                            </div>
-                            <div>{{ field.errors }}</div>
-                        {% endfor %}
+
+                        <div class="form-floating mb-3">
+                            {{ form.name }}
+                            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        </div>
+                        <div>{{ form.name.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.published }}
+                            <label for="{{ form.published.id_for_label }}">{{ form.published.label }}</label>
+                        </div>
+                        <div>{{ form.published.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.image }}
+                            <label for="{{ form.image.id_for_label }}">{{ form.image.label }}</label>
+                        </div>
+                        <div>{{ form.image.errors }}</div>
+{#                        {% for field in form %}#}
+{#                            <div class="form-floating mb-3">#}
+{#                                {{ field }}#}
+{#                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>#}
+{#                            </div>#}
+{#                            <div>{{ field.errors }}</div>#}
+{#                        {% endfor %}#}
                         <button type="submit" class="btn btn-success btnS">Сохранить</button>
                     </form>
                 </div>

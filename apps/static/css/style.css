@@ -381,6 +381,11 @@ input[type="search"]::-webkit-search-results-decoration {
     color: var(--color-accent);
     opacity: 1;
 }
+.result{
+    font-size: 30px;
+    color: var(--color-accent);
+    opacity: 1;
+}
 
 #prod .price span {
     font-size: initial;

@@ -89,14 +89,14 @@
                             <p>
                                 Количество
                                 <button class="minus btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
-                                {#                                {{ cart_product_form }}#}
                                 <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}"
                                        required="" id="id_quantity">
                                 <button class="plus btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
                             </p>
                         </div>
                     </form>
-                    <p class="price">{{ product.price }} <span class="text">рублей</span></p>
+                    <span class="price" style="display: none">{{ product.price }}</span>
+                    <p><span class="result">{{ product.price }}</span> <span class="text">рублей</span></p>
                     <p><input type="submit" form="order" class="btn btn-success btnS" value="Добавить в корзину"></p>
                 </div>
             </div>
@@ -314,8 +314,7 @@
                             $('#addReviewModal').modal('hide');
                             $('.message').after('<div class="validAjax" role="alert">Отзыв добавлен и ожидает модерации</div>');
                             $('html, body').animate({scrollTop: $("body").offset().top}, 0);
-                        }
-                        else {
+                        } else {
                             $('.errorAjax').remove();
                             $('#addReviewModal').modal('hide');
                             $('.message').after('<div class="errorAjax" role="alert">Форма заполнена не верно</div>');

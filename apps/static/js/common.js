@@ -54,6 +54,13 @@ $(document).ready(function () {
 
 });
 
+// подсчёт стоимости товара с учётом количества на странице товара //
+$("#id_quantity").on("change", total_price);
+function total_price(e) {
+    $("span.result").text(+this.value * +$("span.price").text());
+}
+// /подсчёт стоимости товара с учётом количества на странице товара //
+
 // пагинация //
 function ajaxPagination() {
     $('.content a.page-link').each((index, el) => {
