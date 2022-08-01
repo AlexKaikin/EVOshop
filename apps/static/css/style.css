@@ -815,3 +815,11 @@ footer input {
         margin-right: 3px;
     }
 }
+
+/* manager */
+.category_img,
+.product_img {
+    margin-bottom: 20px;
+    width: 100%;
+}
+/* /manager */

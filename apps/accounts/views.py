@@ -66,14 +66,18 @@ class ProfileView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('profile')
     success_message = 'Профиль обновлён'
 
-    # def get_success_url(self):
-    #     pk = self.kwargs['pk']
-    #     return reverse("profile", kwargs={'pk': pk})
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        return reverse("profile", kwargs={'pk': pk})
 
     def form_valid(self, form):
         form.save()
         response = {'status': 'ok'}
         return JsonResponse(response, status=200)
+
+    def form_invalid(self, form):
+        response = {'status': 'error'}
+        return JsonResponse(response, status=400)
 
 
 class ProfileOrderView(ListView):

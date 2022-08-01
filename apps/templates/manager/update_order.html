@@ -2,7 +2,7 @@
 {% load  static %}
 {% block title %}EVO магазин / Обновить заказ{% endblock %}
 {% block content %}
-    <section id="prod" class="paddingTopBottom">
+    <section id="administrator" class="paddingTopBottom">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -14,9 +14,11 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-3 mb-5">
+                    {% include 'includes/manager/sidebar.html' %}
+                </div>
                 <div class="col-md-6">
-                    <p><a href="{% url 'manager_order' %}">Вернуться</a></p>
-                    <h1>Обновить заказ</h1>
+                    <h3>Обновить заказ</h3>
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div>{{ form.non_field_errors }}</div>

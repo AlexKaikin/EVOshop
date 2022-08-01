@@ -19,31 +19,27 @@
                 <div class="col-md-3 mb-5">
                     {% include 'includes/profile/sidebar.html' %}
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-6 content">
                     <h3>Профиль</h3>
-                    <div class="col-lg-3 mb-5">
-                        <div class="avatar">
-                            {% if profile.avatar %}
-                                <img src="{{ profile.avatar.url }}" alt="">
-                            {% else %}
-                                <img src="{% static 'img/no_avatar.png' %}" alt="No avatar">
-                            {% endif %}
-                        </div>
+                    <div class="avatar mb-5">
+                        {% if profile.avatar %}
+                            <img src="{{ profile.avatar.url }}" alt="">
+                        {% else %}
+                            <img src="{% static 'img/no_avatar.png' %}" alt="No avatar">
+                        {% endif %}
                     </div>
-                    <div class="col-lg-9 mb-5">
-                        <form id="profileForm" action="" method="POST" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <div>{{ form.non_field_errors }}</div>
-                            {% for f in form %}
-                                <div class="form-floating mb-3">
-                                    {{ f }}
-                                    <label for="{{ f.id_for_label }}">{{ f.label }}</label>
-                                </div>
-                                <div>{{ f.errors }}</div>
-                            {% endfor %}
-                            <button type="submit" class="btn btn-success btnS">Обновить</button>
-                        </form>
-                    </div>
+                    <form id="profileForm" action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div>{{ form.non_field_errors }}</div>
+                        {% for field in form %}
+                            <div class="form-floating mb-3">
+                                {{ field }}
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            </div>
+                            <div>{{ field.errors }}</div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-success btnS">Обновить</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -52,20 +48,29 @@
     <script>
         $(document).ready(function () {
             $('#profileForm').submit(function () { // отслеживаем событие отправки формы
+                var form = $("#profileForm");
+                var formData = new FormData(form[0]);
                 $.ajax({ // создаем AJAX-вызов
-                    data: $(this).serialize(), // получаем данные формы
+                    data: formData,//$(this).serialize(), // получаем данные формы
+                    contentType: false,
+                    processData: false,
                     type: $(this).attr('method'), // GET или POST
                     url: "{% url 'profile' profile.pk %}",
                     success: function (response) { // если успешно, то
                         if (response.status == 'ok') {
+                            $('.avatar').load(document.URL + ' img');
+                            $('.errorAjax').remove();
                             $('.validAjax').remove();
                             $('.message').after('<div class="validAjax" role="alert">Профиль обновлён</div>');
                             $('html, body').animate({scrollTop: $("body").offset().top}, 0);
-                        } else {
                         }
                     },
                     error: function (response) { // если ошибка, то
                         console.log(response.responseJSON.errors) // предупредим об ошибке
+                        $('.errorAjax').remove();
+                        $('.validAjax').remove();
+                        $('.message').after('<div class="errorAjax" role="alert">Ошибка</div>');
+                        $('html, body').animate({scrollTop: $("body").offset().top}, 0);
                     }
                 });
                 return false;

@@ -57,8 +57,10 @@ class ProfileForm(forms.ModelForm):
             'username': forms.TextInput(attrs={'readonly': 'readonly', 'class': 'form-control'}),
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.TextInput(attrs={'readonly': 'readonly', 'class': 'form-control'}),
         }
 
     username = forms.CharField(label='Логин пользователя',
                                widget=forms.TextInput(attrs={'readonly': 'readonly', 'class': 'form-control'}))
+    email = forms.EmailField(label='Адрес электронной почты',
+                             widget=forms.TextInput(attrs={'readonly': 'readonly', 'class': 'form-control'}))

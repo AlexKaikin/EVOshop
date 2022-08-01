@@ -2,30 +2,35 @@
 {% load  static %}
 {% block title %}EVO магазин / Обновить категорию{% endblock %}
 {% block content %}
-    <section id="prod" class="paddingTopBottom">
+    <div class="container">
+        <div class="row">
+            <div class="col message">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <section id="administrator" class="paddingTopBottom">
         <div class="container">
             <div class="row">
-                <div class="col">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
-                        {% endfor %}
-                    {% endif %}
+                <div class="col-md-3 mb-5">
+                    {% include 'includes/manager/sidebar.html' %}
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-6">
-                    <p><a href="{% url 'manager_category' %}">Вернуться</a></p>
-                    <h1>Обновить категорию</h1>
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <h3>Обновить категорию</h3>
+                    <img src="{{ category.image.url }}" alt="{{ category.name }}" class="category_img">
+                    <form id="categoryForm" action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div>{{ form.non_field_errors }}</div>
-                        {% for f in form %}
+                        {% for field in form %}
                             <div class="form-floating mb-3">
-                                {{ f }}
-                                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                                {{ field }}
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                             </div>
-                            <div>{{ f.errors }}</div>
+                            <div>{{ field.errors }}</div>
                         {% endfor %}
                         <button type="submit" class="btn btn-success btnS">Сохранить</button>
                     </form>

@@ -2,7 +2,7 @@
 {% load  static %}
 {% block title %}EVO магазин / Обновить товар{% endblock %}
 {% block content %}
-    <section id="prod" class="paddingTopBottom">
+    <section id="administrator" class="paddingTopBottom">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -14,12 +14,15 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-3 mb-5">
+                    {% include 'includes/manager/sidebar.html' %}
+                </div>
                 <div class="col-md-6">
-                    <p><a href="{% url 'manager_product' %}">Вернуться</a></p>
-                    <h1>Обновить товар</h1>
+                    <h3>Обновить товар</h3>
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product_img">
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-{#                        {{ form.as_p }}#}
+                        {#                        {{ form.as_p }}#}
                         <div>{{ form.non_field_errors }}</div>
                         {% for f in form %}
                             <div class="form-floating mb-3">

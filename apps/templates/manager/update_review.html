@@ -13,12 +13,14 @@
             </div>
         </div>
     </div>
-    <section id="prod" class="paddingTopBottom">
+    <section id="administrator" class="paddingTopBottom">
         <div class="container">
             <div class="row">
+                <div class="col-md-3 mb-5">
+                    {% include 'includes/manager/sidebar.html' %}
+                </div>
                 <div class="col-md-6">
-                    <p><a href="{% url 'manager_review' %}">Вернуться</a></p>
-                    <h1>Обновить отзыв</h1>
+                    <h3>Обновить отзыв</h3>
                     <form id="reviewForm" action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div>{{ form.non_field_errors }}</div>
