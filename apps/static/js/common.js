@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    // счётчик количества товара на странице товара //
     $('.minus').click(function () {
         var $input = $(this).parent().find('input');
         var count = parseInt($input.val()) - 1;
@@ -13,8 +14,15 @@ $(document).ready(function () {
         $input.change();
         return false;
     });
+    // /счётчик количества товара на странице товара //
 
-    // слайдер на главной странице, топ товаров
+    // подсчёт стоимости товара с учётом количества на странице товара //
+    $("#id_quantity").on("change", function (e) {
+        $("span.total_price").text(+this.value * +$("span.price").text());
+    });
+    // /подсчёт стоимости товара с учётом количества на странице товара //
+
+    // слайдер на главной странице, топ товаров //
     // https://github.com/ganlanyuan/tiny-slider
     var slider = tns({
         container: '.slider-index',
@@ -50,16 +58,9 @@ $(document).ready(function () {
             }
         }
     });
-
-
+    // /слайдер на главной странице, топ товаров //
 });
 
-// подсчёт стоимости товара с учётом количества на странице товара //
-$("#id_quantity").on("change", total_price);
-function total_price(e) {
-    $("span.result").text(+this.value * +$("span.price").text());
-}
-// /подсчёт стоимости товара с учётом количества на странице товара //
 
 // пагинация //
 function ajaxPagination() {

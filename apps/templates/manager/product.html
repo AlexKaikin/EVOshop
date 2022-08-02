@@ -24,12 +24,13 @@
                     </div>
                     {% if object_list %}
                         <div class="table-responsive">
-                            <table class="table table-hover">
+                            <table id="product_table" class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
+                                    <th scope="col">№</th>
                                     <th scope="col">Название</th>
                                     <th scope="col">Категория</th>
+                                    <th scope="col">В наличии</th>
                                     <th scope="col">Опубликован</th>
                                     <th scope="col">&nbsp;</th>
                                 </tr>
@@ -41,6 +42,7 @@
                                         <td><a href="{% url 'update_product' product.slug %}"> {{ product.name }} <i class="bi bi-pencil-square"></i></a>
                                         </td>
                                         <td>{{ product.category }}</td>
+                                        <td>{{ product.stock }}</td>
                                         <td>{{ product.get_published_display }}</td>
                                         <td><a href="{% url 'delete_product' product.slug %}"><i class="bi bi-x-square-fill"></i></a></td>
                                     </tr>

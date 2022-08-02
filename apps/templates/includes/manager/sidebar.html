@@ -1,20 +1,22 @@
 <ul class="list-group">
-    <li class="list-group-item">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
         <a href="{% url 'manager' %}"><i class="bi bi-speedometer2"></i> Дашборд</a>
     </li>
-    <li class="list-group-item">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
         <a href="{% url 'manager_category' %}"><i class="bi bi-folder2-open"></i> Категории</a>
+        <a href="{% url 'add_category' %}"><span class="badge rounded-pill"><i class="bi bi-plus-lg"></i></span></a>
     </li>
-    <li class="list-group-item">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
         <a href="{% url 'manager_product' %}"><i class="bi bi-list-task"></i> Товары</a>
+        <a href="{% url 'add_product' %}"><span class="badge rounded-pill"><i class="bi bi-plus-lg"></i></span></a>
     </li>
-    <li class="list-group-item">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
         <a href="{% url 'manager_review' %}"><i class="bi bi-chat-text"></i> Отзывы</a>
     </li>
-    <li class="list-group-item">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
         <a href="{% url 'manager_order' %}"><i class="bi bi-cart3"></i> Заказы</a>
     </li>
-    <li class="list-group-item">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
         <a href="{% url 'manager_setting' '1' %}"><i class="bi bi-gear"></i> Настройки</a>
     </li>
 </ul>

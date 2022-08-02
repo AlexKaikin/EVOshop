@@ -18,7 +18,7 @@ from .services.manager_servece import get_count_review, get_count_order, get_ord
 
 
 def manager(request):
-    """ Панель управления """
+    """ Дашборд панели управления """
     count_review = get_count_review
     count_order = get_count_order
     orders_day = get_orders_day

@@ -369,6 +369,12 @@ input[type="search"]::-webkit-search-results-decoration {
     padding: 20px 30px;
     background-color: #ffffff;
     border-radius: 5px;
+    transition: all ease .3s;
+}
+
+#prod .card-body-i a:hover{
+    background-color: black;
+    color: white!important;
 }
 
 #prod .nav-tabs {
@@ -381,7 +387,7 @@ input[type="search"]::-webkit-search-results-decoration {
     color: var(--color-accent);
     opacity: 1;
 }
-.result{
+.total_price{
     font-size: 30px;
     color: var(--color-accent);
     opacity: 1;
@@ -633,7 +639,13 @@ footer input {
 
 .slider-index a {
     text-decoration: none;
+    border-bottom: 1px solid white;
     color: black;
+    transition: all ease .3s;
+}
+
+.slider-index a:hover{
+    border-bottom: 1px solid black;
 }
 
 .tns-outer {
@@ -827,4 +839,45 @@ footer input {
     margin-bottom: 20px;
     width: 100%;
 }
+
+#category_table tr th,
+#category_table tr td,
+
+#product_table tr th,
+#product_table tr td,
+
+#order_table_manager tr th,
+#order_table_manager tr td {
+    text-align: center;
+}
+
+#category_table tr th:nth-child(2),
+#category_table tr td:nth-child(2),
+
+#product_table tr th:nth-child(2),
+#product_table tr td:nth-child(2),
+
+#order_table_manager tr th:nth-child(2),
+#order_table_manager tr td:nth-child(2) {
+    text-align: left;
+}
+
+.rounded-pill{
+    background-color: gold;
+    color: black;
+}
+
 /* /manager */
+
+/* profile */
+
+#order_table_profile tr th,
+#order_table_profile tr td {
+    text-align: center;
+}
+
+#order_table_profile tr th:nth-child(2),
+#order_table_profile tr td:nth-child(2) {
+    text-align: left;
+}
+/* /profile */
