@@ -1,12 +1,12 @@
 <ul class="list-group">
     <li class="list-group-item">
-        <a href="{% url 'profile' user.pk %}"><i class="bi bi-person"></i> Профиль</a>
+        <a href="{% url 'profile' user.slug %}"><i class="bi bi-person"></i> Профиль</a>
     </li>
     <li class="list-group-item">
-        <a href="{% url 'profile_order' user.pk %}"><i class="bi bi-cart3"></i> Заказы</a>
+        <a href="{% url 'profile_order' user.slug %}"><i class="bi bi-cart3"></i> Заказы</a>
     </li>
     <li class="list-group-item">
-        <a href="{% url 'profile_review' user.pk %}"><i class="bi bi-chat-text"></i> Отзывы</a>
+        <a href="{% url 'profile_review' user.slug %}"><i class="bi bi-chat-text"></i> Отзывы</a>
     </li>
     <li class="list-group-item">
         <a href="#"><i class="bi bi-percent"></i> Бонусная программа</a>

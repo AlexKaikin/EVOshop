@@ -82,6 +82,7 @@
                         {% endif %}
                     </div>
                     <h3>{{ product.name }}</h3>
+                    {% if product.stock > 0 %}
                     <p class="text">Вес <span>{{ product.volume }}</span> грамм</p>
                     <form id="order" action="{% url 'cart_add' product.id %}" method="POST">
                         {% csrf_token %}
@@ -99,6 +100,9 @@
                     <p><span class="total_price">{{ product.price }}</span> <span class="text">рублей</span></p>
 
                     <p><input type="submit" form="order" class="btn btn-success btnS" value="Добавить в корзину"></p>
+                    {% else %}
+                        Товар закончился
+                    {% endif %}
                 </div>
             </div>
             <div class="row">

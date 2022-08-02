@@ -15,11 +15,14 @@ def get_category_list():
 def get_popular_list():
     """
     Вернет список товаров по фильтру:
-    - к каждому товару добавлено поле "количество заказов" на данный товар
-    - сортировка по убыванию поле "количество заказов" на товар
     - отфильтруем опубликованные товары
+    - остаток на складе больше 0
+    - к каждому товару добавлено поле "количество заказов" на данный товар
+    - добавляем рейтинг
+    - сортировка по убыванию поле "количество заказов" на товар
     """
-    products = Product.objects.annotate(count_order=Count('order_items', distinct=True))
-    products = products.annotate(rating=Sum('reviews__rating', filter=Q(reviews__published='yes')) / Count('reviews', filter=Q(reviews__published='yes')))
-    popular_list = products.order_by('-count_order').filter(published='yes').select_related('category')[:7]
+
+    products = Product.objects.filter(published='yes', stock__gt=0).annotate(count_order=Count('order_items', distinct=True))
+    products = products.annotate(rating=Sum('reviews__rating', filter=Q(reviews__published='yes')) / Count('reviews__rating', filter=Q(reviews__published='yes')))
+    popular_list = products.order_by('-count_order').select_related('category')[:7]
     return popular_list

@@ -63,7 +63,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                         {% if user.is_authenticated %}
-                            <li><a class="dropdown-item" href="{% url 'profile' user.id %}">Профиль</a></li>
+                            <li><a class="dropdown-item" href="{% url 'profile' user.slug %}">Профиль</a></li>
                             {% if user.is_superuser or user.is_staff %}
                                 <li><a class="dropdown-item" href="{% url 'manager' %}">Управление</a></li>
                             {% endif %}

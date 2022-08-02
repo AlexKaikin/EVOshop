@@ -15,7 +15,7 @@
                             <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
                         </div>
                         <div>{{ form.username.errors }}</div>
-                        <div>Логин должен содержать только буквы латинского алфавита и цифры</div>
+                        <div>Логин должен содержать только буквы латинского алфавита в нижнем регистре и цифры, без пробелов</div>
                         <br>
 
                         <div class="form-floating mb-3">
@@ -54,6 +54,7 @@
                     url: "{% url 'validate_username' %}",
                     success: function (response) { // если успешно, то
                         if (response.username_taken) {
+                            $('#usernameError').remove();
                             $('#id_username').removeClass('is-valid').addClass('is-invalid');
                             $('#id_username').after('<div class="errorAjax" id="usernameError">Такой логин уже существует!</div>')
                         } else {

@@ -55,7 +55,7 @@
                     contentType: false,
                     processData: false,
                     type: $(this).attr('method'), // GET или POST
-                    url: "{% url 'profile' profile.pk %}",
+                    url: "{% url 'profile' profile.slug %}",
                     success: function (response) { // если успешно, то
                         if (response.status == 'ok') {
                             $('.avatar').load(document.URL + ' img');

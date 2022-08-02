@@ -12,6 +12,7 @@ class ProfileAdmin(UserAdmin):
             {
                 'fields': (
                     'avatar',
+                    'slug',
                 ),
             },
         ),

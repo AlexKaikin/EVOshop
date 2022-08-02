@@ -575,6 +575,7 @@ footer input {
 #administrator .list-group a,
 #profile .list-group a {
     text-decoration: none;
+    font-weight: 500;
 }
 
 #administrator .list-group-item,
@@ -748,7 +749,7 @@ footer input {
 }
 
 #cart_form {
-    width: 100px;
+    min-width: 100px;
 }
 
 #cart_form input {
@@ -832,6 +833,20 @@ footer input {
         margin-right: 3px;
     }
 }
+/* cart */
+#cart_table tr th,
+#cart_table tr td {
+    text-align: center;
+}
+
+#cart_table tr th:nth-child(1),
+#cart_table tr td:nth-child(1),
+#cart_table tr th:nth-child(2),
+#cart_table tr td:nth-child(2) {
+    text-align: left;
+}
+
+/* /cart */
 
 /* manager */
 .category_img,
@@ -866,11 +881,9 @@ footer input {
     background-color: gold;
     color: black;
 }
-
 /* /manager */
 
 /* profile */
-
 #order_table_profile tr th,
 #order_table_profile tr td {
     text-align: center;
