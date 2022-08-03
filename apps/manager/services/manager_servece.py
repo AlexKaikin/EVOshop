@@ -1,4 +1,4 @@
-from django.db.models import Count, Sum, F
+from django.db.models import Count, Sum, F, Q
 from django.db.models.functions import TruncDay, TruncMonth
 
 from apps.core.models import Review, Order, OrderItem
@@ -22,7 +22,9 @@ def get_orders_day():
                   .annotate(day=TruncDay('created'))
                   .values('day')
                   .annotate(count_order=Count('created'))
-                  .values('day', 'count_order')
+                  .annotate(count_order_cancelled=Count('created', filter=Q(status='2')))
+                  .annotate(count_order_paid=Count('created', filter=Q(paid='yes')))
+                  .values('day', 'count_order', 'count_order_cancelled', 'count_order_paid')
                   .order_by('day')
                   )
     return orders_day
@@ -34,7 +36,9 @@ def get_orders_month():
                     .annotate(month=TruncMonth('created'))
                     .values('month')
                     .annotate(count_order=Count('created'))
-                    .values('month', 'count_order')
+                    .annotate(count_order_cancelled=Count('created', filter=Q(status='2')))
+                    .annotate(count_order_paid=Count('created', filter=Q(paid='yes')))
+                    .values('month', 'count_order', 'count_order_cancelled', 'count_order_paid')
                     .order_by('month')
                     )
     return orders_month
@@ -46,7 +50,9 @@ def get_profit_day():
                     .annotate(day=TruncDay('created'))
                     .values('day')
                     .annotate(count_profit=Sum(F('price')*F('quantity')))
-                    .values('day', 'count_profit')
+                    .annotate(count_profit_cancelled=Sum(F('price') * F('quantity'), filter=Q(order__status='2')))
+                    .annotate(count_profit_paid=Sum(F('price') * F('quantity'), filter=Q(order__paid='yes')))
+                    .values('day', 'count_profit', 'count_profit_cancelled', 'count_profit_paid')
                     .order_by('day')
                     )
     return orders_month
@@ -58,7 +64,9 @@ def get_profit_month():
                     .annotate(month=TruncMonth('created'))
                     .values('month')
                     .annotate(count_profit=Sum(F('price')*F('quantity')))
-                    .values('month', 'count_profit')
+                    .annotate(count_profit_cancelled=Sum(F('price') * F('quantity'), filter=Q(order__status='2')))
+                    .annotate(count_profit_paid=Sum(F('price') * F('quantity'), filter=Q(order__paid='yes')))
+                    .values('month', 'count_profit', 'count_profit_cancelled', 'count_profit_paid')
                     .order_by('month')
                     )
     return orders_month

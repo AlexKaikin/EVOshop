@@ -893,4 +893,13 @@ footer input {
 #order_table_profile tr td:nth-child(2) {
     text-align: left;
 }
+#administrator .list-group a, #profile .list-group a {
+    border-bottom: 1px solid white;
+    transition: all ease .3s;
+}
+
+#administrator .list-group a:hover, #profile .list-group a:hover {
+    border-bottom: 1px solid black;
+    color: black;
+}
 /* /profile */
