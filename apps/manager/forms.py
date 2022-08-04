@@ -38,14 +38,14 @@ class ProductForm(forms.ModelForm):
             'volume': forms.TextInput(attrs={'class': 'form-control'}),
             'price': forms.TextInput(attrs={'class': 'form-control'}),
             'stock': forms.TextInput(attrs={'class': 'form-control'}),
-            'tag': forms.TextInput(attrs={'class': 'form-control'}),
+            'tag': forms.CheckboxSelectMultiple(attrs={}),
             'talk_forum': forms.TextInput(attrs={'class': 'form-control'}),
             'published': forms.Select(attrs={'class': 'form-select'}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
         }
 
 
-ProductFormSet = inlineformset_factory(Product, ProductImage, fields='__all__', extra=5, widgets={
+ProductFormSet = inlineformset_factory(Product, ProductImage, fields=['image', 'published'], extra=5, widgets={
     'image': forms.FileInput(attrs={'class': 'form-control'}),
     'published': forms.Select(attrs={'class': 'form-select'}),
 })

@@ -833,7 +833,20 @@ footer input {
         margin-right: 3px;
     }
 }
+
+
+/* product */
+
+.tag::before {
+  content: "#";
+    margin-left: 5px;
+    margin-right: 2px;
+}
+/* /product */
+
+
 /* cart */
+
 #cart_table tr th,
 #cart_table tr td {
     text-align: center;
@@ -848,7 +861,9 @@ footer input {
 
 /* /cart */
 
+
 /* manager */
+
 .category_img,
 .product_img {
     margin-bottom: 20px;
@@ -881,9 +896,12 @@ footer input {
     background-color: gold;
     color: black;
 }
+
 /* /manager */
 
+
 /* profile */
+
 #order_table_profile tr th,
 #order_table_profile tr td {
     text-align: center;
@@ -893,13 +911,14 @@ footer input {
 #order_table_profile tr td:nth-child(2) {
     text-align: left;
 }
-#administrator .list-group a, #profile .list-group a {
+#administrator .list-group a:first-child, #profile .list-group a:first-child {
     border-bottom: 1px solid white;
     transition: all ease .3s;
 }
 
-#administrator .list-group a:hover, #profile .list-group a:hover {
+#administrator .list-group a:first-child:hover, #profile .list-group a:first-child:hover {
     border-bottom: 1px solid black;
     color: black;
 }
+
 /* /profile */

@@ -71,7 +71,6 @@ class Product(models.Model):
     volume = models.IntegerField(verbose_name='Вес, грамм')
     price = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Цена, руб')
     stock = models.PositiveIntegerField(verbose_name='Остаток на складе, штук')
-    tag = models.CharField(max_length=100, blank=True, null=True, default=None, verbose_name='Метки')
     talk_forum = models.URLField(blank=True, null=True, default=None, verbose_name='Ссылка на форум')
     published = models.CharField(choices=PUBLISHED, default='yes', max_length=3, verbose_name="Опубликован")
     image = models.FileField(upload_to=get_product_file_path, verbose_name='Изображение обложки')
@@ -79,6 +78,7 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='Категория')
+    tag = models.ManyToManyField('Tag', related_name='tags', verbose_name='Метки')
 
     def save(self, *args, **kwargs):
         name = self.name
@@ -90,6 +90,25 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('product', kwargs={'slug': self.slug})
+
+
+class Tag(models.Model):
+    """ Метки к товару """
+
+    class Meta:
+        verbose_name = 'Метки'
+        verbose_name_plural = 'Метки'
+
+    name = models.CharField(max_length=50, db_index=True, verbose_name='Название')
+    slug = models.SlugField(max_length=50, db_index=True, blank=True, unique=True, verbose_name="URL")
+
+    def save(self, *args, **kwargs):
+        name = self.name
+        self.slug = translit.slugify(name)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 
 class ProductImage(models.Model):

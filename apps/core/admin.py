@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, ProductImage, Order, Category, Review, OrderItem, Setting, Message
+from .models import Product, ProductImage, Order, Category, Tag, Review, OrderItem, Setting, Message
 
 
 class ProductImageInline(admin.TabularInline):
@@ -27,6 +27,12 @@ class ProductAdmin(admin.ModelAdmin):
     list_display_links = ['name']
     prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ['created', 'updated']
+
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']
+    list_display_links = ['id', 'name']
 
 
 @admin.register(ProductImage)

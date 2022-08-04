@@ -18,13 +18,87 @@
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div>{{ form.non_field_errors }}</div>
-                        {% for field in form %}
-                            <div class="form-floating mb-3">
-                                {{ field }}
-                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                            </div>
-                            <div>{{ field.errors }}</div>
-                        {% endfor %}
+
+                        <div class="form-floating mb-3">
+                            {{ form.name }}
+                            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        </div>
+                        <div>{{ form.name.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.desc }}
+                            <label for="{{ form.desc.id_for_label }}">{{ form.desc.label }}</label>
+                        </div>
+                        <div>{{ form.desc.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.country }}
+                            <label for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
+                        </div>
+                        <div>{{ form.country.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.town }}
+                            <label for="{{ form.town.id_for_label }}">{{ form.town.label }}</label>
+                        </div>
+                        <div>{{ form.town.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.year }}
+                            <label for="{{ form.year.id_for_label }}">{{ form.year.label }}</label>
+                        </div>
+                        <div>{{ form.year.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.volume }}
+                            <label for="{{ form.volume.id_for_label }}">{{ form.volume.label }}</label>
+                        </div>
+                        <div>{{ form.volume.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.price }}
+                            <label for="{{ form.price.id_for_label }}">{{ form.price.label }}</label>
+                        </div>
+                        <div>{{ form.price.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.stock }}
+                            <label for="{{ form.stock.id_for_label }}">{{ form.stock.label }}</label>
+                        </div>
+                        <div>{{ form.stock.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.talk_forum }}
+                            <label for="{{ form.talk_forum.id_for_label }}">{{ form.talk_forum.label }}</label>
+                        </div>
+                        <div>{{ form.talk_forum.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.published }}
+                            <label for="{{ form.published.id_for_label }}">{{ form.published.label }}</label>
+                        </div>
+                        <div>{{ form.published.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.image }}
+                            <label for="{{ form.image.id_for_label }}">{{ form.image.label }}</label>
+                        </div>
+                        <div>{{ form.image.errors }}</div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.category }}
+                            <label for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
+                        </div>
+                        <div>{{ form.category.errors }}</div>
+
+                        <div class="form-check">
+                            <label class="form-check-label" for="{{ form.tag.id_for_label }}">
+                                {{ form.tag.label }}
+                            </label>
+                            {{ form.tag }}
+                        </div>
+                        <div>{{ form.tag.errors }}</div>
+
                         <br>
                         <div>
                             <h3>Изображения товара</h3>
@@ -33,8 +107,9 @@
 {#                            {{ product_form.non_form_errors }}#}
 {#                            {% for field in product_form %}#}
 {#                                <div class="form-floating mb-3">#}
-{#                                    {{ field }}#}
+{#                                {{ field }}#}
 {#                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>#}
+{#                                    #}
 {#                                </div>#}
 {#                                <div>{{ field.errors }}</div>#}
 {#                            {% endfor %}#}

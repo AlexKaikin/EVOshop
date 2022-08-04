@@ -8,6 +8,7 @@ def get_product(self):
     return (Product.objects.filter(slug=slug)
             .annotate(count=Count('reviews', filter=Q(reviews__published='yes')))
             .annotate(rating=Sum('reviews__rating', filter=Q(reviews__published='yes')) / Count('reviews', filter=Q(reviews__published='yes')))
+            .prefetch_related('tag')
             )
 
 
