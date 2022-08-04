@@ -23,6 +23,6 @@ def get_popular_list():
     """
 
     products = Product.objects.filter(published='yes', stock__gt=0).annotate(count_order=Count('order_items', distinct=True))
-    products = products.annotate(rating=Sum('reviews__rating', filter=Q(reviews__published='yes')) / Count('reviews__rating', filter=Q(reviews__published='yes')))
+    products = products.annotate(rating=Sum('reviews__rating', filter=Q(reviews__published='yes', reviews__rating__gt=0)) / Count('reviews__rating', filter=Q(reviews__published='yes', reviews__rating__gt=0)))
     popular_list = products.order_by('-count_order').select_related('category')[:7]
     return popular_list

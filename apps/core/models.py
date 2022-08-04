@@ -91,6 +91,9 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product', kwargs={'slug': self.slug})
 
+    # def get_review(self):
+    #     return self.reviews.filter(parent__isnull=True, published='yes').select_related('profile')
+
 
 class Tag(models.Model):
     """ Метки к товару """
@@ -144,6 +147,7 @@ class Review(models.Model):
         ordering = ('-created',)
 
     class Rating(models.IntegerChoices):
+        NO = 0, 'Без рейтинга'
         FIVE = 5, '★★★★★'
         FOUR = 4, '★★★★☆'
         THREE = 3, '★★★☆☆'
@@ -161,6 +165,7 @@ class Review(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     published = models.CharField(choices=PUBLISHED, default='checking', max_length=8, verbose_name='Статус отзыва')
 
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Родитель')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews', blank=True, null=True,
                                 verbose_name='Продукт')
     profile = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE, related_name='reviews',

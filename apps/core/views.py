@@ -51,19 +51,17 @@ class CategoryView(ListView):
         return context
 
 
-class ProductView(SuccessMessageMixin, FormMixin, DetailView):
+class ProductView(FormMixin, DetailView):
     """ Детализация товара """
     model = Product
     template_name = 'core/product.html'
     form_class = ReviewForm
-    context_object_name = 'product'
-    success_message = 'Отзыв добавлен и ожидает модерации'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['cart_product_form'] = CartAddProductForm()
         context['images'] = get_images_list(self)
-        context['object_list'] = get_review_list(self)  # отзывы
+        context['object_list'] = get_review_list(self)
         paginator = Paginator(context['object_list'], 10)
         page = self.request.GET.get('page')
         try:
@@ -77,10 +75,11 @@ class ProductView(SuccessMessageMixin, FormMixin, DetailView):
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
-            instance = form.save(commit=False)
-            instance.profile = request.user
-            instance.product = self.get_object()
-            instance.save()
+            form = form.save(commit=False)
+            if request.POST.get('parent', None):
+                form.parent_id = int(request.POST.get('parent'))
+            form.profile = request.user
+            form.product = self.get_object()
             form.save()
             return JsonResponse({'status': 'ok'}, status=200)
         else:
@@ -89,9 +88,6 @@ class ProductView(SuccessMessageMixin, FormMixin, DetailView):
 
     def get_queryset(self):
         return get_product(self)
-
-    def get_success_url(self, **kwargs):
-        return reverse_lazy('product', kwargs={'slug': self.get_object().slug})
 
 
 class SearchView(ListView):

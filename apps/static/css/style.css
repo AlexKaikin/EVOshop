@@ -717,12 +717,19 @@ footer input {
     text-align: center;
 }
 
-.comment p {
+.comment p,
+.comment-reply p {
     opacity: .8;
 }
 
-.comment .avatar {
+.comment .avatar,
+.comment-reply .avatar {
     margin-bottom: 1rem;
+}
+
+.comment-reply{
+    margin-left: 5%;
+    border-left: 5px solid var(--color-accent);
 }
 
 .pop-card {
@@ -745,7 +752,6 @@ footer input {
 
 .rating {
     color: goldenrod;
-    font-size: 20px;
 }
 
 #cart_form {

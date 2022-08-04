@@ -83,23 +83,24 @@
                     </div>
                     <h3>{{ product.name }}</h3>
                     {% if product.stock > 0 %}
-                    <p class="text">Вес <span>{{ product.volume }}</span> грамм</p>
-                    <form id="order" action="{% url 'cart_add' product.id %}" method="POST">
-                        {% csrf_token %}
-                        <div class="number">
-                            <p>
-                                Количество
-                                <button class="minus btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
-                                <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}"
-                                       required="" id="id_quantity">
-                                <button class="plus btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
-                            </p>
-                        </div>
-                    </form>
-                    <span class="price" style="display: none">{{ product.price }}</span>
-                    <p><span class="total_price">{{ product.price }}</span> <span class="text">рублей</span></p>
+                        <p class="text">Вес <span>{{ product.volume }}</span> грамм</p>
+                        <form id="order" action="{% url 'cart_add' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="number">
+                                <p>
+                                    Количество
+                                    <button class="minus btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
+                                    <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}"
+                                           required="" id="id_quantity">
+                                    <button class="plus btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
+                                </p>
+                            </div>
+                        </form>
+                        <span class="price" style="display: none">{{ product.price }}</span>
+                        <p><span class="total_price">{{ product.price }}</span> <span class="text">рублей</span></p>
 
-                    <p><input type="submit" form="order" class="btn btn-success btnS" value="Добавить в корзину"></p>
+                        <p><input type="submit" form="order" class="btn btn-success btnS" value="Добавить в корзину">
+                        </p>
                     {% else %}
                         Товар закончился
                     {% endif %}
@@ -120,7 +121,7 @@
                             <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
                                     data-bs-target="#review-tab-pane" type="button" role="tab"
                                     aria-controls="review-tab-pane" aria-selected="false">Отзывы
-                                ({{ product.count }})
+                                ({{ product.count_review }})
                             </button>
                         </div>
                     </nav>
@@ -175,13 +176,27 @@
                         <div class="tab-pane fade content p-3" id="review-tab-pane" role="tabpanel"
                              aria-labelledby="review-tab"
                              tabindex="0">
-                            <div class="pt-3">
+                            <div class="col-md-6 pt-3">
                                 {% if user.is_authenticated %}
-                                    <!-- Кнопка-триггер модального окна добавления отзыва -->
-                                    <button type="button" class="btn btn-success btnS" data-bs-toggle="modal"
-                                            data-bs-target="#addReviewModal">
-                                        Написать отзыв
-                                    </button>
+                                    <form id="reviewForm" action="" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="parent" id="id_parent" value="">
+                                        <div>{{ form.non_field_errors }}</div>
+
+                                        <div class="form-floating mb-3">
+                                            {{ form.description }}
+                                            <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                                        </div>
+                                        <div>{{ form.rating.errors }}</div>
+
+                                        <div class="form-floating mb-3">
+                                            {{ form.rating }}
+                                            <label for="{{ form.rating.id_for_label }}">{{ form.rating.label }}</label>
+                                        </div>
+                                        <div>{{ form.rating.errors }}</div>
+
+                                        <button type="submit" class="btn btn-success btnS">Сохранить</button>
+                                    </form>
                                 {% else %}
                                     <div class="p-3">Написать отзыв может только зарегистрированный пользователь</div>
                                 {% endif %}
@@ -239,6 +254,9 @@
                                                 {% endif %}
                                                 <div class="pt-3">
                                                     {{ review.description|linebreaks }}
+                                                    {% if user.is_superuser or user.is_staff %}
+                                                        <a href="#review-tab-pane" onclick="addReply('{{ review.profile }}', '{{ review.id }}')">Ответить</a>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                             <div class="col-md-2 col-sm-4 author">
@@ -257,10 +275,80 @@
                                                 </p>
                                             </div>
                                         </div>
-
-
                                     </div>
                                     <br>
+                                    {% for reply in review.review_set.all %}
+                                        <div class="p-3 bg-light comment-reply">
+                                            <div class="row">
+                                                <div class="col-md-10 col-sm-8">
+                                                    {% if reply.rating == 5 %}
+                                                        <div class="star">
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if reply.rating == 4 %}
+                                                        <div class="star">
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star"></i>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if reply.rating == 3 %}
+                                                        <div class="star">
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star"></i>
+                                                            <i class="bi bi-star"></i>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if reply.rating == 2 %}
+                                                        <div class="star">
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star"></i>
+                                                            <i class="bi bi-star"></i>
+                                                            <i class="bi bi-star"></i>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if reply.rating == 1 %}
+                                                        <div class="star">
+                                                            <i class="bi bi-star-fill"></i>
+                                                            <i class="bi bi-star"></i>
+                                                            <i class="bi bi-star"></i>
+                                                            <i class="bi bi-star"></i>
+                                                            <i class="bi bi-star"></i>
+                                                        </div>
+                                                    {% endif %}
+                                                    <div class="pt-3">
+                                                        {{ reply.description|linebreaks }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-sm-4 author">
+                                                    <div class="avatar">
+                                                        {% if reply.profile.avatar %}
+                                                            <img src="{{ reply.profile.avatar.url }}" alt="">
+                                                        {% else %}
+                                                            <img src="{% static 'img/no_avatar.png' %}" alt="">
+                                                        {% endif %}
+                                                    </div>
+                                                    <p>
+                                                        {{ reply.profile }}
+                                                    </p>
+                                                    <p>
+                                                        <i class="bi bi-clock"></i> {{ reply.created|date:'H:i d.m.Y' }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    {% endfor %}
                                 {% endfor %}
                             {% else %}
                                 <div class="p-3 bg-light">
@@ -274,40 +362,6 @@
             </div>
         </div>
     </section>
-    <!-- Модальное окно добавить отзыв -->
-    <div class="modal fade" id="addReviewModal" tabindex="-1" aria-labelledby="ModalReview" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ModalReview">Добавить отзыв</h5>
-                    <button id="closeModal" type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Закрыть"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="reviewForm" action="" method="POST">
-                        {% csrf_token %}
-                        <div>{{ form.non_field_errors }}</div>
-
-                        <div class="form-floating mb-3">
-                            {{ form.description }}
-                            <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
-                        </div>
-                        <div>{{ form.rating.errors }}</div>
-
-                        <div class="form-floating mb-3">
-                            {{ form.rating }}
-                            <label for="{{ form.rating.id_for_label }}">{{ form.rating.label }}</label>
-                        </div>
-                        <div>{{ form.rating.errors }}</div>
-
-                        <button type="submit" class="btn btn-success btnS">Сохранить</button>
-                    </form>
-                    <br>
-                    <p><a href="#">Пользовательское соглашение</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
         $(document).ready(function () {
@@ -320,12 +374,10 @@
                         if (response.status == 'ok') {
                             $('.validAjax').remove();
                             $('#reviewForm')[0].reset();
-                            $('#addReviewModal').modal('hide');
                             $('.message').after('<div class="validAjax" role="alert">Отзыв добавлен и ожидает модерации</div>');
                             $('html, body').animate({scrollTop: $("body").offset().top}, 0);
                         } else {
                             $('.errorAjax').remove();
-                            $('#addReviewModal').modal('hide');
                             $('.message').after('<div class="errorAjax" role="alert">Форма заполнена не верно</div>');
                             $('html, body').animate({scrollTop: $("body").offset().top}, 0);
                             console.log(response.responseJSON.errors) // предупредим об ошибке
@@ -338,5 +390,11 @@
                 return false;
             });
         })
+    </script>
+    <script>
+        function addReply(profile, id) {
+            document.getElementById('id_parent').value = id;
+            document.getElementById('id_description').innerText = profile + ', ';
+        }
     </script>
 {% endblock %}

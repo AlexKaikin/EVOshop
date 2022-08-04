@@ -27,6 +27,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display_links = ['name']
     prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ['created', 'updated']
+    save_on_top = True
 
 
 @admin.register(Tag)
@@ -48,7 +49,7 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ['id', 'description', 'profile', 'published']
     list_editable = ['published']
     list_display_links = ['description']
-    readonly_fields = ['created']
+    readonly_fields = ['created', 'profile', 'parent', 'product']
 
 
 class OrderItemInline(admin.TabularInline):
@@ -64,7 +65,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ['status', 'paid']
     inlines = [OrderItemInline]
     list_display_links = ['surname']
-    readonly_fields = ['created', 'updated']
+    readonly_fields = ['profile', 'created', 'updated']
 
 
 @admin.register(Setting)
