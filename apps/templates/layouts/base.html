@@ -68,7 +68,7 @@
                     <div class="input-group">
                         <input type="search" class="form-control form-control-dark searchF"
                                placeholder="Поиск товара..."
-                               aria-label="Search" aria-describedby="button-addon2" name="q">
+                               aria-label="Search" aria-describedby="button-addon2" name="q" required>
                         <button class="btn btn-outline-secondary searchFF" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                             <i class="bi bi-funnel"></i>
@@ -87,15 +87,40 @@
         <div class="row">
             <div class="col">
                 <div class="collapse" id="collapseFilter">
-                    <div class="col-md-4">
-                        <div class="sort"><span>Сортировка</span>
-                            <select class="form-select form-select-sm" aria-label="Сортировать">
-                                <option selected>дата добавления</option>
-                                <option value="1">цены: по возрастанию</option>
-                                <option value="2">цены: по убыванию</option>
-                            </select>
+                    <form action="{% url 'filter' %}" method="get" name="filter">
+                        <div class="filter_item">
+                            <h4><span>Категории:</span></h4>
+                            {% if categories %}
+                                {% for category in categories %}
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input" name="category"
+                                               value="{{ category.name }}" id="{{ category.slug }}{{ category.id }}">
+                                        <label class="form-check-label" for="{{ category.slug }}{{ category.id }}">{{ category }}</label>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
                         </div>
-                    </div>
+                        <div class="filter_item">
+                            <h4><span>Метки:</span></h4>
+                            {% for tag in view.get_tag %}
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" name="tag" value="{{ tag }}"
+                                           id="{{ tag.slug }}{{ tag.id }}">
+                                    <label class="form-check-label" for="{{ tag.slug }}{{ tag.id }}">{{ tag }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!--div class="col-md-4">
+                            <div class="sort"><span>Сортировка</span>
+                                <select class="form-select form-select-sm" aria-label="Сортировать">
+                                    <option selected>дата добавления</option>
+                                    <option value="1">цены: по возрастанию</option>
+                                    <option value="2">цены: по убыванию</option>
+                                </select>
+                            </div>
+                        </div-->
+                        <p><button type="submit" class="btn btn-warning">Найти</button></p>
+                    </form>
                 </div>
             </div>
         </div>

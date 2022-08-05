@@ -372,9 +372,9 @@ input[type="search"]::-webkit-search-results-decoration {
     transition: all ease .3s;
 }
 
-#prod .card-body-i a:hover{
+#prod .card-body-i a:hover {
     background-color: black;
-    color: white!important;
+    color: white !important;
 }
 
 #prod .nav-tabs {
@@ -387,7 +387,8 @@ input[type="search"]::-webkit-search-results-decoration {
     color: var(--color-accent);
     opacity: 1;
 }
-.total_price{
+
+.total_price {
     font-size: 30px;
     color: var(--color-accent);
     opacity: 1;
@@ -645,7 +646,7 @@ footer input {
     transition: all ease .3s;
 }
 
-.slider-index a:hover{
+.slider-index a:hover {
     border-bottom: 1px solid black;
 }
 
@@ -696,7 +697,7 @@ footer input {
     list-style: none;
 }
 
-.errorAjax{
+.errorAjax {
     color: red;
     background: rgb(255 0 0 / 10%);
     border-radius: 5px;
@@ -727,7 +728,7 @@ footer input {
     margin-bottom: 1rem;
 }
 
-.comment-reply{
+.comment-reply {
     margin-left: 5%;
 }
 
@@ -821,14 +822,15 @@ footer input {
 
 
 #myTab .link-success {
-    color: rgb(0 0 0 / 70%)!important;
+    color: rgb(0 0 0 / 70%) !important;
 }
+
 .nav-tabs .nav-link {
     background-color: #dee2e6;
     margin-right: 5px;
 }
 
-.nav-tabs .nav-link.active{
+.nav-tabs .nav-link.active {
     background-color: white;
 }
 
@@ -843,10 +845,11 @@ footer input {
 /* product */
 
 .tag::before {
-  content: "#";
+    content: "#";
     margin-left: 5px;
     margin-right: 2px;
 }
+
 /* /product */
 
 
@@ -877,10 +880,8 @@ footer input {
 
 #category_table tr th,
 #category_table tr td,
-
 #product_table tr th,
 #product_table tr td,
-
 #order_table_manager tr th,
 #order_table_manager tr td {
     text-align: center;
@@ -888,16 +889,14 @@ footer input {
 
 #category_table tr th:nth-child(2),
 #category_table tr td:nth-child(2),
-
 #product_table tr th:nth-child(2),
 #product_table tr td:nth-child(2),
-
 #order_table_manager tr th:nth-child(2),
 #order_table_manager tr td:nth-child(2) {
     text-align: left;
 }
 
-.rounded-pill{
+.rounded-pill {
     background-color: gold;
     color: black;
 }
@@ -916,6 +915,7 @@ footer input {
 #order_table_profile tr td:nth-child(2) {
     text-align: left;
 }
+
 #administrator .list-group a:first-child, #profile .list-group a:first-child {
     border-bottom: 1px solid white;
     transition: all ease .3s;
@@ -927,3 +927,19 @@ footer input {
 }
 
 /* /profile */
+
+/* filter */
+.filter_item {
+    padding: 10px 0px;
+    display: inline-block;
+}
+
+.filter_item h4 span {
+    border-bottom: 1px solid white;
+}
+
+.filter_item h4 {
+    margin-bottom: 10px;
+}
+
+/* /filter */

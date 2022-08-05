@@ -10,13 +10,25 @@ from apps.core.models import Category, Product, Subscribe
 from apps.cart.forms import CartAddProductForm
 
 from .forms import ReviewForm, ContactForm, SubscribeForm
+from .services.filter_product_viewv_service import get_filter_queryset
+from .services.filter_service import get_filter_category_list, get_filter_tag_list
 from .services.index_service import get_category_list, get_popular_list
 from .services.category_service import get_product_list
 from .services.product_service import get_product, get_review_list, get_images_list, get_reply_list
 from .services.search_service import get_search_list
 
 
-class IndexView(ListView):
+class Filter:
+    """ Фильтр товаров """
+
+    def get_category(self):
+        return get_filter_category_list()
+
+    def get_tag(self):
+        return get_filter_tag_list()
+
+
+class IndexView(Filter, ListView):
     """ Главная страница, вывод категорий """
     model = Category
     template_name = 'core/index.html'
@@ -93,7 +105,6 @@ class ProductView(FormMixin, DetailView):
 
 class SearchView(ListView):
     """ Вывод товаров по совпадению слова в заголовке товара """
-    paginate_by = 9
     template_name = 'core/category.html'
 
     def get_queryset(self):
@@ -101,7 +112,18 @@ class SearchView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['q'] = self.request.GET.get('q')
+        context["q"] = ''.join([f"q={x}&" for x in self.request.GET.get("q")])
+        context['object_list'] = self.get_queryset()
+        paginator = Paginator(context['object_list'], 9)
+        page = self.request.GET.get('page')
+        try:
+            context['object_list'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['object_list'] = paginator.page(1)
+        except EmptyPage:
+            context['object_list'] = paginator.page(paginator.num_pages)
+
+        context['cart_product_form'] = CartAddProductForm()
         return context
 
 
@@ -140,6 +162,32 @@ class SubscribeView(SuccessMessageMixin, CreateView):
             return super().form_valid(form)
         if form.is_invalid():
             return super().form_invalid(form)
+
+
+class FilterProductView(Filter, ListView):
+    """ Фильтр товаров """
+
+    template_name = 'core/category.html'
+
+    def get_queryset(self):
+        return get_filter_queryset(self)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["category"] = ''.join([f"category={x}&" for x in self.request.GET.getlist("category")])
+        context["tag"] = ''.join([f"tag={x}&" for x in self.request.GET.getlist("tag")])
+        context['object_list'] = self.get_queryset()
+        paginator = Paginator(context['object_list'], 9)
+        page = self.request.GET.get('page')
+        try:
+            context['object_list'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['object_list'] = paginator.page(1)
+        except EmptyPage:
+            context['object_list'] = paginator.page(paginator.num_pages)
+
+        context['cart_product_form'] = CartAddProductForm()
+        return context
 
 
 def about(request):
