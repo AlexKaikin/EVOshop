@@ -5,7 +5,7 @@
                 <ul class="pagination">
                     {% if object_list.has_previous %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ request.path }}?page={{ object_list.previous_page_number }}">
+                            <a class="page-link" href="{{ request.path }}?{{ q }}{{ category }}{{ tag }}page={{ object_list.previous_page_number }}">
                                 <i class="bi bi-arrow-left"></i>
                             </a>
                         </li>
@@ -17,13 +17,13 @@
                             </li>
                         {% elif page >= object_list.number|add:-2 and page <= object_list.number|add:2 %}
                             <li class="page-item">
-                                <a class="page-link" href="{{ request.path }}?page={{ page }}">{{ page }}</a>
+                                <a class="page-link" href="{{ request.path }}?{{ q }}{{ category }}{{ tag }}page={{ page }}">{{ page }}</a>
                             </li>
                         {% endif %}
                     {% endfor %}
                     {% if object_list.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ request.path }}?page={{ object_list.next_page_number }}">
+                            <a class="page-link" href="{{ request.path }}?{{ q }}{{ category }}{{ tag }}page={{ object_list.next_page_number }}">
                                 <i class="bi bi-arrow-right"></i>
                             </a>
                         </li>

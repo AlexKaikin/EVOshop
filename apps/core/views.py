@@ -104,7 +104,6 @@ class ProductView(FormMixin, DetailView):
 
 class SearchView(ListView):
     """ Вывод товаров по совпадению слова в заголовке товара """
-    paginate_by = 9
     template_name = 'core/category.html'
 
     def get_queryset(self):
@@ -112,7 +111,18 @@ class SearchView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['q'] = self.request.GET.get('q')
+        context["q"] = ''.join([f"q={x}&" for x in self.request.GET.get("q")])
+        context['object_list'] = self.get_queryset()
+        paginator = Paginator(context['object_list'], 9)
+        page = self.request.GET.get('page')
+        try:
+            context['object_list'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['object_list'] = paginator.page(1)
+        except EmptyPage:
+            context['object_list'] = paginator.page(paginator.num_pages)
+
+        context['cart_product_form'] = CartAddProductForm()
         return context
 
 
@@ -149,8 +159,10 @@ class FilterProductView(Filter, ListView):
         ).distinct()
         return queryset
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["category"] = ''.join([f"category={x}&" for x in self.request.GET.getlist("category")])
+        context["tag"] = ''.join([f"tag={x}&" for x in self.request.GET.getlist("tag")])
         context['object_list'] = self.get_queryset()
         paginator = Paginator(context['object_list'], 9)
         page = self.request.GET.get('page')
@@ -163,12 +175,6 @@ class FilterProductView(Filter, ListView):
 
         context['cart_product_form'] = CartAddProductForm()
         return context
-
-    # def get_context_data(self, *args, **kwargs):
-    #     context = super().get_context_data(*args, **kwargs)
-    #     context["year"] = ''.join([f"year={x}&" for x in self.request.GET.getlist("year")])
-    #     context["genre"] = ''.join([f"genre={x}&" for x in self.request.GET.getlist("genre")])
-    #     return context
 
 
 def about(request):

@@ -68,7 +68,7 @@
                     <div class="input-group">
                         <input type="search" class="form-control form-control-dark searchF"
                                placeholder="Поиск товара..."
-                               aria-label="Search" aria-describedby="button-addon2" name="q">
+                               aria-label="Search" aria-describedby="button-addon2" name="q" required>
                         <button class="btn btn-outline-secondary searchFF" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                             <i class="bi bi-funnel"></i>
@@ -102,7 +102,7 @@
                                 {{ tag }}
                             {% endfor %}
                         </p>
-                        <div class="col-md-4">
+                        <!--div class="col-md-4">
                             <div class="sort"><span>Сортировка</span>
                                 <select class="form-select form-select-sm" aria-label="Сортировать">
                                     <option selected>дата добавления</option>
@@ -110,7 +110,7 @@
                                     <option value="2">цены: по убыванию</option>
                                 </select>
                             </div>
-                        </div>
+                        </div-->
                         <button type="submit" class="btn btn-warning btn-sm">Найти</button>
                     </form>
                 </div>
