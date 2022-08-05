@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Product, ProductImage, Order, Category, Tag, Review, OrderItem, Setting, Message
+from .models import Product, ProductImage, Order, Category, Tag, Review, OrderItem, Setting, Message, Subscribe
 
 
 class ProductImageInline(admin.TabularInline):
@@ -85,6 +85,12 @@ class SettingAdmin(admin.ModelAdmin):
 class MessageAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'email', 'message']
     list_display_links = ['id', 'name']
+
+
+@admin.register(Subscribe)
+class SubscribeAdmin(admin.ModelAdmin):
+    list_display = ['id', 'email', 'created']
+    list_display_links = ['id', 'email']
 
 
 admin.site.site_title = 'EVO'

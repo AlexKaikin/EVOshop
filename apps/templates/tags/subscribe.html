@@ -1,0 +1,11 @@
+<form action="{% url 'subscribe' %}" method="post">
+    {% csrf_token %}
+    <h5 class="text-bg-white">Подписаться на новостную рассылку</h5>
+    <p class="link-secondary">Ежемесячный дайджест всего нового и интересного на EVO</p>
+    <div class="d-flex w-100 gap-2">
+        <div>{{ subscribe_form.non_field_errors }}</div>
+        {{ subscribe_form.email }}
+        <div>{{ subscribe_form.name.errors }}</div>
+        <button class="btn btn-success btnS" type="submit">Подписаться</button>
+    </div>
+</form>

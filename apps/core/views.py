@@ -6,10 +6,10 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin, CreateView
 from django.contrib.messages.views import SuccessMessageMixin
 
-from apps.core.models import Category, Product
+from apps.core.models import Category, Product, Subscribe
 from apps.cart.forms import CartAddProductForm
 
-from .forms import ReviewForm, ContactForm
+from .forms import ReviewForm, ContactForm, SubscribeForm
 from .services.index_service import get_category_list, get_popular_list
 from .services.category_service import get_product_list
 from .services.product_service import get_product, get_review_list, get_images_list, get_reply_list
@@ -125,6 +125,21 @@ class ContactView(SuccessMessageMixin, CreateView):
         """ Если форма невалидна, возвращаем код 400 с ошибками. """
         errors = form.errors.as_json()
         return JsonResponse({"errors": errors}, status=400)
+
+
+class SubscribeView(SuccessMessageMixin, CreateView):
+    model = Subscribe
+    form_class = SubscribeForm
+    success_url = reverse_lazy('index')
+    success_message = 'Вы подписаны на e-mail рассылку'
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            form.save()
+            return super().form_valid(form)
+        if form.is_invalid():
+            return super().form_invalid(form)
 
 
 def about(request):

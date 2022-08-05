@@ -279,3 +279,16 @@ class Message(models.Model):
 
     def __str__(self):
         return 'Сообщение №{}'.format(self.id)
+
+
+class Subscribe(models.Model):
+    """ Подписка на рассылку новостей на email """
+    class Meta:
+        verbose_name = 'E-mail рассылка'
+        verbose_name_plural = 'E-mail рассылка'
+
+    email = models.EmailField(unique=True,)
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата подписки')
+
+    def __str__(self):
+        return self.email

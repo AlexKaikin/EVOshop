@@ -1,4 +1,4 @@
-from .models import Review, Message
+from .models import Review, Message, Subscribe
 from django import forms
 
 
@@ -25,3 +25,13 @@ class ContactForm(forms.ModelForm):
     name = forms.CharField(label='Имя', max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(label='Ваш e-mail', widget=forms.TextInput(attrs={'class': 'form-control'}))
     message = forms.CharField(label='Сообщение', widget=forms.Textarea(attrs={'class': 'form-control'}))
+
+
+class SubscribeForm(forms.ModelForm):
+    class Meta:
+        model = Subscribe
+        fields = ('email',)
+        widgets = {'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email адрес'})}
+        labels = {'email': ''}
+
+        email = forms.EmailField(label='', widget=forms.TextInput(attrs={'class': 'form-control'}))
