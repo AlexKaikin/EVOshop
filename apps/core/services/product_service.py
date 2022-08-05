@@ -22,6 +22,16 @@ def get_review_list(self):
     return review_list
 
 
+def get_reply_list(self):
+    """
+    Вернет список ответов к отзывам по фильтру:
+    - опубликованные
+    """
+    slug = self.kwargs['slug']
+    review_list = Review.objects.filter(product__slug=slug, published='yes').select_related('profile')
+    return review_list
+
+
 def get_images_list(self):
     """ Вернет список фотографий """
     slug = self.kwargs['slug']

@@ -178,6 +178,7 @@
                              tabindex="0">
                             <div class="col-md-6 pt-3">
                                 {% if user.is_authenticated %}
+                                    <h3>Оставить отзыв</h3>
                                     <form id="reviewForm" action="" method="POST">
                                         {% csrf_token %}
                                         <input type="hidden" name="parent" id="id_parent" value="">
@@ -278,6 +279,7 @@
                                     </div>
                                     <br>
                                     {% for reply in review.review_set.all %}
+{#                                        {% for reply in review.reply_list %}#}
                                         <div class="p-3 bg-light comment-reply">
                                             <div class="row">
                                                 <div class="col-md-10 col-sm-8">
@@ -374,6 +376,8 @@
                         if (response.status == 'ok') {
                             $('.validAjax').remove();
                             $('#reviewForm')[0].reset();
+                            document.getElementById("id_parent").value = "";
+                            document.getElementById('id_description').value = "";
                             $('.message').after('<div class="validAjax" role="alert">Отзыв добавлен и ожидает модерации</div>');
                             $('html, body').animate({scrollTop: $("body").offset().top}, 0);
                         } else {

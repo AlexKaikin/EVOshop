@@ -12,7 +12,7 @@ from apps.cart.forms import CartAddProductForm
 from .forms import ReviewForm, ContactForm
 from .services.index_service import get_category_list, get_popular_list
 from .services.category_service import get_product_list
-from .services.product_service import get_product, get_review_list, get_images_list
+from .services.product_service import get_product, get_review_list, get_images_list, get_reply_list
 from .services.search_service import get_search_list
 
 
@@ -61,6 +61,7 @@ class ProductView(FormMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['cart_product_form'] = CartAddProductForm()
         context['images'] = get_images_list(self)
+        context['reply_list'] = get_reply_list(self)
         context['object_list'] = get_review_list(self)
         paginator = Paginator(context['object_list'], 10)
         page = self.request.GET.get('page')

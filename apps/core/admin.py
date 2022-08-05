@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from .models import Product, ProductImage, Order, Category, Tag, Review, OrderItem, Setting, Message
 
@@ -10,11 +11,16 @@ class ProductImageInline(admin.TabularInline):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'published']
+    list_display = ['id', 'name', 'get_image', 'published']
     list_editable = ['published']
     list_display_links = ['name']
     prepopulated_fields = {'slug': ('name',)}
-    readonly_fields = ['created', 'updated']
+    readonly_fields = ['get_image', 'created', 'updated']
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src="{obj.image.url}" with="50" height="50">')
+
+    get_image.short_description = 'Обложка'
 
 
 @admin.register(Product)
