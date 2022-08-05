@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -6,7 +7,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin, CreateView
 from django.contrib.messages.views import SuccessMessageMixin
 
-from apps.core.models import Category, Product
+from apps.core.models import Category, Product, Tag
 from apps.cart.forms import CartAddProductForm
 
 from .forms import ReviewForm, ContactForm
@@ -16,7 +17,17 @@ from .services.product_service import get_product, get_review_list, get_images_l
 from .services.search_service import get_search_list
 
 
-class IndexView(ListView):
+class Filter:
+    """ Фильтр товаров """
+
+    def get_category(self):
+        return Category.objects.filter(published='yes')
+
+    def get_tag(self):
+        return Tag.objects.filter()
+
+
+class IndexView(Filter, ListView):
     """ Главная страница, вывод категорий """
     model = Category
     template_name = 'core/index.html'
@@ -125,6 +136,39 @@ class ContactView(SuccessMessageMixin, CreateView):
         """ Если форма невалидна, возвращаем код 400 с ошибками. """
         errors = form.errors.as_json()
         return JsonResponse({"errors": errors}, status=400)
+
+
+class FilterProductView(Filter, ListView):
+    """ Фильтр товаров """
+    template_name = 'core/category.html'
+
+    def get_queryset(self):
+        queryset = Product.objects.filter(
+            Q(category__name__in=self.request.GET.getlist("category")) |
+            Q(tag__name__in=self.request.GET.getlist("tag")), published='yes'
+        ).distinct()
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = self.get_queryset()
+        paginator = Paginator(context['object_list'], 9)
+        page = self.request.GET.get('page')
+        try:
+            context['object_list'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['object_list'] = paginator.page(1)
+        except EmptyPage:
+            context['object_list'] = paginator.page(paginator.num_pages)
+
+        context['cart_product_form'] = CartAddProductForm()
+        return context
+
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super().get_context_data(*args, **kwargs)
+    #     context["year"] = ''.join([f"year={x}&" for x in self.request.GET.getlist("year")])
+    #     context["genre"] = ''.join([f"genre={x}&" for x in self.request.GET.getlist("genre")])
+    #     return context
 
 
 def about(request):

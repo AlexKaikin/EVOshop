@@ -87,15 +87,32 @@
         <div class="row">
             <div class="col">
                 <div class="collapse" id="collapseFilter">
-                    <div class="col-md-4">
-                        <div class="sort"><span>Сортировка</span>
-                            <select class="form-select form-select-sm" aria-label="Сортировать">
-                                <option selected>дата добавления</option>
-                                <option value="1">цены: по возрастанию</option>
-                                <option value="2">цены: по убыванию</option>
-                            </select>
+                    <form action="{% url 'filter' %}" method="get" name="filter">
+                        <p>
+                            Категории:
+                            {% for category in view.get_category %}
+                                <input type="checkbox" name="category" value="{{ category.name }}">
+                                {{ category }}
+                            {% endfor %}
+                        </p>
+                        <p>
+                            Метки:
+                            {% for tag in view.get_tag %}
+                                <input type="checkbox" name="tag" value="{{ tag }}">
+                                {{ tag }}
+                            {% endfor %}
+                        </p>
+                        <div class="col-md-4">
+                            <div class="sort"><span>Сортировка</span>
+                                <select class="form-select form-select-sm" aria-label="Сортировать">
+                                    <option selected>дата добавления</option>
+                                    <option value="1">цены: по возрастанию</option>
+                                    <option value="2">цены: по убыванию</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                        <button type="submit" class="btn btn-warning btn-sm">Найти</button>
+                    </form>
                 </div>
             </div>
         </div>
