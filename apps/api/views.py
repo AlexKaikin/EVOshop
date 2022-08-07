@@ -1,21 +1,13 @@
-from rest_framework import viewsets, permissions, generics
+from rest_framework import viewsets, generics
 from rest_framework.decorators import action
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
 from apps.core.models import Category, Product, Review, Tag
 
-from .service import ProductFilter
+from apps.api.services.service import ProductFilter, Paginator
 from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, \
     TagSerializer, ReviewCreateSerializer, ProductCreateSerializer
-
-
-class Paginator(PageNumberPagination):
-    """ Пагинация """
-    page_size = 10
-    page_size_query_param = 'page_size'
-    max_page_size = 10000
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -27,7 +19,7 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class CategoryCreateView(generics.CreateAPIView):
-    """ Представление категорий """
+    """ Представление добавления категории """
     # permission_classes = [permissions.IsAdminUser]
     serializer_class = CategorySerializer
 
@@ -35,7 +27,7 @@ class CategoryCreateView(generics.CreateAPIView):
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     """ Представление товаров """
     queryset = Product.objects.filter(published='yes', stock__gt=0)
-    # permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = ProductSerializer
     pagination_class = Paginator
     filter_backends = (DjangoFilterBackend,)

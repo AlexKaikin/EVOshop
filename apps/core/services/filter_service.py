@@ -13,7 +13,6 @@ def get_filter_category_list():
 
 def get_filter_tag_list():
     """ Вернет список меток к товарам """
-
     tag_list = Tag.objects.filter()
     return tag_list
 

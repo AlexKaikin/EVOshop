@@ -10,7 +10,7 @@ from apps.core.models import Category, Product, Subscribe
 from apps.cart.forms import CartAddProductForm
 
 from .forms import ReviewForm, ContactForm, SubscribeForm
-from .services.filter_product_viewv_service import get_filter_queryset
+from .services.filter_product_view_service import get_filter_queryset
 from .services.filter_service import get_filter_category_list, get_filter_tag_list
 from .services.index_service import get_category_list, get_popular_list
 from .services.category_service import get_product_list
@@ -19,7 +19,7 @@ from .services.search_service import get_search_list
 
 
 class Filter:
-    """ Фильтр товаров """
+    """ Список фильтров к товарам """
 
     def get_category(self):
         return get_filter_category_list()
@@ -165,7 +165,7 @@ class SubscribeView(SuccessMessageMixin, CreateView):
 
 
 class FilterProductView(Filter, ListView):
-    """ Фильтр товаров """
+    """ Страница отфильтрованных товаров """
 
     template_name = 'core/category.html'
 

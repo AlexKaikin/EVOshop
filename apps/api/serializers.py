@@ -29,6 +29,16 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = '__all__'
+
+    product = serializers.SlugRelatedField(slug_field='name', read_only=True)
+    profile = serializers.SlugRelatedField(slug_field='username', read_only=True)
+
+
+class ReviewForProductSerializer(serializers.ModelSerializer):
+    """ Список отзывов """
+    class Meta:
+        model = Review
+        fields = '__all__'
         list_serializer_class = FilterReviewListSerializer
 
     children = RecursiveSerializer(many=True)
@@ -53,7 +63,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     category = serializers.SlugRelatedField(slug_field='name', read_only=True)
     tag = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
-    # reviews = ReviewSerializer(many=True)
+    reviews = ReviewForProductSerializer(many=True)
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):

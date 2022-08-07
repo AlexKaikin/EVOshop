@@ -67,6 +67,7 @@
                             {% if user.is_superuser or user.is_staff %}
                                 <li><a class="dropdown-item" href="{% url 'manager' %}">Управление</a></li>
                             {% endif %}
+                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Выход</a></li>
                         {% else %}
                             <li><a class="dropdown-item" href="{% url 'login' %}">Вход</a></li>
