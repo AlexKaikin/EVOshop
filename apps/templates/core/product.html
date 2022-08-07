@@ -278,8 +278,8 @@
                                         </div>
                                     </div>
                                     <br>
-                                    {% for reply in review.review_set.all %}
-{#                                        {% for reply in review.reply_list %}#}
+                                    {% for reply in review.children.all %}
+{#                                        {% for reply in reply_list %}#}
                                         <div class="p-3 bg-light comment-reply">
                                             <div class="row">
                                                 <div class="col-md-10 col-sm-8">

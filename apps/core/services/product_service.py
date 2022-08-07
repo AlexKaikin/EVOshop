@@ -18,7 +18,9 @@ def get_review_list(self):
     - опубликованные
     """
     slug = self.kwargs['slug']
-    review_list = Review.objects.filter(product__slug=slug, published='yes', parent__isnull=True).select_related('profile')
+    review_list = (Review.objects.filter(product__slug=slug, published='yes', parent__isnull=True)
+                   .select_related('profile')
+                   )
     return review_list
 
 
