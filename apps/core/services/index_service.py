@@ -22,7 +22,8 @@ def get_popular_list():
     - сортировка по убыванию поле "количество заказов" на товар
     """
 
-    products = Product.objects.filter(published='yes', stock__gt=0).annotate(count_order=Count('order_items', distinct=True))
+    products = Product.objects.filter(published='yes', stock__gt=0)\
+        .annotate(count_order=Count('order_items', distinct=True))
     products = products.annotate(rating=Sum('reviews__rating', filter=Q(reviews__published='yes', reviews__rating__gt=0)) / Count('reviews__rating', filter=Q(reviews__published='yes', reviews__rating__gt=0)))
     popular_list = products.order_by('-count_order').select_related('category')[:7]
     return popular_list

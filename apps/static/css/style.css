@@ -512,8 +512,8 @@ footer input {
     color: rgb(0 0 0 / 6%);
     font-size: 11em;
     position: absolute;
-    top: 0;
-    right: 0;
+    bottom: 5%;
+    right: 5%;
 }
 
 .modal-content {
@@ -930,7 +930,7 @@ footer input {
 
 /* filter */
 .filter_item {
-    padding: 10px 0px;
+    padding: 10px 0;
     display: inline-block;
 }
 
@@ -943,3 +943,12 @@ footer input {
 }
 
 /* /filter */
+
+/* form */
+
+.form-check-input:checked {
+    background-color: black;
+    border-color: black;
+}
+
+/* /form */

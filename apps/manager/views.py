@@ -1,19 +1,18 @@
-from django.contrib.auth.decorators import permission_required
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import UpdateView, CreateView, ListView
 
 from apps.core.models import Category, Product, Review, Order, Setting
+from apps.core.utils import ajax_paginator
 
 from .forms import CategoryForm, ProductForm, ReviewForm, OrderForm, SettingForm, ProductFormSet
-from .services.manager_category_view import get_category_list
-from .services.manager_order_view import get_order_list
-from .services.manager_product_view import get_product_list
-from .services.manager_review_view import get_review_list
+from .services.manager_category_view_service import get_category_list
+from .services.manager_order_view_service import get_order_list
+from .services.manager_product_view_service import get_product_list
+from .services.manager_review_view_service import get_review_list
 from .services.manager_servece import get_count_review, get_count_order, get_orders_day, get_orders_month, \
     get_profit_day, get_profit_month
 
@@ -40,14 +39,7 @@ class ManagerCategoryView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['object_list'] = get_category_list()
-        paginator = Paginator(context['object_list'], 10)
-        page = self.request.GET.get('page')
-        try:
-            context['object_list'] = paginator.page(page)
-        except PageNotAnInteger:
-            context['object_list'] = paginator.page(1)
-        except EmptyPage:
-            context['object_list'] = paginator.page(paginator.num_pages)
+        ajax_paginator(self, context)
         return context
 
 
@@ -84,14 +76,7 @@ class ManagerProductView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['object_list'] = get_product_list(self)
-        paginator = Paginator(context['object_list'], 10)
-        page = self.request.GET.get('page')
-        try:
-            context['object_list'] = paginator.page(page)
-        except PageNotAnInteger:
-            context['object_list'] = paginator.page(1)
-        except EmptyPage:
-            context['object_list'] = paginator.page(paginator.num_pages)
+        ajax_paginator(self, context)
         return context
 
 
@@ -151,14 +136,7 @@ class ManagerReviewView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['object_list'] = get_review_list(self)
-        paginator = Paginator(context['object_list'], 10)
-        page = self.request.GET.get('page')
-        try:
-            context['object_list'] = paginator.page(page)
-        except PageNotAnInteger:
-            context['object_list'] = paginator.page(1)
-        except EmptyPage:
-            context['object_list'] = paginator.page(paginator.num_pages)
+        ajax_paginator(self, context)
         return context
 
 
@@ -191,14 +169,7 @@ class ManagerOrderView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['object_list'] = get_order_list()
-        paginator = Paginator(context['object_list'], 10)
-        page = self.request.GET.get('page')
-        try:
-            context['object_list'] = paginator.page(page)
-        except PageNotAnInteger:
-            context['object_list'] = paginator.page(1)
-        except EmptyPage:
-            context['object_list'] = paginator.page(paginator.num_pages)
+        ajax_paginator(self, context)
         return context
 
 

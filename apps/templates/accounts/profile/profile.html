@@ -19,7 +19,7 @@
                 <div class="col-md-3 mb-5">
                     {% include 'includes/profile/sidebar.html' %}
                 </div>
-                <div class="col-md-6 content">
+                <div class="col-md-3 mb-5">
                     <h3>Профиль</h3>
                     <div class="avatar mb-5">
                         {% if profile.avatar %}
@@ -28,6 +28,9 @@
                             <img src="{% static 'img/no_avatar.png' %}" alt="No avatar">
                         {% endif %}
                     </div>
+                </div>
+                <div class="col-md-6 content">
+                    <h3>&nbsp;</h3>
                     <form id="profileForm" action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div>{{ form.non_field_errors }}</div>

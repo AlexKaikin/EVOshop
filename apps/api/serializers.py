@@ -21,14 +21,14 @@ class CategorySerializer(serializers.ModelSerializer):
     """ Список категорий """
     class Meta:
         model = Category
-        exclude = ('slug', )
+        exclude = ('slug', 'published', 'id', 'created', 'updated')
 
 
 class ReviewSerializer(serializers.ModelSerializer):
     """ Список отзывов """
     class Meta:
         model = Review
-        fields = '__all__'
+        exclude = ('published', 'id', 'created')
 
     product = serializers.SlugRelatedField(slug_field='name', read_only=True)
     profile = serializers.SlugRelatedField(slug_field='username', read_only=True)
@@ -38,7 +38,7 @@ class ReviewForProductSerializer(serializers.ModelSerializer):
     """ Список отзывов """
     class Meta:
         model = Review
-        fields = '__all__'
+        exclude = ('published', 'id', 'created')
         list_serializer_class = FilterReviewListSerializer
 
     children = RecursiveSerializer(many=True)
@@ -59,7 +59,7 @@ class ProductSerializer(serializers.ModelSerializer):
     """ Список товаров """
     class Meta:
         model = Product
-        exclude = ('slug', )
+        exclude = ('slug', 'published', 'id', 'created', 'updated')
 
     category = serializers.SlugRelatedField(slug_field='name', read_only=True)
     tag = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
@@ -77,4 +77,4 @@ class TagSerializer(serializers.ModelSerializer):
     """ Список меток к товарам """
     class Meta:
         model = Tag
-        exclude = ('slug', )
+        exclude = ('slug', 'id',)

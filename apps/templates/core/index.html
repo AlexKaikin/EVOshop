@@ -13,15 +13,23 @@
                     {% endif %}
                 </div>
             </div>
+            <div class="p-5 mb-4 bg-light rounded-3 pos-rel">
+                <div class="container-fluid py-5">
+                    <h2 class="display-5 fw-bold">Товары для здоровья, красоты и долголетия</h2>
+                    <p class="col-md-8 fs-4 text">В интернет-магазине EVO реализуется натуральная продукция для укрепления тела и духа</p>
+                    <i class="bi bi-heart-pulse"></i>
+                </div>
+            </div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                 {% if categories %}
                     {% for category in categories|slice:':6' %}
                         <div class="col">
                             <div class="card h-100">
                                 <img src="{{ category.image.url }}" alt="image">
-                                <div class="card-body-i text-center">
+                                <div class="card-body text-center">
                                     <h5 class="card-title">
-                                        <a href="{{ category.get_absolute_url }}" class="text-dark">{{ category.name }}</a>
+                                        <a href="{{ category.get_absolute_url }}"
+                                           class="text-dark">{{ category.name }}</a>
                                     </h5>
                                 </div>
                             </div>
@@ -31,13 +39,14 @@
             </div>
         </div>
     </section>
-    <section id="slider-index" class="paddingTopBottom">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h2>Популярные товары</h2>
-                    <div class="slider-index">
-                        {% if popular %}
+    {% if popular %}
+        <section id="slider-index" class="paddingTopBottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h2>Популярные товары</h2>
+                        <div class="slider-index">
+
                             {% for product in popular %}
                                 <div class="pop-card">
                                     <img src="{{ product.image.url }}" alt="No image">
@@ -93,25 +102,16 @@
                                     </div>
                                 </div>
                             {% endfor %}
-                        {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    {% endif %}
     <section class="paddingBottom">
         <div class="container">
-            <div class="p-5 mb-4 bg-light rounded-3 pos-rel">
-                <div class="container-fluid py-5">
-                    <h2 class="display-5 fw-bold">Гарантия качества</h2>
-                    <p class="col-md-8 fs-4 text">В интернет-магазине EVO реализуется продукция от поставщиков с
-                        сертификатами качества</p>
-                    <!--button-- class="btn btn-primary btn-lg" type="button">Наши партнёры</button-->
-                    <i class="bi bi-award"></i>
-                </div>
-            </div>
             <div class="row align-items-md-stretch">
-                <div class="col-md-6">
+                <div class="col-md-6 p-1">
                     <div class="h-100 p-5 rounded-3 text-bg-success pos-rel">
                         <h2>Бонусная программа</h2>
                         <p class="text">Начисление бонусов на личный внутренний счёт за покупку, отзыв и
@@ -120,7 +120,7 @@
                         <i class="bi bi-percent"></i>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 p-1">
                     <div class="h-100 p-5 text-bg-light rounded-3 pos-rel">
                         <h2>Настоящие отзывы</h2>
                         <p class="text">Отзывы могут писать только клиенты, купившие продукцию </p>

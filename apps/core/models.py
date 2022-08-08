@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.urls import reverse
 from pytils import translit
@@ -67,9 +68,10 @@ class Product(models.Model):
     desc = models.TextField(verbose_name='Описание')
     country = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Страна')
     town = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Город')
-    year = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Год')
+    year = models.PositiveIntegerField(blank=True, null=True, verbose_name='Год')
     volume = models.IntegerField(verbose_name='Вес, грамм')
-    price = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Цена, руб')
+    price = models.DecimalField(max_digits=5, validators=[MinValueValidator(0), MaxValueValidator(10000)],
+                                decimal_places=0, verbose_name='Цена, руб')
     stock = models.PositiveIntegerField(verbose_name='Остаток на складе, штук')
     talk_forum = models.URLField(blank=True, null=True, default=None, verbose_name='Ссылка на форум')
     published = models.CharField(choices=PUBLISHED, default='yes', max_length=3, verbose_name="Опубликован")
@@ -169,7 +171,7 @@ class Review(models.Model):
         'self', on_delete=models.SET_NULL, related_name='children', blank=True, null=True, verbose_name='Родитель'
     )
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews', blank=True, null=True,
-                                verbose_name='Продукт')
+                                verbose_name='Товар')
     profile = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE, related_name='reviews',
                                 blank=True, null=True, verbose_name='Автор')
 
@@ -255,6 +257,7 @@ class Setting(models.Model):
     Настройки сайта:
     - бесплатная доставка
     """
+
     class Meta:
         verbose_name = 'Настройки'
         verbose_name_plural = 'Настройки'
@@ -271,6 +274,7 @@ class Message(models.Model):
     """
     Сообщения со страницы контактов
     """
+
     class Meta:
         verbose_name = 'Сообщения'
         verbose_name_plural = 'Сообщения'
@@ -285,12 +289,31 @@ class Message(models.Model):
 
 class Subscribe(models.Model):
     """ Подписка на рассылку новостей на email """
+
     class Meta:
         verbose_name = 'E-mail рассылка'
         verbose_name_plural = 'E-mail рассылка'
 
-    email = models.EmailField(unique=True,)
+    email = models.EmailField(unique=True, )
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата подписки')
 
     def __str__(self):
         return self.email
+
+
+class Favourite(models.Model):
+    """ Избранные товары """
+
+    class Meta:
+        verbose_name = 'Избранные товары'
+        verbose_name_plural = 'Избранные товары'
+
+    pass
+
+    # profile = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE, related_name='favourites',
+    #                             blank=True, null=True, verbose_name='Пользователь')
+    # product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='reviews', blank=True, null=True,
+    #                             verbose_name='Товар')
+    #
+    # def __str__(self):
+    #     return self.email

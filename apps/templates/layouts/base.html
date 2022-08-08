@@ -88,28 +88,38 @@
             <div class="col">
                 <div class="collapse" id="collapseFilter">
                     <form action="{% url 'filter' %}" method="get" name="filter">
-                        <div class="filter_item">
-                            <h4><span>Категории:</span></h4>
-                            {% if categories %}
-                                {% for category in categories %}
-                                    <div class="form-check form-check-inline">
-                                        <input type="checkbox" class="form-check-input" name="category"
-                                               value="{{ category.name }}" id="{{ category.slug }}{{ category.id }}">
-                                        <label class="form-check-label" for="{{ category.slug }}{{ category.id }}">{{ category }}</label>
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="filter_item">
-                            <h4><span>Метки:</span></h4>
-                            {% for tag in view.get_tag %}
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" name="tag" value="{{ tag }}"
-                                           id="{{ tag.slug }}{{ tag.id }}">
-                                    <label class="form-check-label" for="{{ tag.slug }}{{ tag.id }}">{{ tag }}</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="filter_item">
+                                    <h4><span>Категории</span></h4>
+                                    {% if categories %}
+                                        {% for category in categories %}
+                                            <div class="form-check form-check-inline">
+                                                <input type="checkbox" class="form-check-input" name="category"
+                                                       value="{{ category.name }}"
+                                                       id="{{ category.slug }}{{ category.id }}">
+                                                <label class="form-check-label"
+                                                       for="{{ category.slug }}{{ category.id }}">{{ category }}</label>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
-                            {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                <div class="filter_item">
+                                    <h4><span>Метки</span></h4>
+                                    {% for tag in view.get_tag %}
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox" class="form-check-input" name="tag" value="{{ tag }}"
+                                                   id="{{ tag.slug }}{{ tag.id }}">
+                                            <label class="form-check-label"
+                                                   for="{{ tag.slug }}{{ tag.id }}">{{ tag }}</label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
+
                         <!--div class="col-md-4">
                             <div class="sort"><span>Сортировка</span>
                                 <select class="form-select form-select-sm" aria-label="Сортировать">
@@ -119,7 +129,9 @@
                                 </select>
                             </div>
                         </div-->
-                        <p><button type="submit" class="btn btn-warning">Найти</button></p>
+                        <p class="mt-2">
+                            <button type="submit" class="btn btn-warning">Найти</button>
+                        </p>
                     </form>
                 </div>
             </div>

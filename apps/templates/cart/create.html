@@ -7,22 +7,22 @@
             <div class="row">
                 <div class="col-md-6">
                     <h1>Оформить заказ</h1>
-                    <div class="order-info">
-                        <h3>Ваши товары</h3>
-                        <ul>
-                            {% for item in cart %}
-                                <li>
-                                    {{ item.product.name }} {{ item.quantity }} шт.
-                                    <span>{{ item.total_price }} рублей</span>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                        <br>
-                        <p>Стоимость товаров: {{ cart.get_products_price }} рублей</p>
-                        <p>Стоимость доставки: {% if cart.get_products_price <  delivery_free %}{{ delivery }}{% else %}0{% endif %} рублей</p>
-                        <p>Стоимость всего: {{ cart.get_total_price }} рублей</p>
-                    </div>
-                    <h1>Данные получателя</h1>
+{#                    <div class="order-info">#}
+{#                        <h3>Ваши товары</h3>#}
+{#                        <ul>#}
+{#                            {% for item in cart %}#}
+{#                                <li>#}
+{#                                    {{ item.product.name }} {{ item.quantity }} шт.#}
+{#                                    <span>{{ item.total_price }} рублей</span>#}
+{#                                </li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                        <br>#}
+{#                        <p>Стоимость товаров: {{ cart.get_products_price }} рублей</p>#}
+{#                        <p>Стоимость доставки: {% if cart.get_products_price <  delivery_free %}{{ delivery }}{% else %}0{% endif %} рублей</p>#}
+{#                        <p>Стоимость всего: {{ cart.get_total_price }} рублей</p>#}
+{#                    </div>#}
+                    <h3>Данные получателя</h3>
                     <form action="." method="post" class="order-form">
                         {% csrf_token %}
                         {#{{ form.as_p }}#}

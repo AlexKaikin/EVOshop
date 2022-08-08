@@ -1,6 +1,8 @@
 from decimal import Decimal
 from django.conf import settings
-from apps.core.models import Product, Setting
+
+from apps.cart.services.cart_detail_service import get_setting_delivery
+from apps.core.models import Product
 
 
 class Cart(object):
@@ -75,11 +77,11 @@ class Cart(object):
         """
         Подсчет стоимости товаров + доставка.
         """
-        number = Setting.objects.get(pk=1)
-        if self.get_products_price() > number.delivery_free:
+        setting_delivery = get_setting_delivery()
+        if self.get_products_price() < setting_delivery.delivery_free:
             return self.get_products_price()
         else:
-            return self.get_products_price() + number.delivery
+            return self.get_products_price() + setting_delivery.delivery
 
     def clear(self):
         # удаление корзины из сессии
