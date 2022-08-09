@@ -841,6 +841,19 @@ footer input {
     }
 }
 
+/* nav */
+nav .nav-item {
+    position: relative;
+}
+.navbar-nav .nav-link.active:before{
+    width: 30px;
+    border-bottom: 2px solid white;
+    content: "";
+    position: absolute;
+    bottom: 0;
+}
+
+/* /nav */
 
 /* product */
 
@@ -949,6 +962,10 @@ footer input {
 .form-check-input:checked {
     background-color: black;
     border-color: black;
+}
+
+#cart_form #id_quantity {
+    width: 50px;
 }
 
 /* /form */

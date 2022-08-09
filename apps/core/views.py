@@ -25,6 +25,7 @@ class IndexView(Filter, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['popular'] = get_popular_list()
+        context['page_index'] = True
         return context
 
     def get_queryset(self):
@@ -41,6 +42,7 @@ class CategoryView(ListView):
         context['object_list'] = get_product_list(self)
         ajax_paginator(self, context)
         context['cart_product_form'] = CartAddProductForm()
+        context['page_category'] = True
         return context
 
 
@@ -52,6 +54,7 @@ class ProductView(FormMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['page_category'] = True
         context['cart_product_form'] = CartAddProductForm()
         context['images'] = get_images_list(self)
         context['reply_list'] = get_reply_list(self)
@@ -100,6 +103,11 @@ class ContactView(SuccessMessageMixin, CreateView):
     template_name = 'core/contacts.html'
     success_url = reverse_lazy('contacts')
     success_message = 'Сообщение отправлено'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_contacts'] = True
+        return context
 
     def form_valid(self, form):
         """ Если форма валидна, вернем код 200 """
@@ -151,7 +159,8 @@ class FilterProductView(Filter, ListView):
 
 def about(request):
     """ Страница о компании """
-    return render(request, 'core/about.html')
+    context = {'page_about': True}
+    return render(request, 'core/about.html', context)
 
 
 def page_not_found(request, exception):

@@ -24,7 +24,7 @@ SECRET_KEY = config('SECRET_KEY'),
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 INTERNAL_IPS = [
     # ...
@@ -101,6 +101,17 @@ DATABASES = {
         'HOST': config('DATABASES_HOST')
     }
 }
+
+# docker
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PORT': 5432,
+#         'HOST': 'evo_db'
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

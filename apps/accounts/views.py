@@ -23,6 +23,11 @@ class RegisterForm(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('index')
     success_message = '%(username)s, добро пожаловать!'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_profile'] = True
+        return context
+
     def form_valid(self, form):
         valid = super().form_valid(form)
         login(self.request, self.object)
@@ -35,6 +40,11 @@ class LoginForm(SuccessMessageMixin, LoginView):
     form_class = UserLoginForm
     success_message = '%(username)s, добро пожаловать!'
     success_url = reverse_lazy('index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_profile'] = True
+        return context
 
 
 class LogOutForm(LogoutView):
@@ -50,6 +60,11 @@ class ProfileView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     form_class = ProfileForm
     success_url = reverse_lazy('profile')
     success_message = 'Профиль обновлён'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_profile'] = True
+        return context
 
     def get_success_url(self):
         pk = self.kwargs['pk']
@@ -74,6 +89,7 @@ class ProfileOrderView(ListView):
         context = super().get_context_data(**kwargs)
         context['object_list'] = get_order_list(self)
         ajax_paginator(self, context)
+        context['page_profile'] = True
         return context
 
 
@@ -86,6 +102,7 @@ class ProfileOrderDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['products'] = get_product_list(self)
         context['delivery_free'] = get_delivery_free()
+        context['page_profile'] = True
         return context
 
 
@@ -98,4 +115,5 @@ class ProfileReviewView(ListView):
         context = super().get_context_data(**kwargs)
         context['object_list'] = get_review_list(self)
         ajax_paginator(self, context)
+        context['page_profile'] = True
         return context
