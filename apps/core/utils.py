@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+from apps.core.models import Product
 from apps.core.services.filter_service import get_filter_category_list, get_filter_tag_list
 
 
@@ -21,3 +22,4 @@ def ajax_paginator(self, context):
         context['object_list'] = paginator.page(1)
     except EmptyPage:
         context['object_list'] = paginator.page(paginator.num_pages)
+

@@ -39,3 +39,12 @@ def get_images_list(self):
     slug = self.kwargs['slug']
     image_list = ProductImage.objects.filter(product__slug=slug).all()
     return image_list
+
+
+def get_favourite_marker(self):
+    slug = self.kwargs['slug']
+    product = Product.objects.get(slug=slug)  # self.object
+    if product.favourite.filter(id=self.request.user.id).exists():
+        return True
+    else:
+        return False

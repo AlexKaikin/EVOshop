@@ -81,6 +81,7 @@ class Product(models.Model):
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='Категория')
     tag = models.ManyToManyField('Tag', related_name='tags', blank=True, verbose_name='Метки')
+    favourite = models.ManyToManyField('accounts.Profile', related_name='favourites', default=None, blank=True)
 
     def save(self, *args, **kwargs):
         name = self.name
@@ -300,20 +301,3 @@ class Subscribe(models.Model):
     def __str__(self):
         return self.email
 
-
-class Favourite(models.Model):
-    """ Избранные товары """
-
-    class Meta:
-        verbose_name = 'Избранные товары'
-        verbose_name_plural = 'Избранные товары'
-
-    pass
-
-    # profile = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE, related_name='favourites',
-    #                             blank=True, null=True, verbose_name='Пользователь')
-    # product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='reviews', blank=True, null=True,
-    #                             verbose_name='Товар')
-    #
-    # def __str__(self):
-    #     return self.email

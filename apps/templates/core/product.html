@@ -34,7 +34,9 @@
                 <div class="col-md-5 offset-md-1 pt-5">
                     <div class="btn-group" role="group">
                         <a type="button" class="btn btn-outline-success"><i class="bi bi-bookmark"></i></a>
-                        <a type="button" class="btn btn-outline-success"><i class="bi bi-heart"></i></a>
+                        <a href="{% url 'favourite_add' product.id %}"
+                           class="btn btn-outline-success{% if favourite_marker %} active{% endif %}"><i
+                                class="bi bi-heart"></i></a>
                         {% if product.rating == 5 %}
                             <div class="star">
                                 <i class="bi bi-star-fill"></i>
@@ -256,7 +258,8 @@
                                                 <div class="pt-3">
                                                     {{ review.description|linebreaks }}
                                                     {% if user.is_superuser or user.is_staff %}
-                                                        <a href="#review-tab-pane" onclick="addReply('{{ review.profile }}', '{{ review.id }}')">Ответить</a>
+                                                        <a href="#review-tab-pane"
+                                                           onclick="addReply('{{ review.profile }}', '{{ review.id }}')">Ответить</a>
                                                     {% endif %}
                                                 </div>
                                             </div>
@@ -279,7 +282,7 @@
                                     </div>
                                     <br>
                                     {% for reply in review.children.all %}
-{#                                        {% for reply in reply_list %}#}
+                                        {#                                        {% for reply in reply_list %}#}
                                         <div class="p-3 bg-light comment-reply">
                                             <div class="row">
                                                 <div class="col-md-10 col-sm-8">

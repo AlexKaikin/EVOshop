@@ -34,6 +34,7 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ['created', 'updated']
     save_on_top = True
+    exclude = ('favourite',)
 
 
 @admin.register(Tag)

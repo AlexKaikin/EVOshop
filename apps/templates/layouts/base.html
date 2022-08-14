@@ -38,12 +38,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn position-relative" href="#">
-                            <i class="bi bi-heart"></i>
+                        <a class="btn position-relative" href="{% url 'favourite_list' %}">
+                            <i class="bi bi-heart"></i>{% if user.is_authenticated %}
                             <span class="position-absolute top-0 start-1 translate-middle badge text-bg-white">
-                                4
+
+                                    {% get_favourite_count user.id %}
+
                                 <span class="visually-hidden">избранные</span>
-                            </span>
+                            </span>{% endif %}
                             <span class="text-opacity">Избранное</span>
                         </a>
                     </li>

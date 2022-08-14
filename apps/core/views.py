@@ -1,4 +1,6 @@
-from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
@@ -9,10 +11,12 @@ from apps.core.models import Category, Product, Subscribe
 from apps.cart.forms import CartAddProductForm
 
 from .forms import ReviewForm, ContactForm, SubscribeForm
+from .services.favourite_view_service import get_favourite_list
 from .services.filter_product_view_service import get_filter_queryset
 from .services.index_service import get_category_list, get_popular_list
 from .services.category_service import get_product_list
-from .services.product_service import get_product, get_review_list, get_images_list, get_reply_list
+from .services.product_service import get_product, get_review_list, get_images_list, get_reply_list, \
+    get_favourite_marker
 from .services.search_service import get_search_list
 from .utils import Filter, ajax_paginator
 
@@ -40,9 +44,9 @@ class CategoryView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['object_list'] = get_product_list(self)
-        ajax_paginator(self, context)
         context['cart_product_form'] = CartAddProductForm()
         context['page_category'] = True
+        ajax_paginator(self, context)
         return context
 
 
@@ -59,6 +63,7 @@ class ProductView(FormMixin, DetailView):
         context['images'] = get_images_list(self)
         context['reply_list'] = get_reply_list(self)
         context['object_list'] = get_review_list(self)
+        context['favourite_marker'] = get_favourite_marker(self)
         ajax_paginator(self, context)
         return context
 
@@ -95,6 +100,50 @@ class SearchView(ListView):
 
         context['cart_product_form'] = CartAddProductForm()
         return context
+
+
+class FilterProductView(Filter, ListView):
+    """ Страница отфильтрованных товаров """
+    template_name = 'core/category.html'
+
+    def get_queryset(self):
+        return get_filter_queryset(self)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["category"] = ''.join([f"category={x}&" for x in self.request.GET.getlist("category")])
+        context["tag"] = ''.join([f"tag={x}&" for x in self.request.GET.getlist("tag")])
+        context['object_list'] = self.get_queryset()
+        ajax_paginator(self, context)
+        context['cart_product_form'] = CartAddProductForm()
+        return context
+
+
+class FavouriteView(LoginRequiredMixin, ListView):
+    """ Страница избранных товаров """
+    model = Product
+    template_name = 'core/favourite.html'
+
+    def get_queryset(self):
+        return get_favourite_list(self)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['object_list'] = self.get_queryset()
+        ajax_paginator(self, context)
+        context['cart_product_form'] = CartAddProductForm()
+        return context
+
+
+@login_required
+def favourite_add(request, id):
+    """ Добавление товара в избранное """
+    product = Product.objects.get(id=id)
+    if product.favourite.filter(id=request.user.id).exists():
+        product.favourite.remove(request.user)
+    else:
+        product.favourite.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 class ContactView(SuccessMessageMixin, CreateView):
@@ -137,24 +186,6 @@ class SubscribeView(SuccessMessageMixin, CreateView):
             return super().form_valid(form)
         if form.is_invalid():
             return super().form_invalid(form)
-
-
-class FilterProductView(Filter, ListView):
-    """ Страница отфильтрованных товаров """
-
-    template_name = 'core/category.html'
-
-    def get_queryset(self):
-        return get_filter_queryset(self)
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context["category"] = ''.join([f"category={x}&" for x in self.request.GET.getlist("category")])
-        context["tag"] = ''.join([f"tag={x}&" for x in self.request.GET.getlist("tag")])
-        context['object_list'] = self.get_queryset()
-        ajax_paginator(self, context)
-        context['cart_product_form'] = CartAddProductForm()
-        return context
 
 
 def about(request):
