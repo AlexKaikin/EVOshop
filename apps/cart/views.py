@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
@@ -20,7 +22,9 @@ def cart_add(request, product_id):
                  quantity=cd['quantity'],
                  update_quantity=cd['update'])
 
-    return redirect('cart_detail')
+    messages.add_message(request, messages.SUCCESS, 'Товар добавлен в корзину')
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    # return redirect('cart_detail')
 
 
 def cart_remove(request, product_id):

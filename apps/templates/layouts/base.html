@@ -28,12 +28,14 @@
             <div class="col-lg d-flex justify-content-center order-lg-2">
                 <ul class="nav prodM">
                     <li class="nav-item">
-                        <a class="btn position-relative" href="#">
+                        <a class="btn position-relative" href="{% url 'compare_detail' %}">
                             <i class="bi bi-bookmarks"></i>
-                            <span class="position-absolute top-0 start-1 translate-middle badge text-bg-white">
-                                1
-                                <span class="visually-hidden">закладки</span>
-                            </span>
+                            {% if request.session.compare|length > 0 %}
+                                <span class="position-absolute top-0 start-1 translate-middle badge text-bg-white">
+                                            {{ request.session.compare|length }}
+                                        <span class="visually-hidden">закладки</span>
+                                    </span>
+                            {% endif %}
                             <span class="text-opacity">Сравнить</span>
                         </a>
                     </li>
@@ -52,14 +54,12 @@
                     <li class="nav-item cart">
                         <a class="btn position-relative" href="{% url 'cart_detail' %}">
                             <i class="bi bi-cart3"></i>
-                            {% with total_items=cart|length %}
-                                {% if cart|length > 0 %}
-                                    <span class="position-absolute top-0 start-1 translate-middle badge text-bg-white">
-                                            {{ total_items }}
+                            {% if request.session.cart|length > 0 %}
+                                <span class="position-absolute top-0 start-1 translate-middle badge text-bg-white">
+                                           {{ request.session.cart|length }}
                                         <span class="visually-hidden">товаров</span>
                                     </span>
-                                {% endif %}
-                            {% endwith %}
+                            {% endif %}
                             <span class="text-opacity">Корзина</span>
                         </a>
                     </li>
@@ -141,7 +141,16 @@
     </div>
 </section>
 <section id="main-section">
-    <div id="main-container" class="container">
+    <div class="container">
+        <div class="row">
+            <div class="col message">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
         <div class="row">
             <div class="col">
                 {% block content %}{% endblock %}

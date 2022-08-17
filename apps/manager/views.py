@@ -27,7 +27,8 @@ def manager(request):
     profit_month = get_profit_month
 
     context = {'count_review': count_review, 'count_order': count_order, 'orders_day': orders_day,
-               'orders_month': orders_month, 'profit_day': profit_day, 'profit_month': profit_month}
+               'orders_month': orders_month, 'profit_day': profit_day, 'profit_month': profit_month,
+               'page_manager': True}
     return render(request, 'manager/manager.html', context)
 
 
@@ -39,6 +40,7 @@ class ManagerCategoryView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['object_list'] = get_category_list()
+        context['page_manager_category'] = True
         ajax_paginator(self, context)
         return context
 
@@ -76,6 +78,7 @@ class ManagerProductView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['object_list'] = get_product_list(self)
+        context['page_manager_product'] = True
         ajax_paginator(self, context)
         return context
 
@@ -136,6 +139,7 @@ class ManagerReviewView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['object_list'] = get_review_list(self)
+        context['page_manager_review'] = True
         ajax_paginator(self, context)
         return context
 
@@ -169,6 +173,7 @@ class ManagerOrderView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['object_list'] = get_order_list()
+        context['page_manager_order'] = True
         ajax_paginator(self, context)
         return context
 
@@ -204,3 +209,8 @@ class ManagerSettingView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         pk = self.kwargs['pk']
         return reverse("manager_setting", kwargs={'pk': pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_manager_setting'] = True
+        return context

@@ -3,214 +3,289 @@
 {% block title %}EVO магазин / {{ product.name }}{% endblock %}
 {% block description %}{{ product.desc|truncatechars:'90' }}{% endblock %}
 {% block content %}
-    <div class="container">
+    {#    <section id="prod" class="paddingTopBottom">#}
+    <section id="prod">
+        {#        <div class="container">#}
         <div class="row">
-            <div class="col message">
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    <section id="prod" class="paddingTopBottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="fotorama" data-width="100%" data-nav="thumbs" data-allowfullscreen="true">
-                        {% if product.image %}
-                            <img src="{{ product.image.url }}" alt="">
-                        {% else %}
-                            <img src="{% static 'img/noimg.jpg' %}" alt="No image">
-                        {% endif %}
-                        {% if images %}
-                            {% for photo in images %}
-                                <img src="{{ photo.image.url }}" alt="">
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col-md-5 offset-md-1 pt-5">
-                    <div class="btn-group" role="group">
-                        <a type="button" class="btn btn-outline-success"><i class="bi bi-bookmark"></i></a>
-                        <a href="{% url 'favourite_add' product.id %}"
-                           class="btn btn-outline-success{% if favourite_marker %} active{% endif %}"><i
-                                class="bi bi-heart"></i></a>
-                        {% if product.rating == 5 %}
-                            <div class="star">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                        {% endif %}
-                        {% if product.rating == 4 %}
-                            <div class="star">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star"></i>
-                            </div>
-                        {% endif %}
-                        {% if product.rating == 3 %}
-                            <div class="star">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                            </div>
-                        {% endif %}
-                        {% if product.rating == 2 %}
-                            <div class="star">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                            </div>
-                        {% endif %}
-                        {% if product.rating == 1 %}
-                            <div class="star">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                                <i class="bi bi-star"></i>
-                            </div>
-                        {% endif %}
-                    </div>
-                    <h3>{{ product.name }}</h3>
-                    {% if product.stock > 0 %}
-                        <p class="text">Вес <span>{{ product.volume }}</span> грамм</p>
-                        <form id="order" action="{% url 'cart_add' product.id %}" method="POST">
-                            {% csrf_token %}
-                            <div class="number">
-                                <p>
-                                    Количество
-                                    <button class="minus btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
-                                    <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}"
-                                           required="" id="id_quantity">
-                                    <button class="plus btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
-                                </p>
-                            </div>
-                        </form>
-                        <span class="price" style="display: none">{{ product.price }}</span>
-                        <p><span class="total_price">{{ product.price }}</span> <span class="text">рублей</span></p>
-
-                        <p><input type="submit" form="order" class="btn btn-success btnS" value="Добавить в корзину">
-                        </p>
+            <div class="col-md-6">
+                <div class="fotorama" data-width="100%" data-nav="thumbs" data-allowfullscreen="true">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="">
                     {% else %}
-                        Товар закончился
+                        <img src="{% static 'img/noimg.jpg' %}" alt="No image">
+                    {% endif %}
+                    {% if images %}
+                        {% for photo in images %}
+                            <img src="{{ photo.image.url }}" alt="">
+                        {% endfor %}
                     {% endif %}
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-                                    data-bs-target="#description-tab-pane" type="button" role="tab"
-                                    aria-controls="description-tab-pane" aria-selected="true">Описание
-                            </button>
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
-                                    data-bs-target="#property-tab-pane" type="button" role="tab"
-                                    aria-controls="property-tab-pane" aria-selected="false">Характеристики
-                            </button>
-                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
-                                    data-bs-target="#review-tab-pane" type="button" role="tab"
-                                    aria-controls="review-tab-pane" aria-selected="false">Отзывы
-                                ({{ product.count_review }})
-                            </button>
+            <div class="col-md-5 offset-md-1 pt-5">
+                <div class="btn-group" role="group">
+                    <form id="compare" action="{% url 'compare_add' product.id %}" method="post">
+                        {% csrf_token %}
+                        {{ compare_product_form }}
+{#                        <input type="hidden" name="quantity" value="1" id="id_quantity">#}
+                    </form>
+                    {% if product.id|stringformat:"i" in request.session.compare %}
+                        <button type="submit" form="compare" class="btn btn-outline-success active"><i class="bi bi-bookmark"></i></button>
+                    {% else %}
+                         <button type="submit" form="compare" class="btn btn-outline-success"><i class="bi bi-bookmark"></i></button>
+                    {% endif %}
+                    <a href="{% url 'favourite_add' product.id %}"
+                       class="btn btn-outline-success{% if favourite_marker %} active{% endif %}"><i
+                            class="bi bi-heart"></i></a>
+                    {% if product.rating == 5 %}
+                        <div class="star">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
                         </div>
-                    </nav>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active " id="description-tab-pane" role="tabpanel"
-                             aria-labelledby="description-tab" tabindex="0">
-                            <div class="p-3 text">{{ product.desc|linebreaks }}</div>
+                    {% endif %}
+                    {% if product.rating == 4 %}
+                        <div class="star">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
                         </div>
-                        <div class="tab-pane fade" id="property-tab-pane" role="tabpanel" aria-labelledby="property-tab"
-                             tabindex="0">
-                            <div class="col-md-6 p-3">
-                                <table class="table">
-                                    <tbody>
-                                    {% if product.volume %}
-                                        <tr>
-                                            <td>Вес</td>
-                                            <td>{{ product.volume }} грамм</td>
-                                        </tr>
-                                    {% endif %}
-                                    {% if product.country %}
-                                        <tr>
-                                            <td>Страна</td>
-                                            <td>{{ product.country }}</td>
-                                        </tr>
-                                    {% endif %}
-                                    {% if product.town %}
-                                        <tr>
-                                            <td>Город</td>
-                                            <td>{{ product.town }}</td>
-                                        </tr>
-                                    {% endif %}
-                                    {% if product.year %}
-                                        <tr>
-                                            <td>Год</td>
-                                            <td>{{ product.year }}</td>
-                                        </tr>
-                                    {% endif %}
-                                    {% if product.tag.all %}
-                                        <tr>
-                                            <td>Метки</td>
-                                            <td>
-                                                {% for tag in product.tag.all %}
-                                                    <a href="#" class="tag">{{ tag.name }}</a>
-                                                {% endfor %}
-                                            </td>
-                                        </tr>
-                                    {% endif %}
-                                    </tbody>
-                                </table>
-                            </div>
+                    {% endif %}
+                    {% if product.rating == 3 %}
+                        <div class="star">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
                         </div>
-                        <div class="tab-pane fade content p-3" id="review-tab-pane" role="tabpanel"
-                             aria-labelledby="review-tab"
-                             tabindex="0">
-                            <div class="col-md-6 pt-3">
-                                {% if user.is_authenticated %}
-                                    <h3>Оставить отзыв</h3>
-                                    <form id="reviewForm" action="" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="parent" id="id_parent" value="">
-                                        <div>{{ form.non_field_errors }}</div>
+                    {% endif %}
+                    {% if product.rating == 2 %}
+                        <div class="star">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                    {% endif %}
+                    {% if product.rating == 1 %}
+                        <div class="star">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                <h3>{{ product.name }}</h3>
+                {% if product.stock > 0 %}
+                    <p class="text">Вес <span>{{ product.volume }}</span> грамм</p>
+                    <form id="order" action="{% url 'cart_add' product.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="number">
+                            <p>
+                                Количество
+                                <button class="minus btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
+                                <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}"
+                                       required="" id="id_quantity">
+                                <button class="plus btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
+                            </p>
+                        </div>
+                    </form>
+                    <span class="price" style="display: none">{{ product.price }}</span>
+                    <p><span class="total_price">{{ product.price }}</span> <span class="text">рублей</span></p>
 
-                                        <div class="form-floating mb-3">
-                                            {{ form.description }}
-                                            <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
-                                        </div>
-                                        <div>{{ form.rating.errors }}</div>
-
-                                        <div class="form-floating mb-3">
-                                            {{ form.rating }}
-                                            <label for="{{ form.rating.id_for_label }}">{{ form.rating.label }}</label>
-                                        </div>
-                                        <div>{{ form.rating.errors }}</div>
-
-                                        <button type="submit" class="btn btn-success btnS">Сохранить</button>
-                                    </form>
-                                {% else %}
-                                    <div class="p-3">Написать отзыв может только зарегистрированный пользователь</div>
+                    <p><input type="submit" form="order" class="btn btn-success btnS" value="Добавить в корзину">
+                    </p>
+                {% else %}
+                    Товар закончился
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                data-bs-target="#description-tab-pane" type="button" role="tab"
+                                aria-controls="description-tab-pane" aria-selected="true">Описание
+                        </button>
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                data-bs-target="#property-tab-pane" type="button" role="tab"
+                                aria-controls="property-tab-pane" aria-selected="false">Характеристики
+                        </button>
+                        <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
+                                data-bs-target="#review-tab-pane" type="button" role="tab"
+                                aria-controls="review-tab-pane" aria-selected="false">Отзывы
+                            ({{ product.count_review }})
+                        </button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active " id="description-tab-pane" role="tabpanel"
+                         aria-labelledby="description-tab" tabindex="0">
+                        <div class="p-3 text">{{ product.desc|linebreaks }}</div>
+                    </div>
+                    <div class="tab-pane fade" id="property-tab-pane" role="tabpanel" aria-labelledby="property-tab"
+                         tabindex="0">
+                        <div class="col-md-6 p-3">
+                            <table class="table">
+                                <tbody>
+                                {% if product.volume %}
+                                    <tr>
+                                        <td>Вес</td>
+                                        <td>{{ product.volume }} грамм</td>
+                                    </tr>
                                 {% endif %}
-                            </div>
-                            <br>
-                            {% if object_list %}
-                                {% for review in object_list %}
-                                    <div class="p-3 bg-light comment">
+                                {% if product.country %}
+                                    <tr>
+                                        <td>Страна</td>
+                                        <td>{{ product.country }}</td>
+                                    </tr>
+                                {% endif %}
+                                {% if product.town %}
+                                    <tr>
+                                        <td>Город</td>
+                                        <td>{{ product.town }}</td>
+                                    </tr>
+                                {% endif %}
+                                {% if product.year %}
+                                    <tr>
+                                        <td>Год</td>
+                                        <td>{{ product.year }}</td>
+                                    </tr>
+                                {% endif %}
+                                {% if product.tag.all %}
+                                    <tr>
+                                        <td>Метки</td>
+                                        <td>
+                                            {% for tag in product.tag.all %}
+                                                <a href="#" class="tag">{{ tag.name }}</a>
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade content p-3" id="review-tab-pane" role="tabpanel"
+                         aria-labelledby="review-tab"
+                         tabindex="0">
+                        <div class="col-md-6 pt-3">
+                            {% if user.is_authenticated %}
+                                <h3>Оставить отзыв</h3>
+                                <form id="reviewForm" action="" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="parent" id="id_parent" value="">
+                                    <div>{{ form.non_field_errors }}</div>
+
+                                    <div class="form-floating mb-3">
+                                        {{ form.description }}
+                                        <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                                    </div>
+                                    <div>{{ form.rating.errors }}</div>
+
+                                    <div class="form-floating mb-3">
+                                        {{ form.rating }}
+                                        <label for="{{ form.rating.id_for_label }}">{{ form.rating.label }}</label>
+                                    </div>
+                                    <div>{{ form.rating.errors }}</div>
+
+                                    <button type="submit" class="btn btn-success btnS">Сохранить</button>
+                                </form>
+                            {% else %}
+                                <div class="p-3">Написать отзыв может только зарегистрированный пользователь</div>
+                            {% endif %}
+                        </div>
+                        <br>
+                        {% if object_list %}
+                            {% for review in object_list %}
+                                <div class="p-3 bg-light comment">
+                                    <div class="row">
+                                        <div class="col-md-10 col-sm-8">
+                                            {% if review.rating == 5 %}
+                                                <div class="star">
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                </div>
+                                            {% endif %}
+                                            {% if review.rating == 4 %}
+                                                <div class="star">
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star"></i>
+                                                </div>
+                                            {% endif %}
+                                            {% if review.rating == 3 %}
+                                                <div class="star">
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star"></i>
+                                                    <i class="bi bi-star"></i>
+                                                </div>
+                                            {% endif %}
+                                            {% if review.rating == 2 %}
+                                                <div class="star">
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star"></i>
+                                                    <i class="bi bi-star"></i>
+                                                    <i class="bi bi-star"></i>
+                                                </div>
+                                            {% endif %}
+                                            {% if review.rating == 1 %}
+                                                <div class="star">
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <i class="bi bi-star"></i>
+                                                    <i class="bi bi-star"></i>
+                                                    <i class="bi bi-star"></i>
+                                                    <i class="bi bi-star"></i>
+                                                </div>
+                                            {% endif %}
+                                            <div class="pt-3">
+                                                {{ review.description|linebreaks }}
+                                                {% if user.is_superuser or user.is_staff %}
+                                                    <a href="#review-tab-pane"
+                                                       onclick="addReply('{{ review.profile }}', '{{ review.id }}')">Ответить</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-4 author">
+                                            <div class="avatar">
+                                                {% if review.profile.avatar %}
+                                                    <img src="{{ review.profile.avatar.url }}" alt="">
+                                                {% else %}
+                                                    <img src="{% static 'img/no_avatar.png' %}" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <p>
+                                                {{ review.profile }}
+                                            </p>
+                                            <p>
+                                                <i class="bi bi-clock"></i> {{ review.created|date:'H:i d.m.Y' }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                {% for reply in review.children.all %}
+                                    {#                                        {% for reply in reply_list %}#}
+                                    <div class="p-3 bg-light comment-reply">
                                         <div class="row">
                                             <div class="col-md-10 col-sm-8">
-                                                {% if review.rating == 5 %}
+                                                {% if reply.rating == 5 %}
                                                     <div class="star">
                                                         <i class="bi bi-star-fill"></i>
                                                         <i class="bi bi-star-fill"></i>
@@ -219,7 +294,7 @@
                                                         <i class="bi bi-star-fill"></i>
                                                     </div>
                                                 {% endif %}
-                                                {% if review.rating == 4 %}
+                                                {% if reply.rating == 4 %}
                                                     <div class="star">
                                                         <i class="bi bi-star-fill"></i>
                                                         <i class="bi bi-star-fill"></i>
@@ -228,7 +303,7 @@
                                                         <i class="bi bi-star"></i>
                                                     </div>
                                                 {% endif %}
-                                                {% if review.rating == 3 %}
+                                                {% if reply.rating == 3 %}
                                                     <div class="star">
                                                         <i class="bi bi-star-fill"></i>
                                                         <i class="bi bi-star-fill"></i>
@@ -237,7 +312,7 @@
                                                         <i class="bi bi-star"></i>
                                                     </div>
                                                 {% endif %}
-                                                {% if review.rating == 2 %}
+                                                {% if reply.rating == 2 %}
                                                     <div class="star">
                                                         <i class="bi bi-star-fill"></i>
                                                         <i class="bi bi-star-fill"></i>
@@ -246,7 +321,7 @@
                                                         <i class="bi bi-star"></i>
                                                     </div>
                                                 {% endif %}
-                                                {% if review.rating == 1 %}
+                                                {% if reply.rating == 1 %}
                                                     <div class="star">
                                                         <i class="bi bi-star-fill"></i>
                                                         <i class="bi bi-star"></i>
@@ -256,116 +331,40 @@
                                                     </div>
                                                 {% endif %}
                                                 <div class="pt-3">
-                                                    {{ review.description|linebreaks }}
-                                                    {% if user.is_superuser or user.is_staff %}
-                                                        <a href="#review-tab-pane"
-                                                           onclick="addReply('{{ review.profile }}', '{{ review.id }}')">Ответить</a>
-                                                    {% endif %}
+                                                    {{ reply.description|linebreaks }}
                                                 </div>
                                             </div>
                                             <div class="col-md-2 col-sm-4 author">
                                                 <div class="avatar">
-                                                    {% if review.profile.avatar %}
-                                                        <img src="{{ review.profile.avatar.url }}" alt="">
+                                                    {% if reply.profile.avatar %}
+                                                        <img src="{{ reply.profile.avatar.url }}" alt="">
                                                     {% else %}
                                                         <img src="{% static 'img/no_avatar.png' %}" alt="">
                                                     {% endif %}
                                                 </div>
                                                 <p>
-                                                    {{ review.profile }}
+                                                    {{ reply.profile }}
                                                 </p>
                                                 <p>
-                                                    <i class="bi bi-clock"></i> {{ review.created|date:'H:i d.m.Y' }}
+                                                    <i class="bi bi-clock"></i> {{ reply.created|date:'H:i d.m.Y' }}
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                     <br>
-                                    {% for reply in review.children.all %}
-                                        {#                                        {% for reply in reply_list %}#}
-                                        <div class="p-3 bg-light comment-reply">
-                                            <div class="row">
-                                                <div class="col-md-10 col-sm-8">
-                                                    {% if reply.rating == 5 %}
-                                                        <div class="star">
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                        </div>
-                                                    {% endif %}
-                                                    {% if reply.rating == 4 %}
-                                                        <div class="star">
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star"></i>
-                                                        </div>
-                                                    {% endif %}
-                                                    {% if reply.rating == 3 %}
-                                                        <div class="star">
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star"></i>
-                                                            <i class="bi bi-star"></i>
-                                                        </div>
-                                                    {% endif %}
-                                                    {% if reply.rating == 2 %}
-                                                        <div class="star">
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star"></i>
-                                                            <i class="bi bi-star"></i>
-                                                            <i class="bi bi-star"></i>
-                                                        </div>
-                                                    {% endif %}
-                                                    {% if reply.rating == 1 %}
-                                                        <div class="star">
-                                                            <i class="bi bi-star-fill"></i>
-                                                            <i class="bi bi-star"></i>
-                                                            <i class="bi bi-star"></i>
-                                                            <i class="bi bi-star"></i>
-                                                            <i class="bi bi-star"></i>
-                                                        </div>
-                                                    {% endif %}
-                                                    <div class="pt-3">
-                                                        {{ reply.description|linebreaks }}
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2 col-sm-4 author">
-                                                    <div class="avatar">
-                                                        {% if reply.profile.avatar %}
-                                                            <img src="{{ reply.profile.avatar.url }}" alt="">
-                                                        {% else %}
-                                                            <img src="{% static 'img/no_avatar.png' %}" alt="">
-                                                        {% endif %}
-                                                    </div>
-                                                    <p>
-                                                        {{ reply.profile }}
-                                                    </p>
-                                                    <p>
-                                                        <i class="bi bi-clock"></i> {{ reply.created|date:'H:i d.m.Y' }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                    {% endfor %}
                                 {% endfor %}
-                            {% else %}
-                                <div class="p-3 bg-light">
-                                    Отзывов нет
-                                </div>
-                            {% endif %}
-                            {% include 'includes/paginator.html' %}
-                        </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="p-3 bg-light">
+                                Отзывов нет
+                            </div>
+                        {% endif %}
+                        {% include 'includes/paginator.html' %}
                     </div>
                 </div>
             </div>
         </div>
+        {#        </div>#}
     </section>
 
     <script>

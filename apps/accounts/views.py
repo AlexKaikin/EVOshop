@@ -89,7 +89,7 @@ class ProfileOrderView(ListView):
         context = super().get_context_data(**kwargs)
         context['object_list'] = get_order_list(self)
         ajax_paginator(self, context)
-        context['page_profile'] = True
+        context['page_profile_order'] = True
         return context
 
 
@@ -102,7 +102,7 @@ class ProfileOrderDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['products'] = get_product_list(self)
         context['delivery_free'] = get_delivery_free()
-        context['page_profile'] = True
+        context['page_profile_order'] = True
         return context
 
 
@@ -115,5 +115,5 @@ class ProfileReviewView(ListView):
         context = super().get_context_data(**kwargs)
         context['object_list'] = get_review_list(self)
         ajax_paginator(self, context)
-        context['page_profile'] = True
+        context['page_profile_review'] = True
         return context

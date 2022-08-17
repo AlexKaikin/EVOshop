@@ -1,19 +1,22 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
+from django.views.decorators.http import require_POST
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin, CreateView
 from django.contrib.messages.views import SuccessMessageMixin
 
 from apps.core.models import Category, Product, Subscribe
 from apps.cart.forms import CartAddProductForm
+from .compare import Compare
 
-from .forms import ReviewForm, ContactForm, SubscribeForm
+from .forms import ReviewForm, ContactForm, SubscribeForm, CompareAddProductForm
 from .services.favourite_view_service import get_favourite_list
 from .services.filter_product_view_service import get_filter_queryset
-from .services.index_service import get_category_list, get_popular_list
+from .services.index_service import get_new_product_list, get_popular_list
 from .services.category_service import get_product_list
 from .services.product_service import get_product, get_review_list, get_images_list, get_reply_list, \
     get_favourite_marker
@@ -30,10 +33,11 @@ class IndexView(Filter, ListView):
         context = super().get_context_data(**kwargs)
         context['popular'] = get_popular_list()
         context['page_index'] = True
+        ajax_paginator(self, context)
         return context
 
     def get_queryset(self):
-        return get_category_list()
+        return get_new_product_list()
 
 
 class CategoryView(ListView):
@@ -60,6 +64,7 @@ class ProductView(FormMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['page_category'] = True
         context['cart_product_form'] = CartAddProductForm()
+        context['compare_product_form'] = CompareAddProductForm()
         context['images'] = get_images_list(self)
         context['reply_list'] = get_reply_list(self)
         context['object_list'] = get_review_list(self)
@@ -141,8 +146,10 @@ def favourite_add(request, id):
     product = Product.objects.get(id=id)
     if product.favourite.filter(id=request.user.id).exists():
         product.favourite.remove(request.user)
+        messages.add_message(request, messages.SUCCESS, 'Товар исключён из избранного')
     else:
         product.favourite.add(request.user)
+        messages.add_message(request, messages.SUCCESS, 'Товар добавлен в избранное')
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
@@ -197,3 +204,27 @@ def about(request):
 def page_not_found(request, exception):
     """ Страница 404 """
     return render(request, 'core/404-page.html', status=404)
+
+
+@require_POST
+def compare_add(request, product_id):
+    compare = Compare(request)
+    product = get_object_or_404(Product, id=product_id)
+    form = CompareAddProductForm(request.POST)
+    if form.is_valid():
+        compare.add(product=product)
+    messages.add_message(request, messages.SUCCESS, 'Товар добавлен на страницу для сравнения')
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+def compare_remove(request, product_id):
+    compare = Compare(request)
+    product = get_object_or_404(Product, id=product_id)
+    compare.remove(product)
+    messages.add_message(request, messages.SUCCESS, 'Товар исключён из сравнения')
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+def compare_detail(request):
+    compare = Compare(request)
+    return render(request, 'core/compare.html', {'compare': compare})

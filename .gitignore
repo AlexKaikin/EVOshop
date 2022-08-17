@@ -9,6 +9,7 @@ media/*
 !logs/
 logs/*
 management/
+static_files/
 
 Dockerfile
 .dockerignore

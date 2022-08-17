@@ -1,4 +1,9 @@
 $(document).ready(function () {
+
+    $(function () {
+        $(".alert").delay(2000).slideUp(300);
+    });
+
     // счётчик количества товара на странице товара //
     $('.minus').click(function () {
         var $input = $(this).parent().find('input');
@@ -41,7 +46,7 @@ $(document).ready(function () {
         responsive: {
             300: {
                 edgePadding: 20,
-                gutter: 20,
+                gutter: 25,
                 items: 1
             },
             640: {
@@ -59,6 +64,8 @@ $(document).ready(function () {
         }
     });
     // /слайдер на главной странице, топ товаров //
+
+
 });
 
 

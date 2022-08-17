@@ -2,17 +2,6 @@
 {% load  static %}
 {% block title %}EVO магазин / Профиль{% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col message">
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
-            </div>
-        </div>
-    </div>
     <section id="profile" class="paddingTopBottom">
         <div class="container">
             <div class="row">
@@ -62,17 +51,19 @@
                     success: function (response) { // если успешно, то
                         if (response.status == 'ok') {
                             $('.avatar').load(document.URL + ' img');
-                            $('.errorAjax').remove();
-                            $('.validAjax').remove();
-                            $('.message').after('<div class="validAjax" role="alert">Профиль обновлён</div>');
+                            $('.message').after('<div class="alert alert-success" role="alert">Профиль обновлён</div>');
+                            setTimeout(function () {
+                                $(".alert").hide('slow');
+                            }, 2000);
                             $('html, body').animate({scrollTop: $("body").offset().top}, 0);
                         }
                     },
                     error: function (response) { // если ошибка, то
                         console.log(response.responseJSON.errors) // предупредим об ошибке
-                        $('.errorAjax').remove();
-                        $('.validAjax').remove();
-                        $('.message').after('<div class="errorAjax" role="alert">Ошибка</div>');
+                        $('.message').after('<div class="alert alert-danger" role="alert">Ошибка</div>');
+                        setTimeout(function () {
+                            $(".alert").hide('slow');
+                        }, 2000);
                         $('html, body').animate({scrollTop: $("body").offset().top}, 0);
                     }
                 });

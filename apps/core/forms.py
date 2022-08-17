@@ -35,3 +35,8 @@ class SubscribeForm(forms.ModelForm):
         labels = {'email': ''}
 
         email = forms.EmailField(label='', widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+
+class CompareAddProductForm(forms.Form):
+    item = forms.IntegerField(min_value=1, initial=1, label='', widget=forms.HiddenInput)
+    update = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)

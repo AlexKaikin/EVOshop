@@ -5,28 +5,26 @@
 {% block content %}
     <section id="prod" class="paddingTopBottom content">
         <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Избранное</h1>
+                </div>
+            </div>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 {% if object_list %}
                     {% for product in object_list %}
                         <div class="col">
+
                             <div class="card h-100">
                                 {% if product.image %}
                                     <img src="{{ product.image.url }}" alt="">
                                 {% else %}
                                     <img src="{% static 'img/noimg.jpg' %}" alt="No image">
                                 {% endif %}
+                                <div class="show-category">{{ product.category }}</div>
                                 <div class="card-body">
                                     <h5 class="card-title"><a href="{{ product.get_absolute_url }}" class="link-dark">{{ product.name }}</a></h5>
                                     <div><span class="text">{{ product.price }} руб. / {{ product.volume }} грамм</span></div>
-                                    <div class="btn-group" role="group">
-                                        <a type="button" class="btn btn-success btnSG" href="{{ product.get_absolute_url }}">Подробнее</a>
-                                        <button type="button" class="btn btn-outline-success"><i class="bi bi-bookmark"></i></button>
-                                        <a type="button"href="{% url 'favourite_add' product.id %}" class="btn btn-outline-success"><i class="bi bi-heart"></i></a>
-                                        <button type="submit" form="order{{ product.id }}" class="btn btn-outline-success"><i class="bi bi-cart3"></i></button>
-                                    </div>
-                                    <form id="order{{ product.id }}" action="{% url 'cart_add' product.id %}" method="POST" style="display: none">
-                                            {% csrf_token %}{{ cart_product_form }}
-                                    </form>
                                 </div>
                             </div>
                         </div>
