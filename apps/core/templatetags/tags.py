@@ -22,6 +22,6 @@ def subscribe_form():
 
 
 @register.simple_tag()
-def get_favourite_count(name):
+def get_favourite_count(id):
     """ Вернет количество избранных товаров """
-    return Product.objects.filter(favourite=name, published='yes', stock__gt=0).count()
+    return Product.objects.filter(favourite=id, published='yes', stock__gt=0).count()

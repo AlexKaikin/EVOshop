@@ -2,45 +2,43 @@
 {% load  static %}
 {% block title %}EVO магазин / Управление сайтом{% endblock %}
 {% block content %}
-    <section id="administrator" class="paddingTopBottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 mb-5">
-                    {% include 'includes/manager/sidebar.html' %}
-                </div>
-                <div class="col-md-9">
-                    <h3>Дашборд</h3>
-                    <p>Отзывов на проверку {{ count_review }}</p>
-                    <p>Заказов на обработку {{ count_order }}</p>
-                    <br>
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-order-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-order" type="button" role="tab" aria-controls="nav-order"
-                                    aria-selected="true">Заказы
-                            </button>
-                            <button class="nav-link" id="nav-profit-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-profit" type="button" role="tab" aria-controls="nav-profit"
-                                    aria-selected="false">Прибыль
-                            </button>
-                        </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-order" role="tabpanel"
-                             aria-labelledby="nav-order-tab" tabindex="0">
-                            <br>
-                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                            <canvas id="orderInDay"></canvas>
-                            <br>
-                            <canvas id="orderInMonth"></canvas>
-                        </div>
-                        <div class="tab-pane fade" id="nav-profit" role="tabpanel" aria-labelledby="nav-profit-tab"
-                             tabindex="0">
-                            <br>
-                            <canvas id="profitInDay"></canvas>
-                            <br>
-                            <canvas id="profitInMonth"></canvas>
-                        </div>
+    <section id="administrator" class="">
+        <div class="row">
+            <div class="col-md-3 mb-5">
+                {% include 'includes/manager/sidebar.html' %}
+            </div>
+            <div class="col-md-9">
+                <h3>Дашборд</h3>
+                <p>Отзывов на проверку {{ count_review }}</p>
+                <p>Заказов на обработку {{ count_order }}</p>
+                <br>
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-order-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-order" type="button" role="tab" aria-controls="nav-order"
+                                aria-selected="true">Заказы
+                        </button>
+                        <button class="nav-link" id="nav-profit-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-profit" type="button" role="tab" aria-controls="nav-profit"
+                                aria-selected="false">Прибыль
+                        </button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-order" role="tabpanel"
+                         aria-labelledby="nav-order-tab" tabindex="0">
+                        <br>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <canvas id="orderInDay"></canvas>
+                        <br>
+                        <canvas id="orderInMonth"></canvas>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profit" role="tabpanel" aria-labelledby="nav-profit-tab"
+                         tabindex="0">
+                        <br>
+                        <canvas id="profitInDay"></canvas>
+                        <br>
+                        <canvas id="profitInMonth"></canvas>
                     </div>
                 </div>
             </div>
@@ -198,7 +196,8 @@
                         label: 'Отмена',
                         backgroundColor: '#d8d8d8',
                         borderColor: '#fff',
-                        data: [{% for profit in profit_month %} {% if profit.count_profit_cancelled %} {{ profit.count_profit_cancelled }},{% else %}0, {% endif %} {% endfor %}],
+                        data: [
+                            {% for profit in profit_month %} {% if profit.count_profit_cancelled %} {{ profit.count_profit_cancelled }},{% else %}0, {% endif %} {% endfor %}],
                         fill: true,
                         borderWidth: 1,
                     },
@@ -206,7 +205,8 @@
                         label: 'Получено',
                         backgroundColor: '#ffc107',
                         borderColor: '#fff',
-                        data: [{% for profit in profit_month %} {% if profit.count_profit_paid %} {{ profit.count_profit_paid }},{% else %}0, {% endif %} {% endfor %}],
+                        data: [
+                            {% for profit in profit_month %} {% if profit.count_profit_paid %} {{ profit.count_profit_paid }},{% else %}0, {% endif %} {% endfor %}],
                         fill: true,
                         borderWidth: 1,
                     },

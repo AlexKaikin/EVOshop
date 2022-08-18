@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 from decouple import RepositoryEnv, Config
 
-DOTENV_FILE = '.env'
+DOTENV_FILE = '.env.dev'
 env_config = Config(RepositoryEnv(DOTENV_FILE))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -151,14 +151,14 @@ STATIC_ROOT = './static_files/'
 # MINIO_STORAGE_ACCESS_KEY = env_config.get('MINIO_ROOT_USER')
 # MINIO_STORAGE_SECRET_KEY = env_config.get('MINIO_ROOT_PASSWORD')
 # MINIO_STORAGE_USE_HTTPS = False
-# MINIO_STORAGE_MEDIA_BUCKET_NAME = 'local-media'
+# MINIO_STORAGE_MEDIA_BUCKET_NAME = 'media'
 # MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
-# MINIO_STORAGE_STATIC_BUCKET_NAME = 'local-static'
+# MINIO_STORAGE_STATIC_BUCKET_NAME = 'static'
 # MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
 #
 # # These settings should generally not be used:
-# MINIO_STORAGE_MEDIA_URL = 'http://localhost:9000/local-media'
-# MINIO_STORAGE_STATIC_URL = 'http://localhost:9000/local-static'
+# MINIO_STORAGE_MEDIA_URL = 'http://localhost:9000/media'
+# MINIO_STORAGE_STATIC_URL = 'http://localhost:9000/static'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

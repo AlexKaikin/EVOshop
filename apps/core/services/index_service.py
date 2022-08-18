@@ -17,7 +17,7 @@ def get_new_product_list():
     Вернет список новых товаров:
     - активные
     """
-    product_list = Product.objects.filter(published='yes').order_by('-updated', '-created')
+    product_list = Product.objects.filter(published='yes').order_by('-created')
     return product_list
 
 

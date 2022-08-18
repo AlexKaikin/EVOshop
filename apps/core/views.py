@@ -213,7 +213,7 @@ def compare_add(request, product_id):
     form = CompareAddProductForm(request.POST)
     if form.is_valid():
         compare.add(product=product)
-    messages.add_message(request, messages.SUCCESS, 'Товар добавлен на страницу для сравнения')
+        messages.add_message(request, messages.SUCCESS, 'Товар добавлен на страницу для сравнения')
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 

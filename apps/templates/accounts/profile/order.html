@@ -2,42 +2,41 @@
 {% load  static %}
 {% block title %}EVO магазин / Профиль{% endblock %}
 {% block content %}
-    <section id="profile" class="paddingTopBottom content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 mb-5">
-                    {% include 'includes/profile/sidebar.html' %}
-                </div>
-                <div class="col-md-9">
-                    <h3>Заказы</h3>
-                    {% if object_list %}
-                        <table id="order_table_profile" class="table table-hover">
-                            <thead>
+    <section id="profile" class="content">
+        <div class="row">
+            <div class="col-md-3 mb-5">
+                {% include 'includes/profile/sidebar.html' %}
+            </div>
+            <div class="col-md-9">
+                <h3>Заказы</h3>
+                {% if object_list %}
+                    <table id="order_table_profile" class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">№</th>
+                            <th scope="col">Создан</th>
+                            <th scope="col">Статус</th>
+                            <th scope="col">Оплачен</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in object_list %}
                             <tr>
-                                <th scope="col">№</th>
-                                <th scope="col">Создан</th>
-                                <th scope="col">Статус</th>
-                                <th scope="col">Оплачен</th>
-                                <th scope="col">&nbsp;</th>
+                                <td> {{ order.id }}</td>
+                                <td>{{ order.created }}</td>
+                                <td>{{ order.get_status_display }}</td>
+                                <td>{{ order.get_paid_display }}</td>
+                                <td><a class="btn btn-success btnSG" href="{{ order.get_absolute_url }}">Подробности</a>
+                                </td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            {% for order in object_list %}
-                                <tr>
-                                    <td> {{ order.id }}</td>
-                                    <td>{{ order.created }}</td>
-                                    <td>{{ order.get_status_display }}</td>
-                                    <td>{{ order.get_paid_display }}</td>
-                                    <td><a class="btn btn-success btnSG" href="{{ order.get_absolute_url }}">Подробности</a></td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    {% else %}
-                        <p>Заказов нет</p>
-                    {% endif %}
-                    {% include 'includes/paginator.html' %}
-                </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>Заказов нет</p>
+                {% endif %}
+                {% include 'includes/paginator.html' %}
             </div>
         </div>
     </section>

@@ -3,55 +3,116 @@
 {% block title %}EVO магазин / Товары для сравнения{% endblock %}
 {% block description %}Товары для сравнения{% endblock %}
 {% block content %}
-    <section id="prod" class="paddingTopBottom content">
-        <div class="row">
-            <div class="col">
-                <h1>Товары для сравнения</h1>
-            </div>
+    <div class="row">
+        <div class="col">
+            <h1>Товары для сравнения</h1>
         </div>
-        <div class="row">
-            <div class="col">
-                {% with total_items=compare|length %}
-                    {% if compare|length > 0 %}
-                        <div class="table-responsive">
-                            <table id="cart_table" class="table table-hover cart">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Фото</th>
-                                    <th scope="col" style="min-width: 150px;">Товар</th>
-                                    <th scope="col" style="min-width: 100px;">Цена за единицу</th>
-                                    <th scope="col" style="min-width: 100px;">Цена общая</th>
-                                    <th scope="col">&nbsp;</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for item in compare %}
-                                    {% with product=item.product %}
-                                        <tr>
-                                            <td>
-                                                <img src="
-
-
-                                                        {% if product.image %}{{ product.image.url }}{% else %}{% static 'img/noimg.jpg' %}{% endif %}"
-                                                     width="50">
-                                            </td>
-                                            <td><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></td>
-                                            <td class="num">{{ product.price }} руб.</td>
-                                            <td class="num">&nbsp;</td>
-                                            <td class="text-center"><a href="{% url "compare_remove" product.id %}"><i
-                                                    class="bi bi-x-square-fill"></i></a></td>
-                                        </tr>
-                                    {% endwith %}
-                                {% endfor %}
-                                </tbody>
-                            </table>
+    </div>
+    <div class="row">
+        <div class="col">
+            {% with total_items=compare|length %}
+                {% if compare|length > 0 %}
+                    <div class="table-responsive">
+                        <div class="compare-row">
+                            <div class="compare-col-left">&nbsp;</div>
+                            {% for item in compare %}
+                                {% with product=item.product %}
+                                    {% if product.image.url %}
+                                        <div class="compare-col text-center"><img src="{{ product.image.url }}" alt="{{ product.name }}"></div>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endfor %}
                         </div>
-                    {% else %}
-                        Товары не найдены
-                    {% endif %}
-                {% endwith %}
-            </div>
-            {% include 'includes/paginator.html' %}
+                        <div class="compare-row">
+                            <div class="compare-col-left">&nbsp;</div>
+                            {% for item in compare %}
+                                {% with product=item.product %}
+                                    {% if product.name %}
+                                        <div class="compare-col"><h5>{{ product.name }}</h5></div>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endfor %}
+                        </div>
+                        <div class="compare-row">
+                            <div class="compare-col-left">Описание</div>
+                            {% for item in compare %}
+                                {% with product=item.product %}
+                                    {% if product.desc %}
+                                        <div class="compare-col">{{ product.desc }}</div>
+                                    {% else %}
+                                        <div class="compare-col">-</div>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endfor %}
+                        </div>
+                        <div class="compare-row">
+                            <div class="compare-col-left">Цена</div>
+                            {% for item in compare %}
+                                {% with product=item.product %}
+                                    {% if product.price %}
+                                        <div class="compare-col">{{ product.price }} рублей / {{ product.volume }} грамм</div>
+                                    {% else %}
+                                        <div class="compare-col">-</div>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endfor %}
+                        </div>
+                        <div class="compare-row">
+                            <div class="compare-col-left">Страна</div>
+                            {% for item in compare %}
+                                {% with product=item.product %}
+                                    {% if product.country %}
+                                        <div class="compare-col">{{ product.country }}</div>
+                                    {% else %}
+                                        <div class="compare-col">-</div>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endfor %}
+                        </div>
+                        <div class="compare-row">
+                            <div class="compare-col-left">Город</div>
+                            {% for item in compare %}
+                                {% with product=item.product %}
+                                    {% if product.town %}
+                                        <div class="compare-col">{{ product.town }}</div>
+                                    {% else %}
+                                        <div class="compare-col">-</div>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endfor %}
+                        </div>
+                        <div class="compare-row">
+                            <div class="compare-col-left">Год</div>
+                            {% for item in compare %}
+                                {% with product=item.product %}
+                                    {% if product.year %}
+                                        <div class="compare-col">{{ product.year }}</div>
+                                    {% else %}
+                                        <div class="compare-col">-</div>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endfor %}
+                        </div>
+                        <div class="compare-row-end">
+                            <div class="compare-col-left">&nbsp;</div>
+                            {% for item in compare %}
+                                {% with product=item.product %}
+                                    {% if product.id %}
+                                        <div class="compare-col"><a href="{% url "compare_remove" product.id %}"
+                                                                    class="btn btn-primary btnS">Исключить</a>
+                                        </div>
+                                    {% else %}
+                                        <div class="compare-col">-</div>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    Товары не найдены
+                {% endif %}
+            {% endwith %}
         </div>
-    </section>
+        {% include 'includes/paginator.html' %}
+    </div>
 {% endblock %}

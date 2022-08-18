@@ -2,17 +2,7 @@
 {% load  static %}
 {% block title %}EVO магазин / Настройки{% endblock %}
 {% block content %}
-    <section id="administrator" class="paddingTopBottom content">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
+    <section id="administrator" class="content">
             <div class="row">
                 <div class="col-md-3 mb-5">
                     {% include 'includes/manager/sidebar.html' %}
@@ -33,6 +23,5 @@
                     </form>
                 </div>
             </div>
-        </div>
     </section>
 {% endblock %}

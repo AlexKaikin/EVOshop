@@ -3,9 +3,7 @@
 {% block title %}EVO магазин / {{ product.name }}{% endblock %}
 {% block description %}{{ product.desc|truncatechars:'90' }}{% endblock %}
 {% block content %}
-    {#    <section id="prod" class="paddingTopBottom">#}
     <section id="prod">
-        {#        <div class="container">#}
         <div class="row">
             <div class="col-md-6">
                 <div class="fotorama" data-width="100%" data-nav="thumbs" data-allowfullscreen="true">
@@ -29,7 +27,7 @@
 {#                        <input type="hidden" name="quantity" value="1" id="id_quantity">#}
                     </form>
                     {% if product.id|stringformat:"i" in request.session.compare %}
-                        <button type="submit" form="compare" class="btn btn-outline-success active"><i class="bi bi-bookmark"></i></button>
+                        <a href="{% url "compare_remove" product.id %}" class="btn btn-outline-success active"><i class="bi bi-bookmark"></i></a>
                     {% else %}
                          <button type="submit" form="compare" class="btn btn-outline-success"><i class="bi bi-bookmark"></i></button>
                     {% endif %}
@@ -91,8 +89,7 @@
                             <p>
                                 Количество
                                 <button class="minus btn btn-outline-success"><i class="bi bi-dash-lg"></i></button>
-                                <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}"
-                                       required="" id="id_quantity">
+                                <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" required id="id_quantity">
                                 <button class="plus btn btn-outline-success"><i class="bi bi-plus-lg"></i></button>
                             </p>
                         </div>
@@ -364,7 +361,6 @@
                 </div>
             </div>
         </div>
-        {#        </div>#}
     </section>
 
     <script>
@@ -386,11 +382,10 @@
                             $('.errorAjax').remove();
                             $('.message').after('<div class="errorAjax" role="alert">Форма заполнена не верно</div>');
                             $('html, body').animate({scrollTop: $("body").offset().top}, 0);
-                            console.log(response.responseJSON.errors) // предупредим об ошибке
                         }
                     },
                     error: function (response) { // если ошибка, то
-                        console.log(response.responseJSON.errors) // предупредим об ошибке
+
                     }
                 });
                 return false;

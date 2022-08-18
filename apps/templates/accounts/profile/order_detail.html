@@ -2,66 +2,64 @@
 {% load  static %}
 {% block title %}EVO магазин / Детали заказа{% endblock %}
 {% block content %}
-    <section id="profile" class="paddingTopBottom content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 mb-5">
-                    {% include 'includes/profile/sidebar.html' %}
-                </div>
-                <div class="col-md-9">
-                    <h3>Заказ №{{ order.id }}</h3>
-                    <p>Дата создания: {{ order.created }}</p>
-                    <p>Статус: {{ order.get_status_display }}</p>
-                    <p>Оплачен: {{ order.get_paid_display }}</p>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
+    <section id="profile" class="content">
+        <div class="row">
+            <div class="col-md-3 mb-5">
+                {% include 'includes/profile/sidebar.html' %}
+            </div>
+            <div class="col-md-9">
+                <h3>Заказ №{{ order.id }}</h3>
+                <p>Дата создания: {{ order.created }}</p>
+                <p>Статус: {{ order.get_status_display }}</p>
+                <p>Оплачен: {{ order.get_paid_display }}</p>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col" style="min-width: 200px;">Товар</th>
+                            <th scope="col">Количество</th>
+                            <th scope="col">Цена за единицу</th>
+                            <th scope="col" style="min-width: 100px;">Цена общая</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in products %}
                             <tr>
-                                <th scope="col" style="min-width: 200px;">Товар</th>
-                                <th scope="col">Количество</th>
-                                <th scope="col">Цена за единицу</th>
-                                <th scope="col" style="min-width: 100px;">Цена общая</th>
+                                <td>{{ product.product }}</td>
+                                <td>{{ product.quantity }}</td>
+                                <td>{{ product.price }} руб.</td>
+                                <td>{{ product.total_cost }} руб.</td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            {% for product in products %}
-                                <tr>
-                                    <td>{{ product.product }}</td>
-                                    <td>{{ product.quantity }}</td>
-                                    <td>{{ product.price }} руб.</td>
-                                    <td>{{ product.total_cost }} руб.</td>
-                                </tr>
-                            {% endfor %}
-                            <tr>
-                                <td colspan="4">&nbsp;</td>
-                            </tr>
-                            <tr class="total">
-                                <td colspan="3">Стоимость товаров</td>
-                                <td class="num">{{ order.products_price }} руб.</td>
-                            </tr>
-                            <tr class="">
-                                <td colspan="3">Доставка</td>
-                                <td class="num">{{ order.delivery }} руб.</td>
-                            </tr>
-                            <tr class="">
-                                <td colspan="3">Итого</td>
-                                <td class="num">{{ order.total_price }} руб.</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <br>
-                    <h3>Данные получателя</h3>
-                    <p>ФИО: {{ order.surname }} {{ order.name }} {{ order.patronymic }}</p>
-                    <p>Телефон: {{ order.phone }}</p>
-                    {% if order.email %}
-                        <p>Почта: {{ order.email }}</p>
-                    {% endif %}
-                    {% if order.comment %}
-                        <p>Комментарий: {{ order.comment }}</p>
-                    {% endif %}
-                    <p>Адрес: {{ order.postal_code }}, {{ order.address }}</p>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+                        <tr class="total">
+                            <td colspan="3">Стоимость товаров</td>
+                            <td class="num">{{ order.products_price }} руб.</td>
+                        </tr>
+                        <tr class="">
+                            <td colspan="3">Доставка</td>
+                            <td class="num">{{ order.delivery }} руб.</td>
+                        </tr>
+                        <tr class="">
+                            <td colspan="3">Итого</td>
+                            <td class="num">{{ order.total_price }} руб.</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <br>
+                <h3>Данные получателя</h3>
+                <p>ФИО: {{ order.surname }} {{ order.name }} {{ order.patronymic }}</p>
+                <p>Телефон: {{ order.phone }}</p>
+                {% if order.email %}
+                    <p>Почта: {{ order.email }}</p>
+                {% endif %}
+                {% if order.comment %}
+                    <p>Комментарий: {{ order.comment }}</p>
+                {% endif %}
+                <p>Адрес: {{ order.postal_code }}, {{ order.address }}</p>
             </div>
         </div>
     </section>

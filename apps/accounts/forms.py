@@ -17,6 +17,7 @@ class UserRegisterForm(UserCreationForm, forms.ModelForm):
 
     username = forms.CharField(label='Логин пользователя', widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(label='Адрес электронной почты', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    checkbox = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

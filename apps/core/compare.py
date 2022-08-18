@@ -18,8 +18,6 @@ class Compare(object):
         product_id = str(product.id)
         if product_id not in self.compare:
             self.compare[product_id] = {'item': 1}
-        # else:
-        #     del self.compare[product_id]
         self.save()
 
     def save(self):

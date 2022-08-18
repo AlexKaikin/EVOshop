@@ -2,40 +2,40 @@
 {% load  static %}
 {% block title %}EVO магазин / Профиль{% endblock %}
 {% block content %}
-    <section id="profile" class="paddingTopBottom content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 mb-5">
-                    {% include 'includes/profile/sidebar.html' %}
-                </div>
-                <div class="col-md-9">
-                    <h3>Отзывы</h3>
-                    {% if object_list %}
-                        <table class="table table-hover">
-                            <thead>
+    <section id="profile" class="content">
+        <div class="row">
+            <div class="col-md-3 mb-5">
+                {% include 'includes/profile/sidebar.html' %}
+            </div>
+            <div class="col-md-9">
+                <h3>Отзывы</h3>
+                {% if object_list %}
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Отзыв</th>
+                            <th scope="col">Рейтинг</th>
+                            <th scope="col">Статус</th>
+                            <th scope="col">Товар</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for review in object_list %}
                             <tr>
-                                <th scope="col">Отзыв</th>
-                                <th scope="col">Рейтинг</th>
-                                <th scope="col">Статус</th>
-                                <th scope="col">Товар</th>
+                                <td>
+                                    <a href="{% url 'product' review.product.slug %}">{{ review.description|truncatechars:'20' }}
+                                        <i class="bi bi-box-arrow-up-right"></i></a></td>
+                                <td class="rating">{{ review.get_rating_display }}</td>
+                                <td>{{ review.get_published_display }}</td>
+                                <td>{{ review.product }}</td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            {% for review in object_list %}
-                                <tr>
-                                    <td><a href="{% url 'product' review.product.slug %}">{{ review.description|truncatechars:'20' }} <i class="bi bi-box-arrow-up-right"></i></a></td>
-                                    <td class="rating">{{ review.get_rating_display }}</td>
-                                    <td>{{ review.get_published_display }}</td>
-                                    <td>{{ review.product }}</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    {% else %}
-                        <p>Отзывов нет</p>
-                    {% endif %}
-                    {% include 'includes/paginator.html' %}
-                </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>Отзывов нет</p>
+                {% endif %}
+                {% include 'includes/paginator.html' %}
             </div>
         </div>
     </section>

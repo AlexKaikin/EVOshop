@@ -10,10 +10,21 @@ media/*
 logs/*
 management/
 static_files/
+minio/
 
-Dockerfile
+.env
+.env.dev
+.env.prod
+
+# Docker
 .dockerignore
+entrypoint.sh
+Dockerfile
+Dockerfile.dev
+Dockerfile.prod
 docker-compose.yml
+docker-compose.dev.yml
+docker-compose.prod.yml
 
 # Created by https://www.gitignore.io/api/django
 # Edit at https://www.gitignore.io/?templates=django

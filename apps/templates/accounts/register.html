@@ -15,7 +15,9 @@
                             <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
                         </div>
                         <div>{{ form.username.errors }}</div>
-                        <div>Логин должен содержать только буквы латинского алфавита в нижнем регистре и цифры, без пробелов</div>
+                        <div>Логин должен содержать только буквы латинского алфавита в нижнем регистре и цифры, без
+                            пробелов
+                        </div>
                         <br>
 
                         <div class="form-floating mb-3">
@@ -38,6 +40,12 @@
                         </div>
                         <div>{{ form.password2.errors }}</div>
 
+                        <div class="form-check mb-3">
+                            {{ form.checkbox }}
+                            <label for="{{ form.checkbox.id_for_label }}"><a href="#">С пользовательским соглашением ознакомлен</a></label>
+                        </div>
+                        <div>{{ form.checkbox.errors }}</div>
+
                         <button type="submit" name="signupSubmit" class="btn btn-success btnS">Отправить</button>
                     </form>
                     <br>
@@ -56,7 +64,7 @@
                         if (response.username_taken) {
                             $('#usernameError').remove();
                             $('#id_username').removeClass('is-valid').addClass('is-invalid');
-                            $('#id_username').after('<div class="errorAjax" id="usernameError">Такой логин уже существует!</div>')
+                            $('#id_username').after('<div class="alert alert-danger mt-1" id="usernameError">Такой логин уже существует!</div>')
                         } else {
                             $('#id_username').removeClass('is-invalid');
                             $('#usernameError').remove();
@@ -75,7 +83,7 @@
                     success: function (response) {
                         if (response.email_taken) {
                             $('#id_email').removeClass('is-valid').addClass('is-invalid');
-                            $('#id_email').after('<div class="errorAjax" id="emailError">Такой e-mail уже зарегистрирован!</div>')
+                            $('#id_email').after('<div class="alert alert-danger mt-1" id="emailError">Такой e-mail уже зарегистрирован!</div>')
                         } else {
                             $('#id_email').removeClass('is-invalid');
                             $('#emailError').remove();

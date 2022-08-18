@@ -15,6 +15,7 @@
     <title>{% block title %}{% endblock %}</title>
     <meta name="description" content="{% block description %}{% endblock %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-icons-1.9.1/bootstrap-icons.css' %}">
     <link rel="stylesheet" href="{% static 'css/tiny-slider.css' %}">
     <link rel="stylesheet" href="{% static 'css/fotorama/fotorama.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
@@ -41,13 +42,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="btn position-relative" href="{% url 'favourite_list' %}">
-                            <i class="bi bi-heart"></i>{% if user.is_authenticated %}
-                            <span class="position-absolute top-0 start-1 translate-middle badge text-bg-white">
-
-                                    {% get_favourite_count user.id %}
-
-                                <span class="visually-hidden">избранные</span>
-                            </span>{% endif %}
+                            <i class="bi bi-heart"></i>
+                            {% get_favourite_count user.id as favourite_count %}
+                            {% if user.is_authenticated and favourite_count > 0%}
+                                    <span class="position-absolute top-0 start-1 translate-middle badge text-bg-white">
+                                            {{ favourite_count }}
+                                        <span class="visually-hidden">избранные</span>
+                                    </span>
+                            {% endif %}
                             <span class="text-opacity">Избранное</span>
                         </a>
                     </li>
@@ -89,52 +91,42 @@
         <div class="row">
             <div class="col">
                 <div class="collapse" id="collapseFilter">
-                    <form action="{% url 'filter' %}" method="get" name="filter">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="filter_item">
-                                    <h4><span>Категории</span></h4>
-                                    {% if categories %}
-                                        {% for category in categories %}
-                                            <div class="form-check form-check-inline">
-                                                <input type="checkbox" class="form-check-input" name="category"
-                                                       value="{{ category.name }}"
-                                                       id="{{ category.slug }}{{ category.id }}">
-                                                <label class="form-check-label"
-                                                       for="{{ category.slug }}{{ category.id }}">{{ category }}</label>
-                                            </div>
-                                        {% endfor %}
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="filter_item">
-                                    <h4><span>Метки</span></h4>
-                                    {% for tag in view.get_tag %}
-                                        <div class="form-check form-check-inline">
-                                            <input type="checkbox" class="form-check-input" name="tag" value="{{ tag }}"
-                                                   id="{{ tag.slug }}{{ tag.id }}">
-                                            <label class="form-check-label"
-                                                   for="{{ tag.slug }}{{ tag.id }}">{{ tag }}</label>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--div class="col-md-4">
-                            <div class="sort"><span>Сортировка</span>
-                                <select class="form-select form-select-sm" aria-label="Сортировать">
-                                    <option selected>дата добавления</option>
-                                    <option value="1">цены: по возрастанию</option>
-                                    <option value="2">цены: по убыванию</option>
-                                </select>
-                            </div>
-                        </div-->
-                        <p class="mt-2">
-                            <button type="submit" class="btn btn-warning">Найти</button>
-                        </p>
-                    </form>
+{#                    <form id="filterForm" action="{% url 'filter' %}" method="get" name="filter">#}
+{#                        <div class="row">#}
+{#                            <div class="col-md-6">#}
+{#                                <div class="filter_item">#}
+{#                                    <h4><span>Категории</span></h4>#}
+{#                                    {% if categories %}#}
+{#                                        {% for category in categories %}#}
+{#                                            <div class="form-check form-check-inline">#}
+{#                                                <input type="checkbox" class="form-check-input" name="category"#}
+{#                                                       value="{{ category.name }}"#}
+{#                                                       id="{{ category.slug }}{{ category.id }}">#}
+{#                                                <label class="form-check-label"#}
+{#                                                       for="{{ category.slug }}{{ category.id }}">{{ category }}</label>#}
+{#                                            </div>#}
+{#                                        {% endfor %}#}
+{#                                    {% endif %}#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="col-md-6">#}
+{#                                <div class="filter_item">#}
+{#                                    <h4><span>Метки</span></h4>#}
+{#                                    {% for tag in view.get_tag %}#}
+{#                                        <div class="form-check form-check-inline">#}
+{#                                            <input type="checkbox" class="form-check-input" name="tag" value="{{ tag }}"#}
+{#                                                   id="{{ tag.slug }}{{ tag.id }}">#}
+{#                                            <label class="form-check-label"#}
+{#                                                   for="{{ tag.slug }}{{ tag.id }}">{{ tag }}</label>#}
+{#                                        </div>#}
+{#                                    {% endfor %}#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <p class="mt-2">#}
+{#                            <button type="submit" class="btn btn-warning">Найти</button>#}
+{#                        </p>#}
+{#                    </form>#}
                 </div>
             </div>
         </div>
