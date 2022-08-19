@@ -82,7 +82,7 @@
                 </div>
                 <h3>{{ product.name }}</h3>
                 {% if product.stock > 0 %}
-                    <p class="text">Вес <span>{{ product.volume }}</span> грамм</p>
+                    <p class="text">Объём <span>{{ product.volume }}</span> {{ product.get_unit_display }}</p>
                     <form id="order" action="{% url 'cart_add' product.id %}" method="POST">
                         {% csrf_token %}
                         <div class="number">
@@ -135,8 +135,8 @@
                                 <tbody>
                                 {% if product.volume %}
                                     <tr>
-                                        <td>Вес</td>
-                                        <td>{{ product.volume }} грамм</td>
+                                        <td>Объём</td>
+                                        <td>{{ product.volume }} {{ product.get_unit_display }}</td>
                                     </tr>
                                 {% endif %}
                                 {% if product.country %}

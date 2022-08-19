@@ -23,7 +23,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{ product.get_absolute_url }}"
                                                       class="link-dark">{{ product.name }}</a></h5>
-                            <div><span class="text">{{ product.price }} руб. / {{ product.volume }} грамм</span></div>
+                            <div><span class="text">{{ product.price }} руб. / {{ product.volume }} {{ product.get_unit_display }}</span></div>
                         </div>
                     </div>
                 </div>

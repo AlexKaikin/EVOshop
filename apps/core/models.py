@@ -63,13 +63,20 @@ class Product(models.Model):
         ('yes', 'Да')
     )
 
+    UNIT = (
+        ('gram', 'грамм'),
+        ('piece', 'штук(а)'),
+        ('set', 'комплект'),
+    )
+
     name = models.CharField(max_length=50, db_index=True, verbose_name='Название')
     slug = models.SlugField(max_length=200, db_index=True, blank=True, unique=True, verbose_name="URL")
     desc = models.TextField(verbose_name='Описание')
     country = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Страна')
     town = models.CharField(max_length=50, blank=True, null=True, default=None, verbose_name='Город')
     year = models.PositiveIntegerField(blank=True, null=True, verbose_name='Год')
-    volume = models.IntegerField(verbose_name='Вес, грамм')
+    volume = models.IntegerField(verbose_name='Количество (объём)')
+    unit = models.CharField(choices=UNIT, default='gram', max_length=10, verbose_name="Единица измерения объёма")
     price = models.DecimalField(max_digits=5, validators=[MinValueValidator(0), MaxValueValidator(10000)],
                                 decimal_places=0, verbose_name='Цена, руб')
     stock = models.PositiveIntegerField(verbose_name='Остаток на складе, штук')
